@@ -66,6 +66,35 @@ export default function App() {
   const presentationMode = useStore((s) => s.presentationMode)
   const sheetPath = useSheetPath()
   const sheetMode = useSheetMode((s) => s.mode)
+  // ── The falling notes draw with WebGL. If the system takes that context
+  // away (graphics memory pressure, e.g. while sheet music was showing), the
+  // roll stays black for good — so rebuild it whenever it comes back into
+  // view without a working context. ─────────────────────────────────────────
+  const [rollKey, setRollKey] = useState(0)
+  const rollLostRef = useRef(false)
+  useEffect(() => {
+    const onLost = (e: Event) => {
+      if (!(e.target as Element | null)?.closest?.('[data-piano-roll-area]')) return
+      e.preventDefault() // allow the browser to offer a restore
+      rollLostRef.current = true
+      if (useSheetMode.getState().mode === 'roll') { rollLostRef.current = false; setRollKey(k => k + 1) }
+    }
+    document.addEventListener('webglcontextlost', onLost, true)
+    return () => document.removeEventListener('webglcontextlost', onLost, true)
+  }, [])
+  useEffect(() => {
+    if (sheetMode !== 'roll' && sheetPath) return
+    const id = requestAnimationFrame(() => {
+      const c = document.querySelector('[data-piano-roll-area] canvas') as HTMLCanvasElement | null
+      let lost = rollLostRef.current
+      try {
+        const gl = (c?.getContext('webgl2') ?? c?.getContext('webgl')) as WebGLRenderingContext | null
+        if (gl?.isContextLost()) lost = true
+      } catch {}
+      if (lost) { rollLostRef.current = false; setRollKey(k => k + 1) }
+    })
+    return () => cancelAnimationFrame(id)
+  }, [sheetMode, sheetPath])
   const noteEditorActive = useStore((s) => s.noteEditorActive)
   const { openFile } = useMidiFile()
   const { play, pause, stop } = usePlayback()
@@ -567,7 +596,7 @@ export default function App() {
         {!presentationMode && <SettingsPanel />}
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, overflow: 'hidden' }}>
           <div data-piano-roll-area style={{ flex: 1, minHeight: 0, position: 'relative', paddingTop: 6 }}>
-            {midi ? <PianoRoll /> : <EmptyState />}
+            {midi ? <PianoRoll key={rollKey} /> : <EmptyState />}
             {/* iPad: sheet music instead of the falling notes (the roll keeps running underneath) */}
             {midi && sheetSupported() && <ViewToggle hasSheet={!!sheetPath} />}
             {midi && sheetPath && sheetMode === 'sheet' && <SheetView path={sheetPath} />}

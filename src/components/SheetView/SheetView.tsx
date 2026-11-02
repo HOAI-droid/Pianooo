@@ -85,7 +85,13 @@ export function ViewToggle({ hasSheet }: { hasSheet: boolean }) {
 }
 
 // ── The sheet itself ─────────────────────────────────────────────────────────
-type PdfDoc = { numPages: number; getPage: (n: number) => Promise<any>; destroy: () => Promise<void> }
+type PdfDoc = { numPages: number; getPage: (n: number) => Promise<any>; loadingTask?: { destroy: () => Promise<void> } }
+
+// Releases a document and its worker. Never throws: this runs while React
+// unmounts the view, and an exception there would take the whole app down.
+function closePdf(d: PdfDoc | null) {
+  try { void d?.loadingTask?.destroy().catch(() => {}) } catch {}
+}
 
 async function loadPdf(path: string): Promise<PdfDoc> {
   const a = api()!
@@ -115,9 +121,9 @@ export default function SheetView({ path }: { path: string }) {
     let loaded: PdfDoc | null = null
     setDoc(null); setError(null); setPage(1)
     loadPdf(path)
-      .then(d => { loaded = d; if (alive) setDoc(d); else void d.destroy() })
+      .then(d => { loaded = d; if (alive) setDoc(d); else closePdf(d) })
       .catch(e => { console.error('[Pianooo] sheet music failed to load:', e); if (alive) setError(t`This sheet music could not be opened.`) })
-    return () => { alive = false; if (loaded) void loaded.destroy() }
+    return () => { alive = false; closePdf(loaded) }
   }, [path])
 
   // Follow the available width
@@ -130,38 +136,113 @@ export default function SheetView({ path }: { path: string }) {
     return () => ro.disconnect()
   }, [])
 
-  // Render every page at the current width × zoom (sharp on Retina)
+  // Pages: one placeholder per page at its final size. Only pages on or near
+  // the screen are drawn — one at a time, the visible one first — and pages
+  // far off screen give their drawing surface back. Keeping every page as a
+  // full-resolution canvas used hundreds of MB of graphics memory, enough to
+  // take the falling-notes view (WebGL) down with it.
   useEffect(() => {
     const host = pagesRef.current
-    if (!doc || !host || width < 50) return
+    const scroller = scrollRef.current
+    if (!doc || !host || !scroller || width < 50) return
     let cancelled = false
-    const timer = setTimeout(async () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 3)
-      const target = Math.min(width - 32, 1400) * zoom
-      const frag: HTMLElement[] = []
-      for (let n = 1; n <= doc.numPages && !cancelled; n++) {
+    const drawn = new Map<number, HTMLCanvasElement>()
+    const wanted = new Set<number>()
+    let current: { n: number; cancel: () => void } | null = null
+    let io: IntersectionObserver | null = null
+    let farIo: IntersectionObserver | null = null
+    const slots: HTMLElement[] = []
+    const scales: number[] = []
+
+    // Closest to the middle of the screen first
+    const nextPage = (): number | null => {
+      const mid = scroller.scrollTop + scroller.clientHeight / 2
+      let best: number | null = null, bestDist = Infinity
+      for (const n of wanted) {
+        const slot = slots[n - 1]
+        const d = Math.abs(slot.offsetTop + slot.offsetHeight / 2 - mid)
+        if (d < bestDist) { best = n; bestDist = d }
+      }
+      return best
+    }
+
+    const pump = async () => {
+      if (current || cancelled) return
+      const n = nextPage()
+      if (n === null) return
+      wanted.delete(n)
+      if (drawn.has(n)) { void pump(); return }
+      try {
         const p = await doc.getPage(n)
-        const base = p.getViewport({ scale: 1 })
-        const scale = target / base.width
-        const vp = p.getViewport({ scale: scale * dpr })
+        if (cancelled) return
+        // Sharp, but bounded: at most 2× and at most 2200 px wide
+        const cssW = p.getViewport({ scale: scales[n - 1] }).width
+        const ratio = Math.min(window.devicePixelRatio || 1, 2, 2200 / cssW)
+        const vp = p.getViewport({ scale: scales[n - 1] * ratio })
         const canvas = document.createElement('canvas')
         canvas.width = Math.floor(vp.width)
         canvas.height = Math.floor(vp.height)
-        canvas.style.width = `${Math.floor(base.width * scale)}px`
-        canvas.style.height = `${Math.floor(base.height * scale)}px`
-        canvas.style.display = 'block'
-        canvas.style.margin = '0 auto 16px'
-        canvas.style.background = '#fff'
-        canvas.style.borderRadius = '4px'
-        canvas.style.boxShadow = '0 2px 12px rgba(0,0,0,.35)'
-        canvas.dataset.page = String(n)
-        await p.render({ canvasContext: canvas.getContext('2d')!, viewport: vp, canvas }).promise
-        frag.push(canvas)
+        canvas.style.cssText = 'width:100%;height:100%;display:block;border-radius:4px'
+        const task = p.render({ canvasContext: canvas.getContext('2d')!, viewport: vp, canvas })
+        current = { n, cancel: () => task.cancel() }
+        await task.promise
+        if (cancelled) { canvas.width = 0; return }
+        drawn.set(n, canvas)
+        slots[n - 1].replaceChildren(canvas)
+      } catch (e) {
+        if (!cancelled && (e as any)?.name !== 'RenderingCancelledException') console.warn('[Pianooo] page render failed:', n, e)
+      } finally {
+        current = null
+      }
+      if (!cancelled) void pump()
+    }
+
+    const release = (n: number) => {
+      wanted.delete(n)
+      if (current?.n === n) current.cancel()
+      const c = drawn.get(n)
+      if (!c) return
+      c.width = 0; c.height = 0 // hand the memory back right away
+      slots[n - 1].replaceChildren()
+      drawn.delete(n)
+    }
+
+    const timer = setTimeout(async () => {
+      const target = Math.min(width - 32, 1400) * zoom
+      // Size every placeholder like page 1 (sheet music is one paper size);
+      // asking each page first would hold up the first picture
+      const base = (await doc.getPage(1)).getViewport({ scale: 1 })
+      if (cancelled) return
+      for (let n = 1; n <= doc.numPages; n++) {
+        const scale = target / base.width
+        const slot = document.createElement('div')
+        slot.dataset.page = String(n)
+        slot.style.cssText = `width:${Math.floor(base.width * scale)}px;height:${Math.floor(base.height * scale)}px;` +
+          'margin:0 auto 16px;background:#fff;border-radius:4px;box-shadow:0 2px 12px rgba(0,0,0,.35)'
+        slots.push(slot); scales.push(scale)
       }
       if (cancelled) return
-      host.replaceChildren(...frag)
-    }, 120)
-    return () => { cancelled = true; clearTimeout(timer) }
+      host.replaceChildren(...slots)
+      // Draw what is within half a screen of the visible area…
+      io = new IntersectionObserver(entries => {
+        for (const e of entries) if (e.isIntersecting) wanted.add(Number((e.target as HTMLElement).dataset.page))
+        void pump()
+      }, { root: scroller, rootMargin: '50% 0px' })
+      // …and let go of what is more than two screens away
+      farIo = new IntersectionObserver(entries => {
+        for (const e of entries) if (!e.isIntersecting) release(Number((e.target as HTMLElement).dataset.page))
+      }, { root: scroller, rootMargin: '200% 0px' })
+      for (const sl of slots) { io.observe(sl); farIo.observe(sl) }
+    }, 80)
+
+    return () => {
+      cancelled = true
+      clearTimeout(timer)
+      io?.disconnect(); farIo?.disconnect()
+      current?.cancel()
+      for (const c of drawn.values()) { c.width = 0; c.height = 0 }
+      host.replaceChildren()
+    }
   }, [doc, width, zoom])
 
   // Page number from the scroll position
