@@ -132,6 +132,16 @@ async function seedDemos() {
 
 // ── Soundfonts (Samples engine extras) ───────────────────────────────────────
 const SOUNDFONT_CATALOG: Record<string, { name: string; filename: string; sizeMB: number; url: string }> = {
+  // Pianos, unpacked from FreePats and served from this repo's "soundfonts"
+  // release (.github/workflows/soundfonts.yml; credits in SOUNDFONTS-CREDITS.md)
+  'kawai-upright-kw': {
+    name: 'Kawai Upright Piano', filename: 'Kawai-Upright-Piano-KW.sf2', sizeMB: 60,
+    url: 'https://github.com/HOAI-droid/Pianooo/releases/download/soundfonts/Kawai-Upright-Piano-KW.sf2',
+  },
+  'yamaha-ydp-grand': {
+    name: 'Yamaha Grand Piano (Disklavier)', filename: 'Yamaha-YDP-Grand-Piano.sf2', sizeMB: 60,
+    url: 'https://github.com/HOAI-droid/Pianooo/releases/download/soundfonts/Yamaha-YDP-Grand-Piano.sf2',
+  },
   'fluidr3-gm': {
     name: 'FluidR3 GM', filename: 'FluidR3_GM.sf2', sizeMB: 142,
     url: 'https://github.com/fhunleth/midi_synth/releases/download/v0.1.0/FluidR3_GM.sf2',
@@ -361,8 +371,8 @@ function createApi(): Window['electronAPI'] {
     writeCachedImport: (destPath: string, base64: string) => call('fs:writeCachedImport', destPath, base64),
 
     // Updates come from the App Store / TestFlight
-    getUpdateInfo: async () => ({ mode: 'store', downloadUrl: 'https://github.com/hoai-droid/pianooo' }),
-    checkForUpdates: async () => {},
+    getUpdateInfo: async () => ({ mode: 'manual', downloadUrl: 'https://github.com/HOAI-droid/Pianooo/releases/tag/ipad-latest' }),
+    checkForUpdates: async () => { await Browser.open({ url: 'https://github.com/HOAI-droid/Pianooo/releases/tag/ipad-latest' }) },
     installUpdate: async () => {},
     onUpdateStatus: () => {},
     offUpdateStatus: () => {},

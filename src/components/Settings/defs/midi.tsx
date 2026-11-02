@@ -202,7 +202,7 @@ function LiveResponseControl() {
         {heading(engine === 'gm' ? t`With GM` : engine === 'native' ? t`With Native` : t`With Studio`)}
         {engine === 'gm' && <HelpText>{t`GM plays your keys at once: there's nothing between your keys and the synth.`}</HelpText>}
         {engine === 'native' && <HelpText>{nativeExclusive
-          ? t`Native is in Exclusive mode: your keys go straight to the sound card, the shortest delay this computer can do.`
+          ? t`Native is in Exclusive mode: your keys go straight to the sound card, the shortest delay this device can do.`
           : t`Native is sharing the sound card with other apps, which adds Windows' usual delay. For the shortest delay choose Exclusive under Settings › Audio › Sound engine.`}</HelpText>}
         {engine === 'samples' && (
           <>
@@ -238,7 +238,7 @@ function KeyToEarGlance() {
   const style = { fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--text-inactive)' } as const
   if (b.outputMs === null) return <span style={style}>{t`Keyboard → speaker: can't be measured for this sound output`}</span>
   const total = (st.avgInputMs ?? 0) + (st.avgHandleMs ?? 0) + b.synthBlockMs + b.chainMs + b.outputMs
-  return <span style={style}>{t`Keyboard → speaker on this computer: about`} <span style={{ color: 'var(--text-amber)' }}>{Math.round(total)} ms</span></span>
+  return <span style={style}>{t`Keyboard → speaker on this device: about`} <span style={{ color: 'var(--text-amber)' }}>{Math.round(total)} ms</span></span>
 }
 
 // "No keyboards connected" — at the right of the Keyboards tab row, only while none is
@@ -401,7 +401,7 @@ function DelayCheckControl() {
       {line(t`Pianooo handling the key`, st.avgHandleMs === null ? '—' : `${ms(st.avgHandleMs, 1)} (${t`worst`} ${ms(st.worstHandleMs, 1)})`)}
       {line(t`Synth getting its turn`, b.externalOutput ? t`external` : `≤ ${ms(b.synthBlockMs, 1)}`)}
       {line(engine === 'samples' ? t`Compressor & limiter` : t`Sound processing`, ms(b.chainMs))}
-      {line(shared ? t`Sound output (shared with other apps)` : t`Sound output (Windows + sound card)`, b.outputMs === null ? t`not measurable` : ms(b.outputMs))}
+      {line(shared ? t`Sound output (shared with other apps)` : t`Sound output (system + sound card)`, b.outputMs === null ? t`not measurable` : ms(b.outputMs))}
       {line(t`Key → speaker, about`, total === null ? '—' : ms(total), true)}
     </div>
   )
@@ -409,7 +409,7 @@ function DelayCheckControl() {
 function DelayCheckExtra() {
   return (
     <>
-      <HelpText>{t`The sound output part is set by Windows and your sound card: wired headphones or a USB audio interface lower it, Bluetooth raises it a lot.`}</HelpText>
+      <HelpText>{t`The sound output part is set by your system and sound card: wired headphones or a USB audio interface lower it, Bluetooth raises it a lot.`}</HelpText>
       <HelpText>{t`Start over forgets the notes measured so far; the fixed parts of the trip don't change.`}</HelpText>
       <div style={{ marginTop: 8, display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: 6 }}>
         <ActionBtn onClick={exportPerformanceLog} icon={<FileDown size={11} strokeWidth={1.5} />}>{t`Save log…`}</ActionBtn>

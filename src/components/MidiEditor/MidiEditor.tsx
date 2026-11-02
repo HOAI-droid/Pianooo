@@ -1837,7 +1837,7 @@ export default function MidiEditor() {
           </div>
           {saveResult?.ok && saveResult.filePath ? (
             <Tooltip
-              title="Opens Windows Explorer with this exact saved file highlighted — settles any doubt about where it landed."
+              title="Shows this exact saved file — settles any doubt about where it landed."
               oneLine
               wrapperStyle={{ width: SHOW_IN_FOLDER_W, flexShrink: 0 }}
             >

@@ -1,0 +1,62 @@
+# Prepares extra piano sounds for Pianooo's in-app download list
+# (Settings › Audio › Sound fonts) and publishes them as the GitHub Release
+# "soundfonts". The originals come packed (.7z / .tar.bz2), which iPad and
+# Mac apps can't unpack; here they are unpacked once and served as plain .sf2.
+#
+# Start by hand: Actions › Soundfonts › Run workflow.
+#
+# Sources (FreePats, https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html):
+#   Upright Piano KW  — a Kawai upright piano · CC0 1.0
+#   YDP Grand Piano   — Yamaha Disklavier Pro grand (Zenph Studios / OLPC samples,
+#                       soundfont by roberto@zenvoid.org) · CC BY 3.0
+name: Soundfonts
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download and unpack
+        run: |
+          set -euo pipefail
+          sudo apt-get install -y p7zip-full >/dev/null
+          mkdir -p work out && cd work
+          base=https://freepats.zenvoid.org/Piano
+          curl -fsSL -o kw.7z   "$base/UprightPianoKW/UprightPianoKW-SF2-20220221.7z"
+          curl -fsSL -o ydp.tbz "$base/YDP-GrandPiano/YDP-GrandPiano-SF2-20160804.tar.bz2"
+          mkdir kw ydp
+          7z x -y -okw kw.7z >/dev/null
+          tar -xjf ydp.tbz -C ydp
+          cp "$(find kw  -iname '*.sf2' | head -1)" ../out/Kawai-Upright-Piano-KW.sf2
+          cp "$(find ydp -iname '*.sf2' | head -1)" ../out/Yamaha-YDP-Grand-Piano.sf2
+          cd ../out && ls -l
+
+      - name: Credits
+        run: |
+          cat > out/SOUNDFONTS-CREDITS.md <<'EOF'
+          # Sounds offered in Pianooo
+
+          | File | Instrument | Source | License |
+          |---|---|---|---|
+          | Kawai-Upright-Piano-KW.sf2 | Kawai upright piano ("Upright Piano KW") | FreePats – https://freepats.zenvoid.org | CC0 1.0 (public domain) |
+          | Yamaha-YDP-Grand-Piano.sf2 | Yamaha Disklavier Pro grand ("YDP Grand Piano") | FreePats, soundfont by roberto@zenvoid.org; samples by Zenph Studios for the OLPC sound library | CC BY 3.0 – https://creativecommons.org/licenses/by/3.0/ |
+
+          Unpacked from the original FreePats archives, otherwise unchanged.
+          EOF
+
+      - name: Publish release "soundfonts"
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view soundfonts >/dev/null 2>&1 || \
+            gh release create soundfonts --title "Pianooo – Klänge zum Download" \
+              --notes "Klavier-Klänge für Pianooo (Einstellungen › Audio › Sound fonts). Quellen und Lizenzen: SOUNDFONTS-CREDITS.md." --latest=false
+          gh release upload soundfonts out/* --clobber

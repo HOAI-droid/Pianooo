@@ -29,7 +29,7 @@ function AppZoomGlance() {
   const z = useAppZoom()
   return (
     <GlanceLine>
-      {t`Ctrl + / Ctrl − / Ctrl 0 — like a web browser`}
+      {t`Like zooming a web page`}
       {z.max < 200 && <>{' · '}{t`Limited to ${z.max}% at this window size.`}</>}
     </GlanceLine>
   )
@@ -141,7 +141,7 @@ export const APPEARANCE_DEFS: SettingDef[] = [
   { id: 'theme', icon: Palette, kind: 'choice', Control: ThemeControl },
   { id: 'handColors', icon: Hand, kind: 'choice', Control: HandPresets, Extra: HandColorsExtra },
   { id: 'appZoom', icon: ZoomIn, kind: 'inline', Control: AppZoomControl, Glance: AppZoomGlance, glanceQuickOnly: true, Extra: AppZoomCap,
-    Description: () => <>{t`Makes everything in Pianooo bigger or smaller. Ctrl + / Ctrl − / Ctrl 0 work exactly as in a web browser.`} {t`Click`} <InlineIcon><RotateCcw size={10} /></InlineIcon> {t`to reset.`}</> },
+    Description: () => <>{t`Makes everything in Pianooo bigger or smaller, like zooming a web page.`} {t`Click`} <InlineIcon><RotateCcw size={10} /></InlineIcon> {t`to reset.`}</> },
   {
     id: 'tooltips', icon: MessageSquare, kind: 'switch',
     Control: () => { const v = useStore(s => s.tooltipsEnabled); return <Switch value={v} onChange={useStore.getState().setTooltipsEnabled} label={t`Tooltips`} /> },
