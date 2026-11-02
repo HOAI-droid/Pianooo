@@ -36,6 +36,9 @@ von **SquareBow** – vielen Dank! Die ursprüngliche Beschreibung steht in
 - Code: **GPL-3.0-or-later** – © SquareBow (Orfeo) und Beiträge von HOAI-droid
   (iPad-Version), siehe [LICENSE.md](LICENSE.md) und
   [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)
+- Klavier-Klänge zum Download: Kawai Upright (CC0) und Yamaha Disklavier Grand
+  (CC BY 3.0) von [FreePats](https://freepats.zenvoid.org) – Quellen in der
+  [Release „soundfonts“](https://github.com/HOAI-droid/Pianooo/releases/tag/soundfonts)
 - Katalog: Notensätze und MIDI vom [Mutopia Project](https://www.mutopiaproject.org),
   gemeinfrei bzw. Creative Commons – Quellen in
   [public/Katalog/QUELLEN.md](public/Katalog/QUELLEN.md)

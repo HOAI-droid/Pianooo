@@ -135,11 +135,11 @@ const SOUNDFONT_CATALOG: Record<string, { name: string; filename: string; sizeMB
   // Pianos, unpacked from FreePats and served from this repo's "soundfonts"
   // release (.github/workflows/soundfonts.yml; credits in SOUNDFONTS-CREDITS.md)
   'kawai-upright-kw': {
-    name: 'Kawai Upright Piano', filename: 'Kawai-Upright-Piano-KW.sf2', sizeMB: 60,
+    name: 'Kawai Upright Piano', filename: 'Kawai-Upright-Piano-KW.sf2', sizeMB: 55,
     url: 'https://github.com/HOAI-droid/Pianooo/releases/download/soundfonts/Kawai-Upright-Piano-KW.sf2',
   },
   'yamaha-ydp-grand': {
-    name: 'Yamaha Grand Piano (Disklavier)', filename: 'Yamaha-YDP-Grand-Piano.sf2', sizeMB: 60,
+    name: 'Yamaha Grand Piano (Disklavier)', filename: 'Yamaha-YDP-Grand-Piano.sf2', sizeMB: 113,
     url: 'https://github.com/HOAI-droid/Pianooo/releases/download/soundfonts/Yamaha-YDP-Grand-Piano.sf2',
   },
   'fluidr3-gm': {
