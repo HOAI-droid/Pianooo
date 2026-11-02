@@ -1,226 +1,190 @@
-# Pianooo – Start-Katalog (Vorschlag, 150 Stücke)
+# Pianooo – Start-Katalog
 
-Ziel: Wer Pianooo zum ersten Mal öffnet, findet in der Bibliothek einen
-geordneten Lernweg – von der ersten Fünf-Finger-Übung bis Chopin. Eigene Songs
-kommen jederzeit dazu (Dateien-App › Pianooo).
+157 echte Stücke und Übungen – von der ersten Klavierschul-Lektion bis Chopin. Alle stammen vom [Mutopia Project](https://www.mutopiaproject.org): veröffentlichte Notensätze, gemeinfrei oder unter Creative Commons. Nichts davon ist künstlich erzeugt.
 
-In der Bibliothek erscheint der Katalog als Ordner:
+In der App erscheinen die Stufen als Ordner in der Bibliothek. Eigene Songs kommen jederzeit dazu (Dateien-App › Pianooo). Quellen und Lizenzen: `public/Katalog/QUELLEN.md` – in der App als „Katalog – Quellen und Lizenzen.md“ im Pianooo-Ordner.
 
-```
-Katalog/
-  1 Übungen – Einstieg
-  2 Erste Lieder
-  3 Leichte Klassik
-  4 Mittelstufe
-  5 Fortgeschritten
-  6 Pop, Jazz & Ragtime
-```
+Pflege: Stücke in `catalog/katalog.json` eintragen (Mutopia-ID), dann `python3 scripts/fetch-catalog.py`.
 
-Stufen: ★ Einstieg · ★★ leicht · ★★★ mittel · ★★★★ fortgeschritten · ★★★★★ schwer
+## 1 Einstieg – Clementi-Klavierschule ★ (18)
 
-**Herkunft und Rechte** – alles darf in der App mitgeliefert werden:
+- 01 Clementi - Lektion 1 Präludium C-Dur
+- 02 Clementi - Lektion 2 Aria C-Dur
+- 03 Händel - Air (Lektion 3)
+- 04 Händel - Air (Lektion 4)
+- 05 Corelli - Allegro (Lektion 6)
+- 06 Händel - Air (Lektion 8)
+- 07 Händel - Marsch (Lektion 9)
+- 08 Mozart - Arietta (Lektion 12)
+- 09 Mozart - Menuett (Lektion 13)
+- 10 Ah vous dirai-je (Morgen kommt der Weihnachtsmann)
+- 11 Triste raison (Lektion 19)
+- 12 Air Fal lal la (Lektion 20)
+- 13 Pleyel - Larghetto (Lektion 21)
+- 14 Arietta (Lektion 22)
+- 15 Pleyel - Thema (Lektion 23)
+- 16 Händel - Menuett (Lektion 26)
+- 17 Haydn - Adagio (Lektion 27)
+- 18 Beethoven - Walzer (Lektion 39)
 
-| Kürzel | Quelle | Rechte |
-|---|---|---|
-| **E** | von uns erzeugt (Skript) | eigene Arbeit, frei |
-| **A** | eigenes Arrangement eines gemeinfreien Liedes | frei |
-| **P** | piano-midi.de (Bernd Krüger) | CC BY-SA 3.0 DE – Namensnennung |
-| **M** | Mutopia Project | gemeinfrei / CC BY(-SA) – je Stück |
+## 2 Fingerübungen – Hanon & Czerny ★★ (20)
 
-Aktuelle Pop-Hits (Adele, Coldplay, Filmmusik …) sind urheberrechtlich
-geschützt und dürfen **nicht** mitgeliefert werden. Stattdessen: eigene Stücke
-*im Pop-Stil* (gängige Akkordfolgen sind nicht geschützt) und gemeinfreier
-Ragtime/Jazz. Echte Hits lädt jeder selbst (siehe Abschnitt am Ende).
+- 01 Hanon - Übung 1
+- 02 Hanon - Übung 2
+- 03 Hanon - Übung 3
+- 04 Hanon - Übung 4
+- 05 Hanon - Übung 5
+- 06 Hanon - Übung 6
+- 07 Hanon - Übung 7
+- 08 Hanon - Übung 8
+- 09 Hanon - Übung 9
+- 10 Hanon - Übung 10
+- 11 Czerny - Achttaktige Übung op. 821 Nr. 1
+- 12 Czerny - Achttaktige Übung op. 821 Nr. 2
+- 13 Czerny - Achttaktige Übung op. 821 Nr. 3
+- 14 Czerny - Achttaktige Übung op. 821 Nr. 4
+- 15 Czerny - Achttaktige Übung op. 821 Nr. 5
+- 16 Czerny - Achttaktige Übung op. 821 Nr. 6
+- 17 Czerny - Achttaktige Übung op. 821 Nr. 7
+- 18 Czerny - Achttaktige Übung op. 821 Nr. 8
+- 19 Czerny - Achttaktige Übung op. 821 Nr. 9
+- 20 Czerny - Achttaktige Übung op. 821 Nr. 10
 
----
+## 3 Erste Stücke ★★ (29)
 
-## 1 Übungen – Einstieg (35, alle **E**)
+- 01 Bach - Applicatio BWV 994
+- 02 Petzold - Menuett F-Dur BWV Anh. 113
+- 03 Petzold - Menuett G-Dur BWV Anh. 114
+- 04 Petzold - Menuett g-Moll BWV Anh. 115
+- 05 Bach - Menuett G-Dur BWV Anh. 116
+- 06 Bach - Polonaise F-Dur BWV Anh. 117a
+- 07 Bach - Menuett B-Dur BWV Anh. 118
+- 08 Bach - Polonaise g-Moll BWV Anh. 119
+- 09 Bach - Menuett a-Moll BWV Anh. 120
+- 10 Bach - Menuett c-Moll BWV Anh. 121
+- 11 Bach - Musette D-Dur BWV Anh. 126
+- 12 Bach - Marsch Es-Dur BWV Anh. 127
+- 13 Bach - Polonaise d-Moll BWV Anh. 128
+- 14 Bach - Kleines Präludium C-Dur BWV 924a
+- 15 Bach - Kleines Präludium d-Moll BWV 926
+- 16 Bach - Kleines Präludium F-Dur BWV 928
+- 17 Händel - Sonatine B-Dur HWV 585
+- 18 Schumann - Melodie op. 68 Nr. 1
+- 19 Schumann - Soldatenmarsch op. 68 Nr. 2
+- 20 Schumann - Trällerliedchen op. 68 Nr. 3
+- 21 Schumann - Ein Choral op. 68 Nr. 4
+- 22 Schumann - Stückchen op. 68 Nr. 5
+- 23 Schumann - Armes Waisenkind op. 68 Nr. 6
+- 24 Schumann - Jägerliedchen op. 68 Nr. 7
+- 25 Schumann - Wilder Reiter op. 68 Nr. 8
+- 26 Schumann - Fröhlicher Landmann op. 68 Nr. 10
+- 27 Tschaikowsky - Morgengebet op. 39 Nr. 1
+- 28 Tschaikowsky - Marsch der Holzsoldaten op. 39 Nr. 5
+- 29 Tschaikowsky - Alte französische Weise op. 39 Nr. 16
 
-Kurz, langsames Grundtempo, Hände getrennt markiert. Jede Übung baut auf der vorigen auf.
+## 4 Etüden & Sonatinen ★★–★★★ (25)
 
-**Orientierung & Fünf-Finger-Lage** ★
-1. Wo ist das C? – Cs auf der ganzen Tastatur
-2. Fünf-Finger-Lage C – rechte Hand
-3. Fünf-Finger-Lage C – linke Hand
-4. Fünf-Finger-Lage C – beide Hände parallel
-5. Fünf-Finger-Lage C – Gegenbewegung
-6. Fünf-Finger-Lage G – beide Hände
-7. Fünf-Finger-Lage F – beide Hände
-8. Fünf-Finger-Lage D – beide Hände
-9. Notenwerte: Ganze, Halbe, Viertel (auf C)
-10. Notenwerte: Achtel und Punktierte
+- 01 Czerny - Melodisches Übungsstück op. 840 Nr. 1
+- 02 Czerny - Melodisches Übungsstück op. 840 Nr. 2
+- 03 Czerny - Melodisches Übungsstück op. 840 Nr. 3
+- 04 Czerny - Melodisches Übungsstück op. 840 Nr. 4
+- 05 Czerny - Melodisches Übungsstück op. 840 Nr. 5
+- 06 Czerny - Melodisches Übungsstück op. 840 Nr. 6
+- 07 Czerny - Melodisches Übungsstück op. 840 Nr. 7
+- 08 Czerny - Melodisches Übungsstück op. 840 Nr. 8
+- 09 Burgmüller - La Candeur op. 100 Nr. 1
+- 10 Burgmüller - Arabeske op. 100 Nr. 2
+- 11 Burgmüller - Pastorale op. 100 Nr. 3
+- 12 Burgmüller - La Petite Réunion op. 100 Nr. 4
+- 13 Burgmüller - Innocence op. 100 Nr. 5
+- 14 Burgmüller - Progrès op. 100 Nr. 6
+- 15 Burgmüller - Le Courant limpide op. 100 Nr. 7
+- 16 Burgmüller - La Gracieuse op. 100 Nr. 8
+- 17 Burgmüller - La Chasse op. 100 Nr. 9
+- 18 Burgmüller - Tendre Fleur op. 100 Nr. 10
+- 19 Burgmüller - Ballade op. 100 Nr. 15
+- 20 Burgmüller - La Babillarde op. 100 Nr. 17
+- 21 Clementi - Sonatine C-Dur op. 36 Nr. 1, 1. Satz
+- 22 Clementi - Sonatine C-Dur op. 36 Nr. 1, 2. Satz
+- 23 Kuhlau - Sonatine C-Dur op. 20 Nr. 1, Allegro
+- 24 Kuhlau - Sonatine C-Dur op. 20 Nr. 1, Andante
+- 25 Kuhlau - Sonatine C-Dur op. 20 Nr. 1, Rondo
 
-**Tonleitern** ★–★★
-11. C-Dur, 1 Oktave, Hände getrennt (Daumenuntersatz)
-12. C-Dur, 1 Oktave, beide Hände
-13. G-Dur, 1 Oktave
-14. F-Dur, 1 Oktave
-15. D-Dur, 1 Oktave
-16. a-Moll (harmonisch), 1 Oktave
-17. e-Moll (harmonisch), 1 Oktave
-18. C-Dur, 2 Oktaven, beide Hände
-19. Chromatische Tonleiter
+## 5 Mittelstufe ★★★ (30)
 
-**Akkorde & Begleitung** ★–★★
-20. Dreiklänge C, F, G – rechte Hand
-21. Kadenz I–IV–V–I in C
-22. Kadenz in G
-23. Kadenz in F
-24. Umkehrungen: C-Dur (Grund, 1., 2.)
-25. Moll-Dreiklänge a, d, e
-26. Gebrochene Akkorde (Arpeggio) C–F–G
-27. Alberti-Bass in C
-28. Pop-Begleitung 1: Grundton + Akkord (C–G–Am–F)
-29. Pop-Begleitung 2: Achtel-Pattern (C–G–Am–F)
-30. Walzer-Begleitung (Bass–Akkord–Akkord)
+- 01 Beethoven - Für Elise WoO 59
+- 02 Beethoven - Sonate op. 49 Nr. 1, Andante
+- 03 Beethoven - Sonate op. 49 Nr. 1, Rondo
+- 04 Beethoven - Sonate op. 49 Nr. 2, Allegro
+- 05 Beethoven - Sonate op. 49 Nr. 2, Tempo di Menuetto
+- 06 Beethoven - Mondscheinsonate, 1. Satz
+- 07 Beethoven - Pathétique, 2. Satz Adagio cantabile
+- 08 Mozart - Sonata facile KV 545, 1. Satz
+- 09 Mozart - Sonata facile KV 545, 2. Satz
+- 10 Mozart - Sonata facile KV 545, 3. Satz
+- 11 Bach - Invention Nr. 1 C-Dur BWV 772
+- 12 Bach - Invention Nr. 4 d-Moll BWV 775
+- 13 Bach - Invention Nr. 8 F-Dur BWV 779
+- 14 Bach - Invention Nr. 13 a-Moll BWV 784
+- 15 Bach - Präludium C-Dur BWV 846
+- 16 Chopin - Prélude e-Moll op. 28 Nr. 4
+- 17 Chopin - Prélude h-Moll op. 28 Nr. 6
+- 18 Chopin - Prélude A-Dur op. 28 Nr. 7
+- 19 Chopin - Regentropfen-Prélude op. 28 Nr. 15
+- 20 Chopin - Prélude c-Moll op. 28 Nr. 20
+- 21 Schumann - Träumerei op. 15 Nr. 7
+- 22 Schumann - Von fremden Ländern und Menschen op. 15 Nr. 1
+- 23 Satie - Gymnopédie Nr. 1
+- 24 Satie - Gymnopédie Nr. 2
+- 25 Satie - Gnossienne Nr. 1
+- 26 Grieg - Åses Tod op. 46 Nr. 2
+- 27 Grieg - Albumblatt e-Moll op. 12 Nr. 7
+- 28 Mendelssohn - Venezianisches Gondellied op. 30 Nr. 6
+- 29 Schubert - Moment musical f-Moll op. 94 Nr. 3
+- 30 Brahms - Walzer As-Dur op. 39 Nr. 15
 
-**Technik & Koordination** ★★
-31. Hanon Nr. 1 (gemeinfrei)
-32. Hanon Nr. 2
-33. Hanon Nr. 3
-34. Staccato und Legato im Wechsel
-35. Pedal-Übung: Akkorde verbinden
+## 6 Fortgeschritten ★★★★ (20)
 
-## 2 Erste Lieder (25, alle **A**) ★–★★
+- 01 Beethoven - Pathétique, 1. Satz
+- 02 Beethoven - Pathétique, 3. Satz Rondo
+- 03 Beethoven - Mondscheinsonate, 3. Satz
+- 04 Beethoven - Appassionata, 3. Satz
+- 05 Mozart - Fantasie d-Moll KV 397
+- 06 Mozart - Sonate c-Moll KV 457, 1. Satz
+- 07 Bach - Präludium c-Moll BWV 847
+- 08 Chopin - Nocturne Es-Dur op. 9 Nr. 2
+- 09 Chopin - Fantaisie-Impromptu op. 66
+- 10 Chopin - Minutenwalzer op. 64 Nr. 1
+- 11 Chopin - Revolutionsetüde op. 10 Nr. 12
+- 12 Chopin - Ballade g-Moll op. 23
+- 13 Debussy - Clair de lune
+- 14 Debussy - Erste Arabeske
+- 15 Schubert - Impromptu Es-Dur op. 90 Nr. 2
+- 16 Schubert - Impromptu Ges-Dur op. 90 Nr. 3
+- 17 Schubert - Impromptu As-Dur op. 90 Nr. 4
+- 18 Rachmaninow - Prélude cis-Moll op. 3 Nr. 2
+- 19 Liszt - Consolation Nr. 3
+- 20 Grieg - Hochzeitstag auf Troldhaugen op. 65 Nr. 6
 
-Melodie rechts, einfache Begleitung links; jeweils auch als „nur Melodie“-Version.
+## 7 Ragtime & bekannte Melodien ★★★ (15)
 
-36. Alle meine Entchen
-37. Hänschen klein
-38. Summ, summ, summ
-39. Kuckuck, Kuckuck, ruft’s aus dem Wald
-40. Bruder Jakob
-41. Ode an die Freude (Beethoven, Thema)
-42. Morgen kommt der Weihnachtsmann (Twinkle Twinkle)
-43. Au clair de la lune
-44. Alle Vögel sind schon da
-45. Oh When the Saints
-46. Jingle Bells
-47. Happy Birthday
-48. Kumbaya
-49. Michael, Row the Boat Ashore
-50. Swing Low, Sweet Chariot
-51. Amazing Grace
-52. Scarborough Fair
-53. Greensleeves
-54. Auld Lang Syne
-55. Danny Boy (Londonderry Air)
-56. Brahms: Wiegenlied „Guten Abend, gut’ Nacht“
-57. Stille Nacht
-58. O Tannenbaum
-59. La Cucaracha
-60. Can-Can (Offenbach, Thema)
+- 01 Joplin - Maple Leaf Rag
+- 02 Joplin - Elite Syncopations
+- 03 Joplin - Solace
+- 04 Joplin - Bethena
+- 05 Joplin - The Easy Winners
+- 06 Joplin - Peacherine Rag
+- 07 Joplin - Pineapple Rag
+- 08 Joplin - Sun Flower Slow Drag
+- 09 Turpin - St. Louis Rag
+- 10 Strauss - An der schönen blauen Donau (Thema)
+- 11 Grieg - In der Halle des Bergkönigs
+- 12 Bizet - Carmen, Vorspiel
+- 13 Händel - Feuerwerksmusik, La Réjouissance
+- 14 Rameau - Tambourin
+- 15 Beethoven - 5. Sinfonie (Klavierfassung)
 
-## 3 Leichte Klassik (30) ★★–★★★
+## Nicht im Katalog
 
-61. Petzold: Menuett G-Dur BWV Anh. 114 (Notenbüchlein A. M. Bach) – M
-62. Petzold: Menuett g-Moll BWV Anh. 115 – M
-63. Bach: Musette D-Dur BWV Anh. 126 – M
-64. Bach: Marsch D-Dur BWV Anh. 122 – M
-65. Mozart: Menuett G-Dur KV 1 – M
-66. Mozart: Menuett F-Dur KV 2 – M
-67. Mozart: Allegro B-Dur KV 3 – M
-68. Beethoven: Ecossaise G-Dur WoO 23 – M
-69. Beethoven: Sonatine G-Dur Anh. 5 Nr. 1, 1. Satz – M
-70. Beethoven: Für Elise (A-Teil) – P/A
-71. Clementi: Sonatine C-Dur op. 36 Nr. 1, 1. Satz – M
-72. Clementi: Sonatine G-Dur op. 36 Nr. 2, 1. Satz – M
-73. Burgmüller: La Candeur op. 100 Nr. 1 – M
-74. Burgmüller: Arabeske op. 100 Nr. 2 – M
-75. Burgmüller: Pastorale op. 100 Nr. 3 – M
-76. Burgmüller: La Chevaleresque op. 100 Nr. 25 – M
-77. Schumann: Melodie op. 68 Nr. 1 – M
-78. Schumann: Soldatenmarsch op. 68 Nr. 2 – M
-79. Schumann: Wilder Reiter op. 68 Nr. 8 – M
-80. Schumann: Fröhlicher Landmann op. 68 Nr. 10 – M
-81. Schumann: Erster Verlust op. 68 Nr. 16 – M
-82. Tschaikowsky: Morgengebet op. 39 Nr. 1 – M
-83. Tschaikowsky: Puppenbegräbnis op. 39 Nr. 7 – M
-84. Tschaikowsky: Alte französische Romanze op. 39 Nr. 16 – M
-85. Händel: Sarabande d-Moll (HWV 437) – M
-86. Bach: Präludium C-Dur BWV 846 (WTK I) – P
-87. Satie: Gymnopédie Nr. 1 – M
-88. Pachelbel: Kanon in D (leichte Fassung) – A
-89. Grieg: Morgenstimmung (leichte Fassung) – A
-90. Dvořák: Largo aus der 9. Sinfonie (leichte Fassung) – A
-
-## 4 Mittelstufe (30) ★★★–★★★★
-
-91. Beethoven: Für Elise WoO 59 (komplett) – P
-92. Beethoven: Mondscheinsonate op. 27/2, 1. Satz – P
-93. Beethoven: Pathétique op. 13, 2. Satz – P
-94. Mozart: Sonate C-Dur KV 545, 1. Satz – P
-95. Mozart: Sonate C-Dur KV 545, 2. Satz – P
-96. Mozart: Rondo alla Turca KV 331 – Demo (bereits enthalten)
-97. Bach: Invention Nr. 1 C-Dur BWV 772 – M
-98. Bach: Invention Nr. 4 d-Moll BWV 775 – M
-99. Bach: Invention Nr. 8 F-Dur BWV 779 – M
-100. Bach: Invention Nr. 13 a-Moll BWV 784 – M
-101. Chopin: Prélude e-Moll op. 28/4 – P
-102. Chopin: Prélude A-Dur op. 28/7 – P
-103. Chopin: Regentropfen-Prélude op. 28/15 – P
-104. Chopin: Walzer a-Moll (posth.) – M
-105. Chopin: Nocturne Es-Dur op. 9/2 – P
-106. Schumann: Träumerei op. 15/7 – P
-107. Schumann: Von fremden Ländern und Menschen op. 15/1 – P
-108. Schubert: Moment musical f-Moll op. 94/3 – P
-109. Mendelssohn: Venezianisches Gondellied op. 30/6 – P
-110. Tschaikowsky: Juni (Barcarole) op. 37a – P
-111. Grieg: Arietta op. 12/1 – P
-112. Grieg: Walzer a-Moll op. 12/2 – P
-113. Brahms: Walzer As-Dur op. 39/15 – P
-114. Satie: Gnossienne Nr. 1 – M
-115. Debussy: Rêverie – P
-116. Debussy: Le petit nègre / Golliwogg’s Cakewalk (Children’s Corner) – P
-117. Scarlatti: Sonate E-Dur K. 380 – M
-118. Albéniz: Tango op. 165/2 – P
-119. Bach: Präludium c-Moll BWV 847 (WTK I) – P
-120. Clementi: Sonatine op. 36 Nr. 3, komplett – M
-
-## 5 Fortgeschritten (20) ★★★★–★★★★★
-
-121. Beethoven: Mondscheinsonate, 3. Satz – P
-122. Beethoven: Pathétique, 1. Satz – P
-123. Beethoven: Pathétique, 3. Satz – P
-124. Mozart: Fantasie d-Moll KV 397 – P
-125. Chopin: Fantaisie-Impromptu op. 66 – P
-126. Chopin: Minutenwalzer op. 64/1 – P
-127. Chopin: Walzer cis-Moll op. 64/2 – P
-128. Chopin: Etüde E-Dur op. 10/3 („Tristesse“) – P
-129. Chopin: Revolutionsetüde op. 10/12 – P
-130. Chopin: Ballade g-Moll op. 23 – P
-131. Liszt: Liebestraum Nr. 3 – P
-132. Liszt: Consolation Nr. 3 – P
-133. Debussy: Clair de lune – P
-134. Debussy: Arabesque Nr. 1 – P
-135. Schubert: Impromptu Es-Dur op. 90/2 – P
-136. Schubert: Impromptu Ges-Dur op. 90/3 – P
-137. Rachmaninow: Prélude cis-Moll op. 3/2 – P
-138. Grieg: Hochzeitstag auf Troldhaugen op. 65/6 – P
-139. Mendelssohn: Rondo capriccioso op. 14 – P
-140. Bach: Präludium und Fuge C-Dur BWV 846, Fuge – P
-
-## 6 Pop, Jazz & Ragtime (10)
-
-141. Joplin: The Entertainer – Demo (bereits enthalten) ★★★
-142. Joplin: Maple Leaf Rag – M ★★★★
-143. Joplin: Elite Syncopations – M ★★★
-144. Joplin: Solace – M ★★★
-145. Pianooo-Ballade in C (I–V–vi–IV, im Stil einer Pop-Ballade) – E ★★
-146. Pianooo-Ballade in G, mit Achtel-Begleitung – E ★★★
-147. Moll-Pop in a (vi–IV–I–V) – E ★★
-148. 12-Takt-Blues in C (Shuffle) – E ★★
-149. 12-Takt-Blues in F mit Walking Bass – E ★★★
-150. Boogie-Woogie-Bassmuster in C – E ★★★
-
----
-
-## Echte Pop-Songs selbst laden
-
-In der App (Bibliothek) ein Hinweis mit Links: MuseScore.com („piano solo“ suchen),
-BitMidi, FreeMidi – Datei laden, in Dateien › Pianooo legen, fertig.
-
-## Später möglich
-
-- Kurs-Ansicht mit Beschreibung pro Stück („Worauf achten?“) und Häkchen „geschafft“
-- Startempfehlung: neue Nutzer starten bei Übung 1, Rückkehrer beim letzten Stück
+- Deutsche Kinderlieder und aktuelle Pop-Hits: bei Mutopia nicht vorhanden bzw. urheberrechtlich geschützt. Für private Pop-Downloads: midiworld.com, MuseScore.com, BitMidi.
+- Bereits als Demo enthalten: Mozart – Rondo alla Turca, Joplin – The Entertainer, Vivaldi – Sommer.

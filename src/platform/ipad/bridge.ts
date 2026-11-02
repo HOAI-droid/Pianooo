@@ -16,6 +16,7 @@ import { handlers, loadPrefs, savePrefs } from './mainPort.generated'
 import { showMessageBox } from './messageBox'
 
 declare const __IPAD_DEMO_FILES__: string[]
+declare const __IPAD_CATALOG_FILES__: string[]
 
 const MIDI_EXT = /\.(mid|midi|kar|musicxml|xml|mxl|gp|gp3|gp4|gp5|gpx|cap)$/i
 const LIBRARY = DOCUMENTS
@@ -91,18 +92,36 @@ async function waitInbox(...paths: string[]) {
 // ── Bundled demo songs → Documents/Demo (only ones that are missing, like the
 // desktop's copyDemoFilesRecursive, so songs the user deleted stay deleted
 // once seeded) ──────────────────────────────────────────────────────────────
-async function seedDemos() {
-  const prefs = loadPrefs()
-  if (prefs.ipadDemosSeeded) return
-  for (const rel of __IPAD_DEMO_FILES__) {
-    const dest = join(LIBRARY, 'Demo', rel)
+async function copyBundled(srcDir: string, files: string[], destFor: (rel: string) => string) {
+  for (const rel of files) {
+    const dest = destFor(rel)
     if (vfs.existsSync(dest)) continue
     try {
-      const res = await fetch(new URL(`./Demo/${rel.split('/').map(encodeURIComponent).join('/')}`, location.href).href)
+      const res = await fetch(new URL(`./${srcDir}/${rel.split('/').map(encodeURIComponent).join('/')}`, location.href).href)
       if (res.ok) vfs.writeFileSync(dest, new Uint8Array(await res.arrayBuffer()))
-    } catch (e) { console.warn('[Orfeo iPad] demo copy failed:', rel, e) }
+    } catch (e) { console.warn('[Orfeo iPad] copy failed:', rel, e) }
   }
-  savePrefs({ ipadDemosSeeded: true })
+}
+
+// The starter catalog (public/Katalog, see catalog/katalog.json): its level
+// folders go straight into the library root, its credits next to them.
+// Re-copied only when the bundled catalog changes, so new pieces arrive with
+// an app update while pieces the user deleted stay deleted until then.
+const CATALOG_VERSION = `${__IPAD_CATALOG_FILES__.length}:${__IPAD_CATALOG_FILES__.join('|').length}`
+function catalogDest(rel: string): string {
+  return rel === 'QUELLEN.md' ? join(LIBRARY, 'Katalog – Quellen und Lizenzen.md') : join(LIBRARY, rel)
+}
+
+async function seedDemos() {
+  const prefs = loadPrefs()
+  if (!prefs.ipadDemosSeeded) {
+    await copyBundled('Demo', __IPAD_DEMO_FILES__, rel => join(LIBRARY, 'Demo', rel))
+    savePrefs({ ipadDemosSeeded: true })
+  }
+  if (prefs.ipadCatalogVersion !== CATALOG_VERSION) {
+    await copyBundled('Katalog', __IPAD_CATALOG_FILES__, catalogDest)
+    savePrefs({ ipadCatalogVersion: CATALOG_VERSION })
+  }
 }
 
 // ── Soundfonts (Samples engine extras) ───────────────────────────────────────

@@ -8,15 +8,15 @@ import { readFileSync, readdirSync, statSync } from 'fs'
 
 const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8'))
 
-// Bundled demo songs (public/Demo), copied into the library on first launch
-function listDemoFiles(dir: string): string[] {
+// Bundled songs (public/Demo, public/Katalog), copied into the library on first launch
+function listBundled(base: string, dir = base): string[] {
   const out: string[] = []
   for (const name of readdirSync(dir)) {
     const p = join(dir, name)
-    if (statSync(p).isDirectory()) out.push(...listDemoFiles(p))
-    else if (/\.(mid|midi|kar|musicxml|xml|mxl|gp|gp3|gp4|gp5|gpx|cap)$/i.test(name)) out.push(relative(resolve(__dirname, 'public/Demo'), p).split('\\').join('/'))
+    if (statSync(p).isDirectory()) out.push(...listBundled(base, p))
+    else if (/\.(mid|midi|kar|musicxml|xml|mxl|gp|gp3|gp4|gp5|gpx|cap|md)$/i.test(name)) out.push(relative(base, p).split('\\').join('/'))
   }
-  return out
+  return out.sort()
 }
 
 // Same index.html, but started through the iPad entry point
@@ -39,7 +39,8 @@ export default defineConfig({
   plugins: [react(), ipadEntry()],
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
-    __IPAD_DEMO_FILES__: JSON.stringify(listDemoFiles(resolve(__dirname, 'public/Demo'))),
+    __IPAD_DEMO_FILES__: JSON.stringify(listBundled(resolve(__dirname, 'public/Demo'))),
+    __IPAD_CATALOG_FILES__: JSON.stringify(listBundled(resolve(__dirname, 'public/Katalog'))),
   },
   resolve: {
     // electron/exportName.ts is shared with the desktop and imports Node's path

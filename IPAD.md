@@ -9,6 +9,8 @@ Desktop-Version; neu sind:
   mehrere Finger gleichzeitig auf der Bildschirm-Tastatur (Akkorde),
   langes Drücken = Rechtsklick
 - **Bluetooth-MIDI und USB-MIDI** über CoreMIDI – z. B. **Kawai ES120**
+- **Start-Katalog mit 157 Stücken und Übungen** in 7 Stufen – von Clementis
+  Klavierschule über Hanon, Czerny, Burgmüller bis Chopin (siehe `KATALOG.md`)
 - **Bibliothek in der Dateien-App**: „Auf meinem iPad › Pianooo“. MIDI-Dateien
   einfach dort hineinlegen; Bearbeitungen und Audio-Exporte landen ebenfalls dort.
 
@@ -16,7 +18,8 @@ Desktop-Version; neu sind:
 
 1. ES120 einschalten. Bluetooth-MIDI muss am Piano eingeschaltet sein (ab Werk
    an; sonst laut Kawai-Handbuch in den Bluetooth-Einstellungen des Pianos aktivieren).
-2. **Nicht** in den iPad-Einstellungen › Bluetooth koppeln – Bluetooth-MIDI wird
+2. Am iPad unter Einstellungen › Bluetooth prüfen, dass Bluetooth eingeschaltet ist.
+   Das ES120 erscheint dort **nicht** und wird dort auch **nicht** gekoppelt – Bluetooth-MIDI wird
    in der App verbunden (dort koppelt man nur Bluetooth-Audio).
 3. In Pianooo oben rechts auf **MIDI / „No keyboard“** tippen › Reiter **Keyboards** ›
    **„Connect Bluetooth keyboard…“**.
