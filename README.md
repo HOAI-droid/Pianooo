@@ -39,7 +39,8 @@ von **SquareBow** – vielen Dank! Die ursprüngliche Beschreibung steht in
   (iPad-Version), siehe [LICENSE.md](LICENSE.md) und
   [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)
 - Klavier-Klänge zum Download: Kawai Upright (CC0) und Yamaha Disklavier Grand
-  (CC BY 3.0) von [FreePats](https://freepats.zenvoid.org) – Quellen in der
+  (CC BY 3.0) von [FreePats](https://freepats.zenvoid.org), Kawai ES100 Concert Grand
+  (CC BY 3.0) von [GD Craft](https://musical-artifacts.com/artifacts/2922) – Quellen in der
   [Release „soundfonts“](https://github.com/HOAI-droid/Pianooo/releases/tag/soundfonts)
 - Katalog: Notensätze und MIDI vom [Mutopia Project](https://www.mutopiaproject.org),
   gemeinfrei bzw. Creative Commons – Quellen in

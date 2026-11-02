@@ -9,6 +9,9 @@
 #   Upright Piano KW  — a Kawai upright piano · CC0 1.0
 #   YDP Grand Piano   — Yamaha Disklavier Pro grand (Zenph Studios / OLPC samples,
 #                       soundfont by roberto@zenvoid.org) · CC BY 3.0
+# Plus every .sf2 kept in soundfonts/ in this repo:
+#   Kawai ES100 Concert Grand — GD Craft, CC BY 3.0
+#                       (https://musical-artifacts.com/artifacts/2922)
 name: Soundfonts
 
 on:
@@ -37,6 +40,7 @@ jobs:
           tar -xjf ydp.tbz -C ydp
           cp "$(find kw  -iname '*.sf2' | head -1)" ../out/Kawai-Upright-Piano-KW.sf2
           cp "$(find ydp -iname '*.sf2' | head -1)" ../out/Yamaha-YDP-Grand-Piano.sf2
+          cp ../soundfonts/*.sf2 ../out/
           cd ../out && ls -l
 
       - name: Credits
@@ -48,8 +52,9 @@ jobs:
           |---|---|---|---|
           | Kawai-Upright-Piano-KW.sf2 | Kawai upright piano ("Upright Piano KW") | FreePats – https://freepats.zenvoid.org | CC0 1.0 (public domain) |
           | Yamaha-YDP-Grand-Piano.sf2 | Yamaha Disklavier Pro grand ("YDP Grand Piano") | FreePats, soundfont by roberto@zenvoid.org; samples by Zenph Studios for the OLPC sound library | CC BY 3.0 – https://creativecommons.org/licenses/by/3.0/ |
+          | Kawai-ES100-Concert-Grand.sf2 | Kawai concert grand, sampled from a Kawai ES100 ("[GD] Kawai ES100 Concert Grand") | GD Craft – https://musical-artifacts.com/artifacts/2922 | CC BY 3.0 – https://creativecommons.org/licenses/by/3.0/ |
 
-          Unpacked from the original FreePats archives, otherwise unchanged.
+          FreePats sounds unpacked from the original archives; all files otherwise unchanged.
           EOF
 
       - name: Publish release "soundfonts"

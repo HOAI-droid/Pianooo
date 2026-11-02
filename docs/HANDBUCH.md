@@ -79,7 +79,8 @@ frei), midiworld.com.
   angeschlossenes Instrument spielen. **Studio** – echte aufgenommene
   Instrumente aus einem Sound Font, klingt deutlich besser.
 - **Sound Fonts:** Klangsätze für Studio. Mitgeliefert: GeneralUser GS. Zum
-  Herunterladen: **Kawai Upright Piano**, **Yamaha Grand Piano (Disklavier)**,
+  Herunterladen: **Kawai Concert Grand (ES100)**, **Kawai Upright Piano**,
+  **Yamaha Grand Piano (Disklavier)**,
   FluidR3 GM, MuseScore General. Eigene `.sf2`/`.sf3` mit **Import your own**.
 - **Auto-Level on Load:** gleicht laute und leise Stellen eines Stücks aus.
 - **Export to audio:** fügt dem Kontextmenü der Bibliothek *Export to audio…*
