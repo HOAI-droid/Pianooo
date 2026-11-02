@@ -323,11 +323,9 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoaidroid.pianooo;
 				PRODUCT_NAME = Pianooo;
-				SUPPORTS_MACCATALYST = YES;
-				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "App/Pianooo-Mac.entitlements";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "2,6";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -346,11 +344,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoaidroid.pianooo;
 				PRODUCT_NAME = Pianooo;
-				SUPPORTS_MACCATALYST = YES;
-				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = "App/Pianooo-Mac.entitlements";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "2,6";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

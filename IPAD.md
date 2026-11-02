@@ -68,6 +68,7 @@ Sideloadly oder AltStore installieren, siehe [SIDELOADING.md](SIDELOADING.md).
 | `npm run ipad:dev` | Web-Teil im Browser testen (Dateien landen in IndexedDB) |
 | `npm run ipad:build` | Web-Teil nach `dist-ipad/` bauen |
 | `npm run ipad:sync` | Bauen + ins Xcode-Projekt kopieren |
+| `bash scripts/build-mac.sh` | Mac-App bauen (auf einem Mac, nach `ipad:sync`) |
 | `npm run ipad:port` | Datei-/Speicher-Logik neu aus `electron/main.ts` übernehmen (nach Orfeo-Updates) |
 
 Aufbau:

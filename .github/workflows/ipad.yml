@@ -66,21 +66,21 @@ jobs:
           zip -qry Pianooo.ipa Payload
           ls -lh Pianooo.ipa
 
-      - name: Build Mac app (Mac Catalyst, ad-hoc signed)
-        run: |
-          set -o pipefail
-          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
-            -destination 'generic/platform=macOS,variant=Mac Catalyst' -derivedDataPath build-mac \
-            CURRENT_PROJECT_VERSION=${{ github.run_number }} \
-            CODE_SIGN_IDENTITY="-" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="" PROVISIONING_PROFILE_SPECIFIER="" \
-            build 2>&1 | tee xcodebuild-mac.log | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
-          test -d build-mac/Build/Products/Release-maccatalyst/Pianooo.app
+      # The Mac app must not hold up the iPad app: if it fails, the iPad
+      # build is still published
+      - name: Build Mac app (Mac Catalyst via CocoaPods, ad-hoc signed)
+        id: mac
+        continue-on-error: true
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
+        run: bash scripts/build-mac.sh
 
       - name: Show Mac compiler errors
-        if: failure()
+        if: steps.mac.outcome == 'failure'
         run: grep -E "error:" -A3 xcodebuild-mac.log | head -80 || true
 
       - name: Package Mac app
+        if: steps.mac.outcome == 'success'
         run: |
           cd build-mac/Build/Products/Release-maccatalyst
           codesign --verify --verbose Pianooo.app || true
@@ -93,6 +93,7 @@ jobs:
           path: |
             Pianooo.ipa
             Pianooo-Mac.zip
+          if-no-files-found: warn
           retention-days: 30
 
       - name: Publish release "ipad-latest" (main only)
@@ -101,7 +102,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete ipad-latest --yes --cleanup-tag 2>/dev/null || true
-          gh release create ipad-latest Pianooo.ipa Pianooo-Mac.zip \
+          files="Pianooo.ipa"; [ -f Pianooo-Mac.zip ] && files="$files Pianooo-Mac.zip"
+          gh release create ipad-latest $files \
             --target "${GITHUB_SHA}" \
             --title "Pianooo für iPad und Mac (aktueller Stand)" \
             --notes "Automatisch gebaut aus main (${GITHUB_SHA::7}, Build ${{ github.run_number }}). Pianooo.ipa = iPad, Pianooo-Mac.zip = Mac. Unsigniert – Installation siehe SIDELOADING.md." \

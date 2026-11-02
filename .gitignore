@@ -124,3 +124,5 @@ native/build/
 
 # iPad build output
 dist-ipad/
+ios-mac/
+build-mac/
