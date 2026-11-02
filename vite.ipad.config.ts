@@ -14,7 +14,7 @@ function listBundled(base: string, dir = base): string[] {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name)
     if (statSync(p).isDirectory()) out.push(...listBundled(base, p))
-    else if (/\.(mid|midi|kar|musicxml|xml|mxl|gp|gp3|gp4|gp5|gpx|cap|md)$/i.test(name)) out.push(relative(base, p).split('\\').join('/'))
+    else if (/\.(mid|midi|kar|musicxml|xml|mxl|gp|gp3|gp4|gp5|gpx|cap|md|pdf)$/i.test(name)) out.push(relative(base, p).split('\\').join('/'))
   }
   return out.sort()
 }

@@ -72,7 +72,7 @@ function TranscriptIcon({ filePath, noteNaming, accidentals, addTranscriptEntry,
   // while the pointer is over this icon — same pattern as FavouriteStar. ──
   onHoverChange?: (hovering: boolean) => void
 }) {
-  const IDLE_TOOLTIP = 'Click to create a chord transcript PDF in Orfeo folder.'
+  const IDLE_TOOLTIP = 'Click to create a chord transcript PDF in Pianooo folder.'
   const [state, setState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [tooltip, setTooltip] = useState(IDLE_TOOLTIP)
   const revertRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -325,7 +325,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
   const folderMenuRef = useRef<HTMLDivElement>(null)
 
   // ── Multi-select + folder organization state ──────────────────────────────
-  const PROTECTED_FOLDERS = ['demo', 'orfeo']
+  const PROTECTED_FOLDERS = ['demo', 'pianooo']
   const isProtectedFolder = (name: string | null | undefined) => !!name && PROTECTED_FOLDERS.includes(name.toLowerCase())
   // ── Narrower than isProtectedFolder — for FILES, not the folder itself.
   // "Orfeo" isn't one well-known folder: every saved version lands in an
@@ -392,7 +392,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
     if (!file) return
 
     if (!/\.(mid|midi|kar|musicxml|xml|mxl|gp|gp3|gp4|gp5|gpx|cap)$/i.test(file.name)) {
-      showDropError('Unsupported file type. Orfeo accepts .mid, .musicxml, .mxl, .gp/.gp5, .cap, and .kar files.')
+      showDropError('Unsupported file type. Pianooo accepts .mid, .musicxml, .mxl, .gp/.gp5, .cap, and .kar files.')
       return
     }
 
@@ -801,8 +801,8 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
     // ── Sort folders: Orfeo always topmost, Demo pinned next, rest alphabetical ──
     Array.from(folderMap.entries())
       .sort((a, b) => {
-        if (a[0].toLowerCase() === 'orfeo') return -1
-        if (b[0].toLowerCase() === 'orfeo') return 1
+        if (a[0].toLowerCase() === 'pianooo') return -1
+        if (b[0].toLowerCase() === 'pianooo') return 1
         if (a[0].toLowerCase() === 'demo') return -1
         if (b[0].toLowerCase() === 'demo') return 1
         return a[0].localeCompare(b[0])

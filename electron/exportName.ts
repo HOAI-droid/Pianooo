@@ -7,7 +7,7 @@ import { extname, join } from 'path'
 // With no Library set (the demo songs), the Music folder: somewhere you can find
 // it, never the app's own hidden data folder
 export function exportsDir(libraryFolder: string | null, musicFolder: string): string {
-  return join(libraryFolder ?? musicFolder, 'Orfeo', 'Exports')
+  return join(libraryFolder ?? musicFolder, 'Pianooo', 'Exports')
 }
 
 export function nextFreeName(existing: Set<string>, fileName: string): string {

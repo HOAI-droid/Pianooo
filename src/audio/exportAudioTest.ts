@@ -34,7 +34,7 @@ export async function runExportAudioTest(): Promise<number> {
   check(isOpenSong('d:/lib/pop/song.MID'), 'slashes and letter case don\'t matter')
   check(!isOpenSong('D:\\Lib\\Pop\\Other.mid'), 'another song is not the open one')
   // a Guitar Pro song plays from its converted copy in the Library's Orfeo folder
-  useStore.setState({ midi: song('D:/Lib/Orfeo/Riff_ORFEO_IMPORTED.mid', 60) })
+  useStore.setState({ midi: song('D:/Lib/Pianooo/Riff_ORFEO_IMPORTED.mid', 60) })
   check(isOpenSong('D:\\Lib\\Tabs\\Riff.gp5'), 'an open Guitar Pro song counts as open from its Library entry')
 
   NES.dirty = false; NES.editMidi = null

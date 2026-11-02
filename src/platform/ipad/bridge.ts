@@ -5,13 +5,13 @@
 // (mainPort.generated.ts) running on the iPad file layer (vfs.ts); the rest is
 // re-done for iPadOS (file picker, Files app, share sheet, in-app browser).
 
-import { Capacitor } from '@capacitor/core'
+import { Capacitor, registerPlugin } from '@capacitor/core'
 import { Filesystem, Directory } from '@capacitor/filesystem'
 import { Browser } from '@capacitor/browser'
 import { Share } from '@capacitor/share'
 import * as vfs from './vfs'
 import { DOCUMENTS, DATA } from './vfs'
-import { join, basename, extname } from './path'
+import { join, basename, dirname, extname } from './path'
 import { handlers, loadPrefs, savePrefs } from './mainPort.generated'
 import { showMessageBox } from './messageBox'
 
@@ -97,9 +97,15 @@ async function copyBundled(srcDir: string, files: string[], destFor: (rel: strin
     const dest = destFor(rel)
     if (vfs.existsSync(dest)) continue
     try {
-      const res = await fetch(new URL(`./${srcDir}/${rel.split('/').map(encodeURIComponent).join('/')}`, location.href).href)
-      if (res.ok) vfs.writeFileSync(dest, new Uint8Array(await res.arrayBuffer()))
-    } catch (e) { console.warn('[Orfeo iPad] copy failed:', rel, e) }
+      // encodeURI, not encodeURIComponent: servers that decode paths with
+      // decodeURI would leave %2C / %26 as-is and miss "Sonate, 1. Satz.mid"
+      const seg = (x: string) => encodeURI(x).replace(/#/g, '%23').replace(/\?/g, '%3F')
+      const res = await fetch(new URL(`./${srcDir}/${rel.split('/').map(seg).join('/')}`, location.href).href)
+      const bytes = new Uint8Array(await res.arrayBuffer())
+      // Never store a server's HTML fallback page as a song
+      if (res.ok && !(bytes[0] === 0x3c && /html/i.test(res.headers.get('content-type') ?? ''))) vfs.writeFileSync(dest, bytes)
+      else console.warn('[Pianooo] bundled file missing:', rel)
+    } catch (e) { console.warn('[Pianooo] copy failed:', rel, e) }
   }
 }
 
@@ -179,6 +185,45 @@ async function shareFile(virtualPath: string) {
   } catch (e) { console.warn('[Orfeo iPad] share failed:', e) }
 }
 
+// ── Sheet music: a PDF with the song's name next to it ──────────────────────
+// "Song.mid" → "Song.pdf". A saved version ("Pianooo/Song_ORFEO_v2.mid") uses
+// the original's sheet ("Song.pdf" one folder up).
+function findSheet(midiPath: string): string | null {
+  if (!midiPath) return null
+  const dir = dirname(midiPath)
+  const base = basename(midiPath).replace(/\.[^.]+$/, '')
+  const original = base.replace(/_ORFEO_(v\d+|IMPORTED)$/i, '')
+  const candidates = [
+    join(dir, `${base}.pdf`),
+    join(dir, `${original}.pdf`),
+    join(dirname(dir), `${original}.pdf`),
+  ]
+  const lower = (p: string) => p.toLowerCase()
+  for (const c of candidates) {
+    if (vfs.existsSync(c)) return c
+    // Files app copies may differ in letter case (".PDF")
+    const hit = vfs.readdirSync(dirname(c)).find(n => lower(join(dirname(c), n)) === lower(c))
+    if (hit) return join(dirname(c), hit)
+  }
+  return null
+}
+
+async function printFile(path: string): Promise<boolean> {
+  if (Capacitor.isPluginAvailable('PianoooFiles')) {
+    await vfs.flush()
+    try { return (await (PianoooFiles as any).printFile({ path })).printed === true } catch { return false }
+  }
+  // Browser: print through a hidden frame
+  const bytes = await vfs.readFileAsync(path)
+  const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type: 'application/pdf' }))
+  const frame = document.createElement('iframe')
+  frame.style.cssText = 'position:fixed;width:0;height:0;border:0'
+  frame.src = url
+  document.body.appendChild(frame)
+  frame.onload = () => { frame.contentWindow?.print(); setTimeout(() => { frame.remove(); URL.revokeObjectURL(url) }, 60000) }
+  return true
+}
+
 // ── Zoom: the iPad equivalent of Ctrl +/− is the viewport scale ──────────────
 const zoomListeners = new Set<(d: { percent: number; capped: boolean }) => void>()
 function applyZoom(percent: number) {
@@ -199,7 +244,7 @@ function createApi(): Window['electronAPI'] {
       const [file] = await pickFiles()
       if (!file) return null
       if (!MIDI_EXT.test(file.name)) {
-        await showMessageBox({ buttons: ['OK'], message: 'Unsupported file type', detail: 'Orfeo opens .mid, .midi, .kar, MusicXML, Guitar Pro and Capella files.' })
+        await showMessageBox({ buttons: ['OK'], message: 'Unsupported file type', detail: 'Pianooo opens .mid, .midi, .kar, MusicXML, Guitar Pro and Capella files.' })
         return null
       }
       const bytes = await fileBytes(file)
@@ -225,7 +270,7 @@ function createApi(): Window['electronAPI'] {
       // No save panel on iPad: save next to where the desktop would suggest,
       // inside the library, never over an existing file
       const name = basename(opts.defaultPath || 'Untitled.mid')
-      return freePath(join(LIBRARY, 'Orfeo'), name)
+      return freePath(join(LIBRARY, 'Pianooo'), name)
     },
     saveMidiEditor: (payload) => call('editor:save', payload),
     saveMixerChannels: (payload) => call('mixer:save', payload),
@@ -338,7 +383,39 @@ function createApi(): Window['electronAPI'] {
     },
     onZoomChanged: (fn) => { zoomListeners.add(fn) },
     offZoomChanged: (fn) => { zoomListeners.delete(fn) },
+    takePendingOpenFiles,
+    // Sheet music (iPad only — see components/SheetView)
+    findSheet: async (midiPath: string) => findSheet(midiPath) ?? (await vfs.refresh(DOCUMENTS), findSheet(midiPath)),
+    sheetUrl: (path: string) => vfs.nativeUrl(path),
+    readSheet: (path: string) => vfs.readFileAsync(path),
+    printSheet: (path: string) => printFile(path),
+    shareSheet: (path: string) => shareFile(path),
   } as Window['electronAPI']
+}
+
+// ── Files opened from other apps (Safari download, Files, AirDrop) ──────────
+// The native side (ios/App/App/PianoooFilesPlugin.swift) has already copied
+// the file into the library; App.tsx listens for 'pianooo:open-file' and
+// opens it. A file that opened the app arrives before App.tsx listens — it
+// stays queued natively and App.tsx collects it with takePendingOpenFiles().
+interface PianoooFilesPlugin {
+  takePending(): Promise<{ paths: string[] }>
+  addListener(event: 'fileOpened', fn: (e: { path: string }) => void): Promise<{ remove(): Promise<void> }>
+}
+const PianoooFiles = registerPlugin<PianoooFilesPlugin>('PianoooFiles')
+let openListenerReady = false
+async function takePendingOpenFiles(): Promise<string[]> {
+  openListenerReady = true
+  if (!Capacitor.isPluginAvailable('PianoooFiles')) return []
+  try { return (await PianoooFiles.takePending()).paths } catch { return [] }
+}
+function listenForOpenedFiles() {
+  if (!Capacitor.isPluginAvailable('PianoooFiles')) return
+  void PianoooFiles.addListener('fileOpened', ({ path }) => {
+    if (!openListenerReady) return // collected later via takePendingOpenFiles
+    void PianoooFiles.takePending().catch(() => {}) // handled here — clear the queue
+    window.dispatchEvent(new CustomEvent('pianooo:open-file', { detail: path }))
+  })
 }
 
 /** Loads the iPad's files and installs window.electronAPI. Call before the app renders. */
@@ -349,4 +426,5 @@ export async function installIpadBridge(): Promise<void> {
   const zoom = loadPrefs().ipadZoom
   if (typeof zoom === 'number' && zoom !== 100) applyZoom(zoom)
   window.electronAPI = createApi()
+  listenForOpenedFiles()
 }

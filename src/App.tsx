@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
+import SheetView, { ViewToggle, sheetSupported, useSheetMode, useSheetPath } from './components/SheetView/SheetView'
 import TopBar from './components/Transport/TopBar'
 import PianoRoll from './components/PianoRoll/PianoRoll'
 import Keyboard from './components/Keyboard/Keyboard'
@@ -63,6 +64,8 @@ export default function App() {
   const keyboardMode = useStore((s) => s.keyboardMode)
   const appTheme = useStore((s) => s.appTheme)
   const presentationMode = useStore((s) => s.presentationMode)
+  const sheetPath = useSheetPath()
+  const sheetMode = useSheetMode((s) => s.mode)
   const noteEditorActive = useStore((s) => s.noteEditorActive)
   const { openFile } = useMidiFile()
   const { play, pause, stop } = usePlayback()
@@ -198,6 +201,22 @@ export default function App() {
     }
   }, [stop, showDropError, loadFileIntoPlayer])
 
+  // ── iPad: files opened from another app (Safari, Files, AirDrop …) ─────────
+  // The iPad bridge has already copied the file into the library; refresh the
+  // list so it shows up, then open it like a dropped file.
+  useEffect(() => {
+    const open = async (filePath: string) => {
+      const store = useStore.getState() as any
+      if (store.libraryFolder) store.setLibraryFiles(await window.electronAPI.scanMidiFolder(store.libraryFolder))
+      await loadDroppedFilePath(filePath)
+    }
+    const onOpen = (e: Event) => { void open((e as CustomEvent<string>).detail) }
+    window.addEventListener('pianooo:open-file', onOpen)
+    const take = (window.electronAPI as any).takePendingOpenFiles as (() => Promise<string[]>) | undefined
+    void take?.().then(paths => { if (paths.length) void open(paths[paths.length - 1]) })
+    return () => window.removeEventListener('pianooo:open-file', onOpen)
+  }, [loadDroppedFilePath])
+
   // ── Validate that a DataTransfer item is a supported file format ─────────────
   function isSupportedFile(file: File): boolean {
     return /\.(mid|midi|kar|musicxml|xml|mxl|gp|gp3|gp4|gp5|gpx|cap)$/i.test(file.name)
@@ -235,7 +254,7 @@ export default function App() {
     if (!file) return
 
     if (!isSupportedFile(file)) {
-      showDropError('Unsupported file type. Orfeo accepts .mid, .musicxml, .mxl, .gp/.gp5, .cap, and .kar files.')
+      showDropError('Unsupported file type. Pianooo accepts .mid, .musicxml, .mxl, .gp/.gp5, .cap, and .kar files.')
       return
     }
 
@@ -549,6 +568,9 @@ export default function App() {
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, overflow: 'hidden' }}>
           <div data-piano-roll-area style={{ flex: 1, minHeight: 0, position: 'relative', paddingTop: 6 }}>
             {midi ? <PianoRoll /> : <EmptyState />}
+            {/* iPad: sheet music instead of the falling notes (the roll keeps running underneath) */}
+            {midi && sheetSupported() && <ViewToggle hasSheet={!!sheetPath} />}
+            {midi && sheetPath && sheetMode === 'sheet' && <SheetView path={sheetPath} />}
             <CountInOverlay />
           </div>
           {keyboardMode === 'docked' && <Keyboard />}

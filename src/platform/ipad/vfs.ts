@@ -8,8 +8,9 @@
 // Virtual roots:
 //   /Documents  → the app's Documents folder (visible in the iPad Files app)
 //   /Data       → private app data (prefs, file log)
-// MIDI files are small, so holding the library in memory is cheap. Large files
-// (soundfonts) are never mirrored — see BIG_FILE_BYTES.
+// MIDI files are small, so holding the library in memory is cheap. Sheet music
+// (PDF) and anything large is only listed — name and size — and read from disk
+// when needed (readFileAsync). Soundfonts are never mirrored — see NOT_MIRRORED.
 
 import { Filesystem, Directory } from '@capacitor/filesystem'
 import { join, dirname, basename } from './path'
@@ -56,7 +57,10 @@ export const Buffer = {
 }
 
 // ── State ────────────────────────────────────────────────────────────────────
-interface Entry { data: Uint8Array; mtime: number; diskMtime?: number }
+// data === null: a listed-only file (PDF or large) whose bytes stay on disk
+interface Entry { data: Uint8Array | null; size: number; mtime: number; diskMtime?: number }
+const LISTED_ONLY = /\.pdf$/i
+const isListedOnly = (p: string, size: number) => LISTED_ONLY.test(p) || size > BIG_FILE_BYTES
 const files = new Map<string, Entry>()
 const dirs = new Set<string>(['/', DOCUMENTS, DATA])
 
@@ -107,6 +111,8 @@ function persistWrite(p: string, bytes: Uint8Array) {
     const entry = files.get(p)
     if (entry && entry.data === bytes) {
       try { entry.diskMtime = (await Filesystem.stat(toNative(p))).mtime } catch {}
+      // On disk now — sheet music needn't stay in memory
+      if (isListedOnly(p, bytes.length)) entry.data = null
     }
   })
 }
@@ -121,11 +127,11 @@ async function scanInto(dir: string, seen: Set<string>) {
   for (const f of entries) {
     const p = join(dir, f.name)
     if (f.type === 'directory') { await scanInto(p, seen); continue }
-    if (f.size > BIG_FILE_BYTES) continue
     seen.add(p)
     const known = files.get(p)
-    if (known && known.diskMtime === f.mtime && known.data.length === f.size) continue
-    try { files.set(p, { data: await readNative(p), mtime: f.mtime, diskMtime: f.mtime }) } catch {}
+    if (known && known.diskMtime === f.mtime && known.size === f.size) continue
+    if (isListedOnly(p, f.size)) { files.set(p, { data: null, size: f.size, mtime: f.mtime, diskMtime: f.mtime }); continue }
+    try { const data = await readNative(p); files.set(p, { data, size: data.length, mtime: f.mtime, diskMtime: f.mtime }) } catch {}
   }
 }
 
@@ -158,6 +164,7 @@ export function readFileSync(p: string, encoding: string): string
 export function readFileSync(p: string, encoding?: string): NodeBuffer | string {
   const e = files.get(norm(p))
   if (!e) throw fsError('ENOENT', `no such file: ${p}`)
+  if (!e.data) throw fsError('EAGAIN', `listed-only file, use readFileAsync: ${p}`)
   const buf = makeBuffer(e.data)
   return encoding ? buf.toString(encoding) : buf
 }
@@ -166,7 +173,7 @@ export function writeFileSync(p: string, data: string | Uint8Array | ArrayBuffer
   const n = norm(p)
   ensureDirChain(dirname(n))
   const bytes = toBytes(data)
-  files.set(n, { data: bytes, mtime: Date.now() })
+  files.set(n, { data: bytes, size: bytes.length, mtime: Date.now() })
   persistWrite(n, bytes)
 }
 
@@ -208,7 +215,7 @@ export function readdirSync(dir: string, opts?: { withFileTypes?: boolean }): st
 export function statSync(p: string) {
   const n = norm(p)
   const e = files.get(n)
-  if (e) return { size: e.data.length, mtimeMs: e.mtime, isFile: () => true, isDirectory: () => false }
+  if (e) return { size: e.size, mtimeMs: e.mtime, isFile: () => true, isDirectory: () => false }
   if (dirs.has(n)) return { size: 0, mtimeMs: 0, isFile: () => false, isDirectory: () => true }
   throw fsError('ENOENT', `no such file: ${p}`)
 }
@@ -231,7 +238,33 @@ export async function readdir(dir: string, opts?: { withFileTypes?: boolean }): 
   return opts?.withFileTypes ? readdirSync(dir, { withFileTypes: true }) : readdirSync(dir)
 }
 
-export async function readFile(p: string): Promise<NodeBuffer> { return readFileSync(p) }
+export async function readFile(p: string): Promise<NodeBuffer> { return makeBuffer(await readFileAsync(p)) }
+
+/** Bytes of any file, including listed-only ones (sheet music) */
+export async function readFileAsync(p: string): Promise<Uint8Array> {
+  const n = norm(p)
+  const e = files.get(n)
+  if (!e) throw fsError('ENOENT', `no such file: ${p}`)
+  if (e.data) return e.data
+  await flush()
+  return readNative(n)
+}
+
+/** A URL the web view can load directly (no base64 round trip), or null */
+export async function nativeUrl(p: string): Promise<string | null> {
+  try {
+    const { Capacitor } = await import('@capacitor/core')
+    if (!Capacitor.isNativePlatform()) return null
+    await flush()
+    const { uri } = await Filesystem.getUri(toNative(norm(p)))
+    return Capacitor.convertFileSrc(uri)
+  } catch { return null }
+}
+
+/** file:// URI for native APIs (print, share), or null */
+export async function fileUri(p: string): Promise<string | null> {
+  try { await flush(); return (await Filesystem.getUri(toNative(norm(p)))).uri } catch { return null }
+}
 
 export async function writeFile(p: string, data: string | Uint8Array | ArrayBuffer, opts?: { flag?: string }): Promise<void> {
   if (opts?.flag === 'wx' && existsSync(p)) throw fsError('EEXIST', `file exists: ${p}`)
@@ -239,6 +272,14 @@ export async function writeFile(p: string, data: string | Uint8Array | ArrayBuff
 }
 
 export async function copyFile(src: string, dest: string): Promise<void> {
+  const e = files.get(norm(src))
+  if (e && !e.data) {
+    const a = norm(src), b = norm(dest)
+    ensureDirChain(dirname(b))
+    files.set(b, { data: null, size: e.size, mtime: Date.now() })
+    persist(() => Filesystem.copy({ from: toNative(a).path, to: toNative(b).path, directory: toNative(a).directory, toDirectory: toNative(b).directory }))
+    return
+  }
   writeFileSync(dest, new Uint8Array(readFileSync(src)))
 }
 

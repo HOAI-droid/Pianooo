@@ -94,8 +94,8 @@ function parseHistoryFromMidi(midi: Midi): FileLogEvent[] {
 
 async function getOrfeoOutputDir(sourceFilePath: string): Promise<string> {
   const sourceDir = dirname(sourceFilePath)
-  const baseDir   = basename(sourceDir).toLowerCase() === 'orfeo' ? dirname(sourceDir) : sourceDir
-  const orfeoDir  = join(baseDir, 'Orfeo')
+  const baseDir   = basename(sourceDir).toLowerCase() === 'pianooo' ? dirname(sourceDir) : sourceDir
+  const orfeoDir  = join(baseDir, 'Pianooo')
   await mkdir(orfeoDir, { recursive: true })
   return orfeoDir
 }
@@ -117,7 +117,7 @@ function nextAvailableOrfeoPath(orfeoDir: string, rawBase: string): string {
 
 function isProtectedFolderName(name: string): boolean {
   const n = name.toLowerCase()
-  return n === 'demo' || n === 'orfeo'
+  return n === 'demo' || n === 'pianooo'
 }
 
 function isReadOnlyFolderName(name: string): boolean {

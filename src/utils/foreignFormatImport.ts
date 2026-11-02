@@ -110,7 +110,7 @@ export function getCachePath(sourcePath: string, libraryFolder: string | null): 
   const stem     = lastDot > -1 ? fileName.slice(0, lastDot) : fileName;
 
   if (libraryFolder) {
-    return `${libraryFolder.replace(/\\/g, '/')}/Orfeo/${stem}_ORFEO_IMPORTED.mid`;
+    return `${libraryFolder.replace(/\\/g, '/')}/Pianooo/${stem}_ORFEO_IMPORTED.mid`;
   }
   // Fallback: write beside the source (rare — user hasn't configured a library folder).
   const dir = sourcePath.replace(/\\/g, '/').split('/').slice(0, -1).join('/');
@@ -251,7 +251,7 @@ export async function confirmPendingImportBeforeEdit(): Promise<boolean> {
 
   const choice = await confirmDialog({
     message: `Save "${pendingImportedFile.fileName}" as a MIDI file before editing?`,
-    detail: `Orfeo's editing tools only work on real .mid files. This saves a copy at:\n${cachePath}\n\nThe original ${pendingImportedFile.fileName} is never modified.`,
+    detail: `Pianooo's editing tools only work on real .mid files. This saves a copy at:\n${cachePath}\n\nThe original ${pendingImportedFile.fileName} is never modified.`,
     buttons: ['Save as MID', 'Cancel'],
   });
 

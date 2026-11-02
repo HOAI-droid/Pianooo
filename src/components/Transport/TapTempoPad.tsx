@@ -244,7 +244,7 @@ export function TapTempoPad() {
                 <button onMouseDown={keepFocus} style={btn} onClick={tapAgain}>{t`Tap again`}</button>
                 <button onMouseDown={keepFocus} style={btn} onClick={cancelTap}>{t`Cancel`}</button>
               </div>
-              <span style={hint}>{t`Kept tempos are remembered by Orfeo every time you open this song (your MIDI file isn't changed). Right-click TAP later to adjust or remove them.`}</span>
+              <span style={hint}>{t`Kept tempos are remembered by Pianooo every time you open this song (your MIDI file isn't changed). Right-click TAP later to adjust or remove them.`}</span>
             </>
           )}
         </div>,

@@ -1,6 +1,6 @@
-# Pianooo – Orfeo für das iPad
+# Pianooo für das iPad – Details
 
-Pianooo ist [Orfeo](https://github.com/Squarebow/Orfeo) (GPLv3, von SquareBow) als
+Pianooo basiert auf [Orfeo](https://github.com/Squarebow/Orfeo) (GPLv3, von SquareBow) und ist dessen
 iPad-App. Die Oberfläche und die Lern-Funktionen sind dieselben wie in der
 Desktop-Version; neu sind:
 
@@ -9,7 +9,13 @@ Desktop-Version; neu sind:
   mehrere Finger gleichzeitig auf der Bildschirm-Tastatur (Akkorde),
   langes Drücken = Rechtsklick
 - **Bluetooth-MIDI und USB-MIDI** über CoreMIDI – z. B. **Kawai ES120**
-- **Start-Katalog mit 157 Stücken und Übungen** in 7 Stufen – von Clementis
+- **Fallende Noten oder Notenblatt:** Umschalter oben rechts; das Notenblatt
+  (PDF) füllt die ganze Fläche, blättern per Wischen, ‹ ›, Tippen an den Rand
+  oder Blätterpedal (Bild auf/ab); **Drucken** (AirPrint) und **Teilen**
+- **Öffnen aus anderen Apps:** In Safari, Dateien, Mail oder AirDrop eine
+  MIDI-/MusicXML-/Guitar-Pro-Datei › Teilen › **Pianooo** – sie landet in der
+  Bibliothek und wird sofort geöffnet
+- **Start-Katalog mit 157 Stücken und Übungen** in 7 Stufen, jeweils mit Noten-PDF – von Clementis
   Klavierschule über Hanon, Czerny, Burgmüller bis Chopin (siehe `KATALOG.md`)
 - **Bibliothek in der Dateien-App**: „Auf meinem iPad › Pianooo“. MIDI-Dateien
   einfach dort hineinlegen; Bearbeitungen und Audio-Exporte landen ebenfalls dort.
@@ -36,6 +42,10 @@ automatisch.
 
 ## App aufs iPad bringen
 
+**Fertige App:** [Pianooo.ipa](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa)
+(wird bei jeder Änderung auf `main` automatisch neu gebaut) – Installation siehe
+[SIDELOADING.md](SIDELOADING.md).
+
 **Variante A – Xcode (Mac nötig, kostenlose Apple-ID reicht):**
 
 ```bash
@@ -48,10 +58,8 @@ In Xcode: Target „App“ › Signing & Capabilities › eigenes Team wählen,
 iPad anschließen, ▶︎ drücken. (Mit kostenloser Apple-ID muss die App alle
 7 Tage neu installiert werden; mit Developer-Account 1 Jahr / TestFlight.)
 
-**Variante B – ohne Mac:** GitHub › Actions › „iPad“ baut bei jedem Push eine
-unsignierte `Pianooo-unsigned.ipa` (unter „Artifacts“). Diese mit
-[Sideloadly](https://sideloadly.io) oder AltStore und der eigenen Apple-ID
-installieren.
+**Variante B – ohne Mac:** die fertige `Pianooo.ipa` (Link oben) mit
+Sideloadly oder AltStore installieren, siehe [SIDELOADING.md](SIDELOADING.md).
 
 ## Entwicklung
 
@@ -68,11 +76,21 @@ Aufbau:
 - `src/platform/ipad/bridge.ts` – ersetzt `window.electronAPI` der Desktop-Version
 - `src/platform/ipad/vfs.ts` – Dateisystem (Documents/Data der App)
 - `src/platform/ipad/mainPort.generated.ts` – automatisch aus `electron/main.ts` übernommen
-- `src/platform/ipad/webMidi.ts` + `ios/App/App/OrfeoMidiPlugin.swift` – MIDI/Bluetooth
+- `src/platform/ipad/webMidi.ts` + `ios/App/App/PianoooMidiPlugin.swift` – MIDI/Bluetooth
 - `src/platform/ipad/touchShim.ts` – Touch → Maus
+- `src/components/SheetView/SheetView.tsx` – Notenblatt (pdf.js), Drucken, Teilen
+- `ios/App/App/PianoooFilesPlugin.swift` – Dateien aus anderen Apps, AirPrint
+- `scripts/fetch-catalog.py` – lädt den Katalog (MIDI + PDF) von Mutopia
 
 Orfeo-Updates übernehmen: `git fetch upstream && git merge upstream/main`,
 dann `npm run ipad:port`.
+
+## Notenblatt zu eigenen Songs
+
+Pianooo sucht neben `Song.mid` eine `Song.pdf` (gleicher Name, gleicher
+Ordner). Gespeicherte Versionen (`Pianooo/Song_ORFEO_v2.mid`) nutzen die PDF
+des Originals. Bei MuseScore.com z. B. MIDI und PDF herunterladen und beide in
+Dateien › Pianooo legen.
 
 ## Noch nicht auf dem iPad
 

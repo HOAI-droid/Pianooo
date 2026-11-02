@@ -27,7 +27,7 @@ Pflege: Stücke in `catalog/katalog.json` eintragen (Mutopia-ID), dann `python3 
 - 17 Haydn - Adagio (Lektion 27)
 - 18 Beethoven - Walzer (Lektion 39)
 
-## 2 Fingerübungen – Hanon & Czerny ★★ (20)
+## 2 Fingerübungen – Hanon und Czerny ★★ (20)
 
 - 01 Hanon - Übung 1
 - 02 Hanon - Übung 2
@@ -82,7 +82,7 @@ Pflege: Stücke in `catalog/katalog.json` eintragen (Mutopia-ID), dann `python3 
 - 28 Tschaikowsky - Marsch der Holzsoldaten op. 39 Nr. 5
 - 29 Tschaikowsky - Alte französische Weise op. 39 Nr. 16
 
-## 4 Etüden & Sonatinen ★★–★★★ (25)
+## 4 Etüden und Sonatinen ★★–★★★ (25)
 
 - 01 Czerny - Melodisches Übungsstück op. 840 Nr. 1
 - 02 Czerny - Melodisches Übungsstück op. 840 Nr. 2
@@ -166,7 +166,7 @@ Pflege: Stücke in `catalog/katalog.json` eintragen (Mutopia-ID), dann `python3 
 - 19 Liszt - Consolation Nr. 3
 - 20 Grieg - Hochzeitstag auf Troldhaugen op. 65 Nr. 6
 
-## 7 Ragtime & bekannte Melodien ★★★ (15)
+## 7 Ragtime und bekannte Melodien ★★★ (15)
 
 - 01 Joplin - Maple Leaf Rag
 - 02 Joplin - Elite Syncopations

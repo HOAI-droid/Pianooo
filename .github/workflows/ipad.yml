@@ -1,14 +1,26 @@
-# Builds the iPad app on a Mac and keeps an unsigned .ipa as a run artifact.
-# Runs on every push and on demand (Actions → iPad → Run workflow).
+# Builds Pianooo on a Mac: the iPad app and the Mac app (Mac Catalyst — the
+# same app in a Mac window).
 #
-# The .ipa is unsigned: install it with Sideloadly / AltStore (free Apple ID),
-# or open ios/App/App.xcodeproj in Xcode and run it on your iPad directly.
+# Every push: build check + both apps as run artifacts.
+# Push to main: additionally published as the GitHub Release "ipad-latest", so
+# the download links never change:
+#   https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa
+#   https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip
+#
+# Both are unsigned (no Apple developer account). Installation: SIDELOADING.md.
 name: iPad
 
 on:
   push:
     paths-ignore: ['**.md']
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ipad-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -38,18 +50,59 @@ jobs:
           set -o pipefail
           xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
             -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build \
+            CURRENT_PROJECT_VERSION=${{ github.run_number }} \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
-            build 2>&1 | grep -E "error:|warning: .*Orfeo|BUILD (SUCCEEDED|FAILED)|\*\*" || true
-          test -d build/Build/Products/Release-iphoneos/App.app
+            build 2>&1 | tee xcodebuild.log | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
+          test -d build/Build/Products/Release-iphoneos/Pianooo.app
+
+      - name: Show compiler errors
+        if: failure()
+        run: grep -E "error:" -A3 xcodebuild.log | head -80 || true
 
       - name: Package .ipa
         run: |
           mkdir -p Payload
-          cp -R build/Build/Products/Release-iphoneos/App.app Payload/
-          zip -qry Pianooo-unsigned.ipa Payload
+          cp -R build/Build/Products/Release-iphoneos/Pianooo.app Payload/
+          zip -qry Pianooo.ipa Payload
+          ls -lh Pianooo.ipa
+
+      - name: Build Mac app (Mac Catalyst, ad-hoc signed)
+        run: |
+          set -o pipefail
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
+            -destination 'generic/platform=macOS,variant=Mac Catalyst' -derivedDataPath build-mac \
+            CURRENT_PROJECT_VERSION=${{ github.run_number }} \
+            CODE_SIGN_IDENTITY="-" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="" PROVISIONING_PROFILE_SPECIFIER="" \
+            build 2>&1 | tee xcodebuild-mac.log | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
+          test -d build-mac/Build/Products/Release-maccatalyst/Pianooo.app
+
+      - name: Show Mac compiler errors
+        if: failure()
+        run: grep -E "error:" -A3 xcodebuild-mac.log | head -80 || true
+
+      - name: Package Mac app
+        run: |
+          cd build-mac/Build/Products/Release-maccatalyst
+          codesign --verify --verbose Pianooo.app || true
+          ditto -c -k --keepParent Pianooo.app "$GITHUB_WORKSPACE/Pianooo-Mac.zip"
+          ls -lh "$GITHUB_WORKSPACE/Pianooo-Mac.zip"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Pianooo-iPad-unsigned
-          path: Pianooo-unsigned.ipa
+          name: Pianooo-iPad-und-Mac
+          path: |
+            Pianooo.ipa
+            Pianooo-Mac.zip
           retention-days: 30
+
+      - name: Publish release "ipad-latest" (main only)
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete ipad-latest --yes --cleanup-tag 2>/dev/null || true
+          gh release create ipad-latest Pianooo.ipa Pianooo-Mac.zip \
+            --target "${GITHUB_SHA}" \
+            --title "Pianooo für iPad und Mac (aktueller Stand)" \
+            --notes "Automatisch gebaut aus main (${GITHUB_SHA::7}, Build ${{ github.run_number }}). Pianooo.ipa = iPad, Pianooo-Mac.zip = Mac. Unsigniert – Installation siehe SIDELOADING.md." \
+            --latest

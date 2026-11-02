@@ -17,7 +17,7 @@ export interface HandPreset { id: string; name: string; lh: string; rh: string }
 // both stay clear of amber, for normal vision and the three common kinds of
 // colour blindness. (Orfeo's pair is weakest for red-blind eyes.)
 export const HAND_PRESETS: HandPreset[] = [
-  { id: 'orfeo', name: t`Orfeo`,          lh: DEFAULT_HAND_LH, rh: DEFAULT_HAND_RH },
+  { id: 'orfeo', name: t`Pianooo`,          lh: DEFAULT_HAND_LH, rh: DEFAULT_HAND_RH },
   { id: 'bright', name: t`Bright`,        lh: '#4F8CFF', rh: '#FF5C8A' },
   { id: 'sky', name: t`Sky`,              lh: '#56B4E9', rh: '#D55E00' },  // sky blue & vermilion
   { id: 'mint', name: t`Mint`,            lh: '#5B5FD6', rh: '#4FC6A8' },  // indigo & mint
@@ -73,7 +73,7 @@ export function followedHandColor(color: string, prev: { lh: string; rh: string 
 }
 
 const AMBER = '#E8A027'
-const TOO_ALIKE = 0.1      // Orfeo's own pair is 0.19 apart
+const TOO_ALIKE = 0.1      // Pianooo's own pair is 0.19 apart
 const NEAR_AMBER = 0.08
 const TOO_DARK = 0.38      // OKLab lightness; the background is ~0.15
 
@@ -81,7 +81,7 @@ export function handColorWarnings(lh: string, rh: string): string[] {
   if (!isHex(lh) || !isHex(rh)) return []
   const w: string[] = []
   if (dist(lh, rh) < TOO_ALIKE) w.push(t`The two hands look very alike — notes may be hard to tell apart.`)
-  if (dist(lh, AMBER) < NEAR_AMBER || dist(rh, AMBER) < NEAR_AMBER) w.push(t`Close to Orfeo's amber, which marks the Explorers and lock-a-chord.`)
+  if (dist(lh, AMBER) < NEAR_AMBER || dist(rh, AMBER) < NEAR_AMBER) w.push(t`Close to Pianooo's amber, which marks the Explorers and lock-a-chord.`)
   if (oklab(lh)[0] < TOO_DARK || oklab(rh)[0] < TOO_DARK) w.push(t`Very dark — may be hard to see on the dark background.`)
   return w
 }

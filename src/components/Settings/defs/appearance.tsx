@@ -111,7 +111,7 @@ function HandColorsExtra() {
             color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-ui)', cursor: 'pointer' }}
           onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-amber)' }}
           onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-inactive)' }}>
-          <RotateCcw size={10} /> {t`Back to Orfeo's colours`}
+          <RotateCcw size={10} /> {t`Back to Pianooo's colours`}
         </button>
       )}
     </>
@@ -141,14 +141,14 @@ export const APPEARANCE_DEFS: SettingDef[] = [
   { id: 'theme', icon: Palette, kind: 'choice', Control: ThemeControl },
   { id: 'handColors', icon: Hand, kind: 'choice', Control: HandPresets, Extra: HandColorsExtra },
   { id: 'appZoom', icon: ZoomIn, kind: 'inline', Control: AppZoomControl, Glance: AppZoomGlance, glanceQuickOnly: true, Extra: AppZoomCap,
-    Description: () => <>{t`Makes everything in Orfeo bigger or smaller. Ctrl + / Ctrl − / Ctrl 0 work exactly as in a web browser.`} {t`Click`} <InlineIcon><RotateCcw size={10} /></InlineIcon> {t`to reset.`}</> },
+    Description: () => <>{t`Makes everything in Pianooo bigger or smaller. Ctrl + / Ctrl − / Ctrl 0 work exactly as in a web browser.`} {t`Click`} <InlineIcon><RotateCcw size={10} /></InlineIcon> {t`to reset.`}</> },
   {
     id: 'tooltips', icon: MessageSquare, kind: 'switch',
     Control: () => { const v = useStore(s => s.tooltipsEnabled); return <Switch value={v} onChange={useStore.getState().setTooltipsEnabled} label={t`Tooltips`} /> },
   },
   {
     id: 'supportNote', icon: Heart, kind: 'switch', Extra: SupportNotePreview,
-    Control: () => { const v = useStore(s => s.supportNoteEnabled); return <Switch value={v} onChange={useStore.getState().setSupportNoteEnabled} label={t`Enjoying Orfeo?`} /> },
+    Control: () => { const v = useStore(s => s.supportNoteEnabled); return <Switch value={v} onChange={useStore.getState().setSupportNoteEnabled} label={t`Enjoying Pianooo?`} /> },
   },
   {
     id: 'starmap', icon: Sparkles, kind: 'switch',

@@ -44,7 +44,7 @@ export function SupportNote() {
   return (
     <div
       role="dialog"
-      aria-label={t`Enjoying Orfeo?`}
+      aria-label={t`Enjoying Pianooo?`}
       style={{
         position: 'fixed', right: 24, bottom: 32, zIndex: 9900, width: store ? 340 : 400,
         background: 'var(--bg-modal)', border: '1px solid var(--border2)',
@@ -54,7 +54,7 @@ export function SupportNote() {
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', alignItems: 'center', marginBottom: 8 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 7, color: 'var(--text-amber)', fontFamily: 'var(--font-ui)', fontSize: 'var(--text-sm)', fontWeight: 600 }}>
           <Star size={13} strokeWidth={1.5} />
-          {t`Enjoying Orfeo?`}
+          {t`Enjoying Pianooo?`}
         </div>
         {!store && (
           <Tooltip title={t`Close`} oneLine placement="top">
@@ -68,10 +68,10 @@ export function SupportNote() {
       {store ? (
         <>
           <div style={{ color: 'var(--text-muted)', fontSize: 'var(--text-sm)', fontWeight: 400, lineHeight: 1.55 }}>
-            {t`Orfeo is here to make your musical journey a little more enjoyable, one note at a time. A rating in the Microsoft Store helps other musicians find it, and it only takes a moment.`}
+            {t`Pianooo is here to make your musical journey a little more enjoyable, one note at a time. A rating in the Microsoft Store helps other musicians find it, and it only takes a moment.`}
           </div>
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 14 }}>
-            <button style={btn(true)} onClick={() => void requestStoreReview()}>{t`Rate Orfeo`}</button>
+            <button style={btn(true)} onClick={() => void requestStoreReview()}>{t`Rate Pianooo`}</button>
             <button style={btn(false)} onClick={() => closeSupportNote('later')}>{t`Later`}</button>
             <button style={btn(false)} onClick={() => closeSupportNote('never')}>{t`Don't show again`}</button>
           </div>
@@ -79,7 +79,7 @@ export function SupportNote() {
       ) : (
         <>
           <div style={{ color: 'var(--text-muted)', fontSize: 'var(--text-sm)', fontWeight: 400, lineHeight: 1.55 }}>
-            {t`Orfeo is here to make your musical journey a little more enjoyable, one note at a time. It's free and made by one musician. Here's how you can help it grow.`}
+            {t`Pianooo is here to make your musical journey a little more enjoyable, one note at a time. It's free and made by one musician. Here's how you can help it grow.`}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'auto minmax(0, 1fr) auto', gap: 8, marginTop: 14 }}>
             <button style={btn(true)} onClick={() => visit(REVIEW_URL)}><Star size={13} strokeWidth={1.75} />{t`Review`}</button>

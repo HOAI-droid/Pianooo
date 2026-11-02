@@ -30,7 +30,7 @@ export interface MidiPrefs {
   maxVelocity: number             // cap on the resulting loudness
   duplicateFilterMs: number       // 0 = off; a repeat of the same key within this window is dropped
   controls: Record<ControlKind, boolean>
-  gmOutput: string                // '' = Orfeo's built-in General MIDI synth, else a MIDI output port name
+  gmOutput: string                // '' = Pianooo's built-in General MIDI synth, else a MIDI output port name
   seenDevices: string[]           // keyboards that already got their first-connection Settings pop-up
   lastDevice: string              // last keyboard actually played
 }

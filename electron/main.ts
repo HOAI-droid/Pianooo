@@ -20,7 +20,7 @@ import type { Hand } from '../src/types'
 // so without this every userData path (prefs, Demo/, soundfonts/, file
 // log) lands in a lowercase %APPDATA%\orfeo\ folder. Must run before any
 // app.getPath('userData') call anywhere in this file. ──────────────────────
-app.setName('Orfeo')
+app.setName('Pianooo')
 
 // ── Module-level window reference — needed by the close handler and IPC send ──────
 let mainWin: BrowserWindow | null = null
@@ -71,8 +71,8 @@ async function ensureDemoFolder(): Promise<void> {
 // output always lands in a single Orfeo/ level — never Orfeo/Orfeo/.
 async function getOrfeoOutputDir(sourceFilePath: string): Promise<string> {
   const sourceDir = dirname(sourceFilePath)
-  const baseDir   = basename(sourceDir).toLowerCase() === 'orfeo' ? dirname(sourceDir) : sourceDir
-  const orfeoDir  = join(baseDir, 'Orfeo')
+  const baseDir   = basename(sourceDir).toLowerCase() === 'pianooo' ? dirname(sourceDir) : sourceDir
+  const orfeoDir  = join(baseDir, 'Pianooo')
   await mkdir(orfeoDir, { recursive: true })
   return orfeoDir
 }
@@ -695,7 +695,7 @@ ipcMain.handle('fs:copyMidiToLibrary', async (_e, sourcePath: string, libraryFol
 // used as a move destination. ──────────────────────────────────────────────
 function isProtectedFolderName(name: string): boolean {
   const n = name.toLowerCase()
-  return n === 'demo' || n === 'orfeo'
+  return n === 'demo' || n === 'pianooo'
 }
 
 // ── Narrower than isProtectedFolderName — for FILES inside a protected

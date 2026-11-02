@@ -42,11 +42,11 @@ export default function QuickSettings() {
       })}
       {/* ── About — unchanged from the old drawer bottom ── */}
       <div style={{ padding: '14px 14px 10px', display: 'flex', alignItems: 'center', gap: 6 }}>
-        <Tooltip title="Open Orfeo on GitHub" oneLine>
-          <button onClick={() => window.electronAPI.openExternal('https://github.com/Squarebow/Orfeo')}
+        <Tooltip title="Pianooo auf GitHub" oneLine>
+          <button onClick={() => window.electronAPI.openExternal('https://github.com/HOAI-droid/Pianooo')}
             style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
             <OrfeoMark height={16} />
-            <span style={{ color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>Orfeo · v{__APP_VERSION__}</span>
+            <span style={{ color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>Pianooo · v{__APP_VERSION__}</span>
           </button>
         </Tooltip>
         <span style={{ color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>· © SquareBow</span>

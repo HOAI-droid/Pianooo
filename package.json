@@ -1,8 +1,8 @@
 {
-  "name": "orfeo",
-  "version": "1.6.0",
-  "description": "Modern piano learning app with MIDI visualization",
-  "author": "SquareBow",
+  "name": "pianooo",
+  "version": "1.0.0",
+  "description": "Piano learning app for iPad with MIDI, sheet music and Bluetooth MIDI — based on Orfeo by SquareBow",
+  "author": "HOAI-droid (based on Orfeo by SquareBow)",
   "license": "SEE LICENSE IN LICENSE.md",
   "main": "out/main/main.js",
   "type": "module",
@@ -25,15 +25,15 @@
     "ipad:open": "cap open ios"
   },
   "build": {
-    "appId": "com.squarebow.orfeo",
-    "productName": "Orfeo",
+    "appId": "com.hoaidroid.pianooo",
+    "productName": "Pianooo",
     "directories": {
       "output": "release"
     },
     "publish": {
       "provider": "github",
-      "owner": "Squarebow",
-      "repo": "Orfeo"
+      "owner": "HOAI-droid",
+      "repo": "Pianooo"
     },
     "files": [
       "out/**/*",
@@ -113,15 +113,15 @@
     },
     "appx": {
       "minVersion": "10.0.17763.0",
-      "applicationId": "Orfeo",
-      "identityName": "Squarebow.Orfeo",
+      "applicationId": "Pianooo",
+      "identityName": "HOAIdroid.Pianooo",
       "publisher": "CN=0D175E82-5309-4021-B6EE-10D4D85601F5",
-      "publisherDisplayName": "Squarebow",
-      "artifactName": "Orfeo-${version}.${ext}",
+      "publisherDisplayName": "HOAI-droid",
+      "artifactName": "Pianooo-${version}.${ext}",
       "showNameOnTiles": true
     },
     "nsis": {
-      "artifactName": "Orfeo-Setup-${version}.${ext}",
+      "artifactName": "Pianooo-Setup-${version}.${ext}",
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
@@ -159,6 +159,7 @@
     "jzz-midi-smf": "^1.9.9",
     "jzz-synth-tiny": "^1.4.4",
     "midi-file": "^1.2.4",
+    "pdfjs-dist": "6.3.289",
     "pdfkit": "^0.20.2",
     "pixi-filters": "^6.1.5",
     "pixi.js": "^8.22.0",

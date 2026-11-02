@@ -153,7 +153,7 @@ export default function ExportAudioDialog({ path, name, onClose }: { path: strin
           <Radio name="version" active={version === 'original'} title={t`Original`} onPick={() => setVersion('original')}>{t`The song as written: every instrument, its own tempo and key.`}</Radio>
           <Radio name="version" active={version === 'focus'} title={t`Focus`} onPick={() => setVersion('focus')}>{t`Keys, bass and drums only.`}</Radio>
           <Radio name="version" active={version === 'heard'} disabled={!open} title={t`As I hear it`} onPick={() => setVersion('heard')}>
-            {open ? t`Everything you've changed: tempo, key, muted parts, Mixer, loop.` : t`Only the song open in Orfeo can be exported as you hear it — open this one first.`}
+            {open ? t`Everything you've changed: tempo, key, muted parts, Mixer, loop.` : t`Only the song open in Pianooo can be exported as you hear it — open this one first.`}
           </Radio>
           {note && <div style={{ fontSize: 10, color: 'var(--text-amber)', margin: '4px 8px 0', fontFamily: 'var(--font-ui)' }}>{note.text}</div>}
 

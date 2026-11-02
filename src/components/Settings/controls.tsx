@@ -578,7 +578,7 @@ export function RateButton({ placement = 'left' }: { placement?: 'left' | 'right
   const store = useSupportNote((s) => s.store)
   if (!store) return null
   return (
-    <Tooltip title={t`Rate Orfeo in the Microsoft Store`} oneLine wrapperStyle={{ flexShrink: 0 }} placement={placement}>
+    <Tooltip title={t`Rate Pianooo in the Microsoft Store`} oneLine wrapperStyle={{ flexShrink: 0 }} placement={placement}>
       <button
         onClick={() => void requestStoreReview()}
         style={{
@@ -605,7 +605,7 @@ export function UpdateButton({ placement = 'left', showStatus = true }: { placem
     <>
       {showStatus && updateInfo.mode === 'auto' && updateStatus.state === 'up-to-date' && (
         <span style={{ fontSize: 9, color: 'var(--text-faint)', fontFamily: 'var(--font-ui)', whiteSpace: 'nowrap' }}>
-          Orfeo is up to date
+          Pianooo is up to date
         </span>
       )}
       {showStatus && updateInfo.mode === 'auto' && updateStatus.state === 'ready' && (
@@ -616,7 +616,7 @@ export function UpdateButton({ placement = 'left', showStatus = true }: { placem
       <Tooltip
         title={
           updateInfo.mode === 'manual'         ? t`Check for updates on orfeo.cc` :
-          updateInfo.mode === 'store'          ? t`Updates come from the Microsoft Store — click to open Orfeo there` :
+          updateInfo.mode === 'store'          ? t`Updates come from the Microsoft Store — click to open Pianooo there` :
           updateStatus.state === 'checking'    ? 'Checking for updates…' :
           updateStatus.state === 'downloading' ? `Downloading update${updateStatus.percent ? ` — ${Math.round(updateStatus.percent)}%` : '…'}` :
           updateStatus.state === 'ready'       ? `Update ${updateStatus.version ?? ''} ready — click to restart and install` :

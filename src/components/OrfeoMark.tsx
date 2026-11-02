@@ -1,6 +1,10 @@
-// ── Orfeo logo mark — shared component ─────────────────────────────────────
-// viewBox 0 0 133.39 150 → aspect ratio 133.39/150 ≈ 0.889
+// ── Pianooo logo mark (three piano keys) — shared component ──────────────────
+// Same box as the original mark (viewBox 0 0 133.39 150, aspect ≈ 0.889), so
+// every place that sizes it by height keeps its layout.
+import { useId } from 'react'
+
 export default function OrfeoMark({ height, style }: { height: number; style?: React.CSSProperties }) {
+  const mask = useId()
   return (
     <svg
       width={Math.round(height * 133.39 / 150)}
@@ -10,10 +14,19 @@ export default function OrfeoMark({ height, style }: { height: number; style?: R
       xmlns="http://www.w3.org/2000/svg"
       style={style}
     >
-      <path
-        fill="var(--text-amber)"
-        d="M125.1,116.43c-.73-2.49-3.06-4.21-5.7-4.21h-33.06v-.04h-33.73c-5.06,0-9.16-4.1-9.16-9.16h0c0-5.06,4.1-9.16,9.16-9.16h71.61c.29,0,.58.02.87.04h3.68c3.08,0,5.3-2.96,4.43-5.92l-8.1-27.66c-.73-2.49-3.06-4.21-5.7-4.21H52.29c-5.06,0-9.16-4.1-9.16-9.16h0c0-5.06,4.1-9.16,9.16-9.16h29.15s42.47,0,42.47,0h4.86c3.08,0,5.3-2.96,4.43-5.92l-8.1-27.66c-.73-2.49-3.06-4.21-5.7-4.21H51.66c-2.55,0-4.62,2.07-4.62,4.62v17.3c0,3.35-2.71,6.06-6.06,6.06H4.36c-2.91,0-5,2.96-4.18,5.91l7.64,27.66c.69,2.49,2.88,4.21,5.37,4.21h26.28c4.18,0,7.57,3.39,7.57,7.57v2.13c0,4.8-3.89,8.68-8.68,8.68H4.62c-3.08,0-5.3,2.96-4.43,5.92l8.1,27.66c.73,2.49,3.05,4.21,5.7,4.21h25.45c4.2,0,7.6,3.4,7.6,7.6v15.85c0,2.55,2.07,4.62,4.62,4.62h77.1c3.08,0,5.3-2.96,4.43-5.92l-8.1-27.66Z"
-      />
+      <defs>
+        <mask id={mask}>
+          <rect x="0" y="0" width="133.39" height="150" fill="#fff" />
+          {/* gaps between the white keys, and an outline around each black key */}
+          <rect x="38.5" y="0" width="9" height="150" fill="#000" />
+          <rect x="85.9" y="0" width="9" height="150" fill="#000" />
+          <rect x="22" y="-10" width="42" height="104" rx="9" fill="#000" />
+          <rect x="69.4" y="-10" width="42" height="104" rx="9" fill="#000" />
+        </mask>
+      </defs>
+      <rect x="0" y="0" width="133.39" height="150" rx="14" fill="var(--text-amber)" mask={`url(#${mask})`} />
+      <rect x="29" y="0" width="28" height="86" rx="6" fill="var(--text-amber)" />
+      <rect x="76.4" y="0" width="28" height="86" rx="6" fill="var(--text-amber)" />
     </svg>
   )
 }

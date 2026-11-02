@@ -119,8 +119,8 @@ function SoundEngineGlance() {
 // What the chosen engine is — only that one
 function SoundEngineDescription() {
   const audioEngine = useStore((s) => s.audioEngine)
-  if (audioEngine === 'gm') return <>{t`The simple synth built into Orfeo: light, always ready, no sound set needed. It sounds basic — good for slow computers, or for playing through an external instrument (MIDI Keyboard › General MIDI sound).`}</>
-  if (audioEngine === 'native') return <>{t`The same sound sets as Studio, played by Orfeo's own engine straight to your sound card: the shortest delay from key to sound. Windows only.`}</>
+  if (audioEngine === 'gm') return <>{t`The simple synth built into Pianooo: light, always ready, no sound set needed. It sounds basic — good for slow computers, or for playing through an external instrument (MIDI Keyboard › General MIDI sound).`}</>
+  if (audioEngine === 'native') return <>{t`The same sound sets as Studio, played by Pianooo's own engine straight to your sound card: the shortest delay from key to sound. Windows only.`}</>
   return <>{t`Real recorded instruments from a sound set (choose it under Sound Fonts). Plays through Windows' mixer like any other app, with its usual delay.`}</>
 }
 
@@ -146,9 +146,9 @@ function LowLatencyMode() {
     <>
       <LowLatencyButtons />
       <HelpText>{exclusive
-        ? t`Orfeo talks to your sound card directly, past Windows' mixer: the shortest delay from key to sound. Recommended when the delay between pressing a key and hearing it feels uncomfortable.`
-        : t`Orfeo shares the sound card with everything else, so you still hear YouTube, video calls and other apps alongside it. Windows adds its usual delay between key and sound.`}</HelpText>
-      {exclusive && <div style={{ marginTop: 6, fontSize: 'var(--text-xs)', color: 'var(--text-amber)', lineHeight: 1.5, fontFamily: 'var(--font-ui)' }}>{t`Orfeo takes over the whole sound card: other apps stay silent while Orfeo is open.`}</div>}
+        ? t`Pianooo talks to your sound card directly, past Windows' mixer: the shortest delay from key to sound. Recommended when the delay between pressing a key and hearing it feels uncomfortable.`
+        : t`Pianooo shares the sound card with everything else, so you still hear YouTube, video calls and other apps alongside it. Windows adds its usual delay between key and sound.`}</HelpText>
+      {exclusive && <div style={{ marginTop: 6, fontSize: 'var(--text-xs)', color: 'var(--text-amber)', lineHeight: 1.5, fontFamily: 'var(--font-ui)' }}>{t`Pianooo takes over the whole sound card: other apps stay silent while Pianooo is open.`}</div>}
       {autoLow && <HelpText>{t`Switches to Exclusive by itself when you plug in a keyboard — change that under MIDI Keyboard › Sound & Latency.`}</HelpText>}
     </>
   )

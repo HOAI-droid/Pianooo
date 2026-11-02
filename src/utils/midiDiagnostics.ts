@@ -68,9 +68,9 @@ export function getStats(): TimingStats {
 export interface DelayBreakdown {
   engine: 'gm' | 'samples' | 'native'
   synthBlockMs: number      // waiting for the synth's next 128-sample block (worst case)
-  chainMs: number           // Orfeo's own processing (Samples: 0 on the live path, 12 through the compressors)
+  chainMs: number           // Pianooo's own processing (Samples: 0 on the live path, 12 through the compressors)
   outputMs: number | null   // the sound card / Windows output; null = can't be measured for this output
-  externalOutput: string    // GM sent to a MIDI device instead of Orfeo's synth
+  externalOutput: string    // GM sent to a MIDI device instead of Pianooo's synth
 }
 export function getDelayBreakdown(): DelayBreakdown {
   const engine = useStore.getState().audioEngine

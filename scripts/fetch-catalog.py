@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """Downloads the starter catalog (catalog/katalog.json) from the Mutopia Project
-into public/Katalog/, and writes the credits every Creative Commons piece
-needs (public/Katalog/QUELLEN.md) plus catalog/katalog.lock.json.
+into public/Katalog/ — for every piece the MIDI file and its A4 sheet music
+(PDF, same name) — and writes the credits every Creative Commons piece needs
+(public/Katalog/QUELLEN.md) plus catalog/katalog.lock.json.
+
+Needs poppler-utils (pdfseparate, pdfunite) to cut single pieces out of a
+shared PDF such as a whole method book.
 
 Only real, published scores — nothing is generated here.
 
@@ -12,7 +16,10 @@ import html
 import io
 import json
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
 import time
 import urllib.request
 import zipfile
@@ -60,7 +67,20 @@ def piece_info(pid: int) -> dict:
         'url': INFO_URL.format(pid),
         'mid': next((l for l in links if l.endswith('.mid')), None),
         'midzip': next((l for l in links if l.endswith('mids.zip')), None),
+        'pdf': next((l for l in links if l.endswith('-a4.pdf')), None),
     }
+
+
+def extract_pages(src: Path, pages: str, dest: Path) -> None:
+    first, _, last = pages.partition('-')
+    last = last or first
+    with tempfile.TemporaryDirectory() as tmp:
+        subprocess.run(['pdfseparate', '-f', first, '-l', last, str(src), f'{tmp}/p-%d.pdf'], check=True)
+        parts = [f'{tmp}/p-{i}.pdf' for i in range(int(first), int(last) + 1)]
+        if len(parts) == 1:
+            shutil.copy(parts[0], dest)
+        else:
+            subprocess.run(['pdfunite', *parts, str(dest)], check=True)
 
 
 def safe(name: str) -> str:
@@ -72,6 +92,8 @@ def main():
     spec = json.loads(SPEC.read_text('utf-8'))
     infos: dict[int, dict] = {}
     zips: dict[int, zipfile.ZipFile] = {}
+    pdfs: dict[int, Path] = {}
+    pdf_cache = Path(tempfile.mkdtemp(prefix='mutopia-pdf-'))
     lock = []
     for folder in spec['folders']:
         fdir = OUT / safe(folder['name'])
@@ -100,8 +122,23 @@ def main():
                     raise SystemExit(f'{pid}: not a MIDI file')
                 dest.write_bytes(data)
                 print('  +', dest.relative_to(OUT))
+            pdf_dest = dest.with_suffix('.pdf')
+            if info['pdf'] and (force or not pdf_dest.exists()):
+                if pid not in pdfs:
+                    pdfs[pid] = pdf_cache / f'{pid}.pdf'
+                    data = get(info['pdf'])
+                    if not data.startswith(b'%PDF'):
+                        raise SystemExit(f'{pid}: not a PDF')
+                    pdfs[pid].write_bytes(data)
+                    time.sleep(0.2)
+                if piece.get('pages'):
+                    extract_pages(pdfs[pid], piece['pages'], pdf_dest)
+                else:
+                    shutil.copy(pdfs[pid], pdf_dest)
+                print('  +', pdf_dest.relative_to(OUT))
             lock.append({
                 'folder': folder['name'], 'file': dest.name, 'id': pid, 'member': member,
+                'sheet': pdf_dest.name if pdf_dest.exists() else None, 'pages': piece.get('pages'),
                 'title': info['title'], 'composer': info['composer'], 'license': info['license'],
                 'maintainer': info['maintainer'], 'source': info['source'], 'url': info['url'],
             })

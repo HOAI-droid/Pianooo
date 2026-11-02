@@ -59,7 +59,7 @@ export default function EmptyState() {
           {/* Hand-lettered title, amber */}
           <div style={{ marginBottom: 8 }}><FaceTheMusicMark width={300} fill="var(--text-amber)" /></div>
           <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-muted)' }}>
-            Orfeo supports MIDI, Karaoke, MusicXML, Guitar Pro, and Capella file formats.<br />
+            Pianooo supports MIDI, Karaoke, MusicXML, Guitar Pro, and Capella file formats.<br />
             Drag any supported file here, or click Open a file to begin.
           </span>
 

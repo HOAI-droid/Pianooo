@@ -13,8 +13,8 @@ export const LIBRARY_DEFS: SettingDef[] = [
     Description: () => {
       const hidden = useStore(s => s.hideDemoFolder)
       return <>{hidden
-        ? t`The demo songs that come with Orfeo are hidden from your Library. Turn on to show them again.`
-        : t`The demo songs that come with Orfeo are shown in your Library. Turn off to hide them — nothing is deleted.`}</>
+        ? t`The demo songs that come with Pianooo are hidden from your Library. Turn on to show them again.`
+        : t`The demo songs that come with Pianooo are shown in your Library. Turn off to hide them — nothing is deleted.`}</>
     },
   },
   {
