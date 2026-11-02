@@ -100,8 +100,18 @@ xcodebuild -workspace "$OUT/App/App.xcworkspace" -scheme App -configuration Rele
   -destination 'generic/platform=macOS,variant=Mac Catalyst' -derivedDataPath build-mac \
   CURRENT_PROJECT_VERSION="${BUILD_NUMBER:-1}" \
   CODE_SIGN_IDENTITY="-" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="" PROVISIONING_PROFILE_SPECIFIER="" \
+  ENABLE_HARDENED_RUNTIME=NO \
   build 2>&1 | tee xcodebuild-mac.log | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
 # A failed build can leave a half-made .app behind — insist on a real one
 grep -q "BUILD SUCCEEDED" xcodebuild-mac.log
 test -f build-mac/Build/Products/Release-maccatalyst/Pianooo.app/Contents/MacOS/Pianooo
-echo "Built build-mac/Build/Products/Release-maccatalyst/Pianooo.app"
+
+# One consistent ad-hoc signature for the app and everything inside it.
+# Xcode signs the app, while the CocoaPods frameworks come out signed
+# differently — macOS then refuses to load them ("different Team IDs").
+APP=build-mac/Build/Products/Release-maccatalyst/Pianooo.app
+find "$APP/Contents/Frameworks" -depth 1 \( -name '*.framework' -o -name '*.dylib' \) -print0 \
+  | xargs -0 -I{} codesign --force --sign - --timestamp=none {}
+codesign --force --sign - --timestamp=none --entitlements ios/App/App/Pianooo-Mac.entitlements "$APP"
+codesign --verify --deep --strict --verbose=2 "$APP"
+echo "Built $APP"
