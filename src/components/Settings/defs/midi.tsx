@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ComponentType, type ReactNode } from 'react'
-import { KeyboardMusic, Zap, Timer, Speaker, Feather, Copy, Footprints, Stethoscope, Wrench, RefreshCw, FileDown, Plug } from 'lucide-react'
+import { KeyboardMusic, Zap, Timer, Speaker, Feather, Copy, Footprints, Stethoscope, Wrench, RefreshCw, FileDown, Plug, Bluetooth } from 'lucide-react'
 import { useStore } from '../../../store'
 import { t } from '../../../utils/i18n'
 import { OptionBtn, Switch, SettingsDropdown, HelpText, GlanceLine, ZoomStepBtn } from '../controls'
@@ -121,8 +121,20 @@ function KeyboardsControl() {
   )
 }
 
+// iPad app only: Bluetooth MIDI keyboards are paired from inside the app
+// (Apple's Bluetooth MIDI dialog), not in the iPad's Bluetooth settings
+const ipadBluetooth = (window as any).orfeoIpad?.showBluetoothMidi as (() => Promise<void>) | undefined
+function BluetoothMidiButton() {
+  if (!ipadBluetooth) return null
+  return (
+    <div style={{ marginTop: 10 }}>
+      <ActionBtn onClick={() => { void ipadBluetooth().then(() => rescanMidiDevices()).catch(() => {}) }} icon={<Bluetooth size={11} strokeWidth={1.5} />}>{t`Connect Bluetooth keyboard…`}</ActionBtn>
+    </div>
+  )
+}
+
 function KeyboardsExtra() {
-  return simAvailable ? <SimulatorPanel /> : null
+  return <>{simAvailable ? <SimulatorPanel /> : null}<BluetoothMidiButton /></>
 }
 
 // ── Reconnect automatically ──────────────────────────────────────────────────

@@ -17,7 +17,12 @@
     "dist:portable": "npm run copyworklet && npm run check:hand-engine && npm run native:build && electron-vite build --mode test-build && electron-builder --win portable",
     "release:notes": "node scripts/release-notes.mjs",
     "native:build": "node scripts/build-native.mjs",
-    "i18n:extract": "node scripts/i18n-extract.mjs"
+    "i18n:extract": "node scripts/i18n-extract.mjs",
+    "ipad:port": "node scripts/ipad-port-main.mjs",
+    "ipad:build": "npm run copyworklet && npm run ipad:port && vite build --config vite.ipad.config.ts",
+    "ipad:dev": "npm run copyworklet && npm run ipad:port && vite --config vite.ipad.config.ts --host",
+    "ipad:sync": "npm run ipad:build && cap sync ios",
+    "ipad:open": "cap open ios"
   },
   "build": {
     "appId": "com.squarebow.orfeo",
@@ -139,6 +144,11 @@
     }
   },
   "dependencies": {
+    "@capacitor/browser": "8.0.5",
+    "@capacitor/core": "8.5.3",
+    "@capacitor/filesystem": "8.1.4",
+    "@capacitor/ios": "8.5.3",
+    "@capacitor/share": "8.0.3",
     "@coderline/alphatab": "^1.8.4",
     "@tonejs/midi": "^2.0.28",
     "electron-updater": "^6.8.11",
@@ -162,6 +172,7 @@
     "zustand": "^5.0.16"
   },
   "devDependencies": {
+    "@capacitor/cli": "8.5.3",
     "@types/pdfkit": "^0.17.7",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
