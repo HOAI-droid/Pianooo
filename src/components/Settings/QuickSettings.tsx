@@ -49,7 +49,14 @@ export default function QuickSettings() {
             <span style={{ color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>Pianooo · v{__APP_VERSION__}</span>
           </button>
         </Tooltip>
-        <span style={{ color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>· © SquareBow</span>
+        {/* GPL-3.0 §5: a modified version keeps showing the original author's
+            notice — Pianooo first, Orfeo credited as its origin */}
+        <Tooltip title="Pianooo is based on Orfeo by SquareBow (GPL-3.0)" oneLine>
+          <button onClick={() => window.electronAPI.openExternal('https://github.com/Squarebow/Orfeo')}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>
+            · based on Orfeo © SquareBow
+          </button>
+        </Tooltip>
       </div>
     </>
   )
