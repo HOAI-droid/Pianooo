@@ -1738,7 +1738,7 @@ export default function SettingsPanel() {
           }}>
             <Tooltip title="Open user manual" oneLine wrapperStyle={{ flex: 1, minWidth: 0 }}>
             <button
-              onClick={() => window.electronAPI.openExternal('https://orfeo.cc/docs')}
+              onClick={() => window.electronAPI.openExternal('https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md')}
               style={{
                 flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: 7,
                 background: 'transparent', border: 'none', cursor: 'pointer',

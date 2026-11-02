@@ -42,24 +42,24 @@ export interface SettingInfo {
 }
 
 export const GROUPS: GroupInfo[] = [
-  { id: 'audio', name: t`Audio`, intro: t`Set your audio preferences`, manualUrl: 'https://orfeo.cc/docs/playing-midi-files' },
-  { id: 'midi', name: t`MIDI Keyboard`, intro: t`Manage your keyboards`, manualUrl: 'https://orfeo.cc/docs/settings/midi-keyboard-settings',
+  { id: 'audio', name: t`Audio`, intro: t`Set your audio preferences`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#audio' },
+  { id: 'midi', name: t`MIDI Keyboard`, intro: t`Manage your keyboards`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#midi-keyboard',
     tabs: [
       { name: t`Keyboards`, ids: ['midiKeyboards', 'midiTools', 'midiReconnect'], columns: 3, aside: 'noKeyboards' },
       { name: t`Sound & Latency`, ids: ['delayCheck', 'liveResponse', 'latencyOffset', 'gmOutput'], stack: [['delayCheck'], ['liveResponse'], ['latencyOffset', 'gmOutput']], aside: 'keyToSpeaker' },
       { name: t`Touch & pedals`, ids: ['touchResponse', 'pedalsControls', 'duplicateFilter'] },
     ] },
-  { id: 'midi-files-library', name: t`MIDI Files & Library`, intro: t`Organise your library`, manualUrl: 'https://orfeo.cc/docs/managing-midi-files' },
-  { id: 'playback-editing', name: t`Playback`, intro: t`Shape playback`, manualUrl: 'https://orfeo.cc/docs/playing-midi-files',
+  { id: 'midi-files-library', name: t`MIDI Files & Library`, intro: t`Organise your library`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#midi-files--library' },
+  { id: 'playback-editing', name: t`Playback`, intro: t`Shape playback`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#playback',
     stack: [['tapTempo', 'loopRegion', 'focusMode'], ['tempoWarnings', 'preciseScrubTime', 'explorerPause'], ['countIn', 'skipEmptyBars']] },
-  { id: 'practice', name: t`Practice`, intro: t`Tools for practising`, manualUrl: 'https://orfeo.cc/docs/practicing-with-midi-files' },
-  { id: 'editing', name: t`Editing`, intro: t`Edit your songs`, manualUrl: 'https://orfeo.cc/docs/editing-midi-files',
+  { id: 'practice', name: t`Practice`, intro: t`Tools for practising`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#practice' },
+  { id: 'editing', name: t`Editing`, intro: t`Edit your songs`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#editing',
     stack: [['handAssignment'], ['noteEditor'], ['trackVu']], looseFirst: true },
-  { id: 'notation', name: t`Chords & Notation`, intro: t`Read chords and notes`, manualUrl: 'https://orfeo.cc/docs/practicing-with-midi-files/how-orfeo-reads-chords' },
-  { id: 'keyboard', name: t`Virtual Keyboard`, intro: t`Set up the keyboard`, manualUrl: 'https://orfeo.cc/docs/playing-midi-files/the-virtual-keyboard' },
-  { id: 'piano-roll', name: t`Piano Roll`, intro: t`Tune the falling notes`, manualUrl: 'https://orfeo.cc/docs/playing-midi-files/the-piano-roll',
+  { id: 'notation', name: t`Chords & Notation`, intro: t`Read chords and notes`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#chords--notation' },
+  { id: 'keyboard', name: t`Virtual Keyboard`, intro: t`Set up the keyboard`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#virtual-keyboard' },
+  { id: 'piano-roll', name: t`Piano Roll`, intro: t`Tune the falling notes`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#piano-roll',
     stack: [['visualEffects'], ['rollZoom'], ['barNumbers', 'playbar']], looseFirst: true },
-  { id: 'appearance', name: t`Appearance`, intro: t`Change the look`, manualUrl: 'https://orfeo.cc/docs/settings/appearance-settings' },
+  { id: 'appearance', name: t`Appearance`, intro: t`Change the look`, manualUrl: 'https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md#appearance' },
 ]
 
 export const SETTINGS: SettingInfo[] = [

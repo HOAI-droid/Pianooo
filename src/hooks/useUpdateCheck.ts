@@ -7,7 +7,7 @@ import type { UpdateStatus, UpdateInfo } from '../types'
 // exactly once (useUpdateService, mounted in SettingsPanel). ─────────────
 export const useUpdateState = create<{ status: UpdateStatus; info: UpdateInfo }>(() => ({
   status: { state: 'idle' },
-  info: { mode: 'manual', downloadUrl: 'https://orfeo.cc/download' },
+  info: { mode: 'manual', downloadUrl: 'https://github.com/HOAI-droid/Pianooo/releases/tag/ipad-latest' },
 }))
 const setStatus = (status: UpdateStatus) => useUpdateState.setState({ status })
 

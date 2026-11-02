@@ -25,6 +25,8 @@
 - Bedienung per Finger: Ziehen, Akkorde mit mehreren Fingern, langes Drücken
   = Kontextmenü
 
+**Handbuch:** [docs/HANDBUCH.md](docs/HANDBUCH.md) – Bedienung, Notenblatt, eigene Songs, alle Einstellungen
+
 Details zur iPad-Version, Bluetooth und zum Selberbauen: [IPAD.md](IPAD.md)
 
 ## Herkunft und Lizenz

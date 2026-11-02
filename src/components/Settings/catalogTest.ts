@@ -8,7 +8,7 @@ export function runCatalogTest(): number {
 
   // 1. 9 groups in the drawing's order (MIDI Keyboard last), each with intro + orfeo.cc manual link
   check(GROUPS.map(g => g.id).join() === 'audio,midi,midi-files-library,playback-editing,practice,editing,notation,keyboard,piano-roll,appearance', 'group order')
-  check(GROUPS.every(g => g.intro.length > 5 && g.intro.length <= 40 && !g.intro.includes('Orfeo') && g.manualUrl.startsWith('https://orfeo.cc/docs')), 'short heading (no "Orfeo") + manual url on every group')
+  check(GROUPS.every(g => g.intro.length > 5 && g.intro.length <= 40 && !g.intro.includes('Pianooo') && g.manualUrl.startsWith('https://github.com/HOAI-droid/Pianooo/blob/main/docs/HANDBUCH.md')), 'short heading (no "Orfeo") + manual url on every group')
 
   // 2. unique ids, every setting in a known group, every group non-empty, sizes per spec §4
   const ids = SETTINGS.map(s => s.id)
