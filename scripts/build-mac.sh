@@ -22,6 +22,25 @@ tar -xzf node_modules/@capacitor/cli/assets/ios-pods-template.tar.gz -C "$OUT"
 rsync -a --exclude '*.xcodeproj' ios/App/App/ "$OUT/App/App/"
 test -f "$OUT/App/App/capacitor.config.json" || { echo "run npm run ipad:sync first"; exit 1; }
 
+# The Filesystem plugin's helper library ships as an iOS-only binary on
+# CocoaPods; for the Mac it is compiled from its open-source code instead
+git clone --depth 1 --branch 2.0.1 https://github.com/ionic-team/ion-ios-filesystem.git "$OUT/IONFilesystemLib" 2>/dev/null \
+  || git clone --depth 1 https://github.com/ionic-team/ion-ios-filesystem.git "$OUT/IONFilesystemLib"
+cat > "$OUT/IONFilesystemLib/IONFilesystemLib.podspec" <<'EOF'
+Pod::Spec.new do |s|
+  s.name          = 'IONFilesystemLib'
+  s.version       = '2.0.1'
+  s.summary       = 'Library for accessing the file system (built from source for Mac Catalyst).'
+  s.homepage      = 'https://github.com/ionic-team/ion-ios-filesystem'
+  s.license       = { :type => 'MIT', :file => 'LICENSE' }
+  s.author        = 'OutSystems Mobile Ecosystem'
+  s.source        = { :git => 'https://github.com/ionic-team/ion-ios-filesystem.git' }
+  s.source_files  = 'IONFilesystemLib/**/*.swift'
+  s.ios.deployment_target = '15.0'
+  s.swift_versions = ['5.9']
+end
+EOF
+
 cat > "$OUT/App/Podfile" <<'EOF'
 require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
 
@@ -34,6 +53,7 @@ target 'App' do
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorBrowser', :path => '../../node_modules/@capacitor/browser'
   pod 'CapacitorFilesystem', :path => '../../node_modules/@capacitor/filesystem'
+  pod 'IONFilesystemLib', :path => '../IONFilesystemLib'
   pod 'CapacitorShare', :path => '../../node_modules/@capacitor/share'
 end
 
@@ -81,5 +101,7 @@ xcodebuild -workspace "$OUT/App/App.xcworkspace" -scheme App -configuration Rele
   CURRENT_PROJECT_VERSION="${BUILD_NUMBER:-1}" \
   CODE_SIGN_IDENTITY="-" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="" PROVISIONING_PROFILE_SPECIFIER="" \
   build 2>&1 | tee xcodebuild-mac.log | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
-test -d build-mac/Build/Products/Release-maccatalyst/Pianooo.app
+# A failed build can leave a half-made .app behind — insist on a real one
+grep -q "BUILD SUCCEEDED" xcodebuild-mac.log
+test -f build-mac/Build/Products/Release-maccatalyst/Pianooo.app/Contents/MacOS/Pianooo
 echo "Built build-mac/Build/Products/Release-maccatalyst/Pianooo.app"

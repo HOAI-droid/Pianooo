@@ -11,7 +11,4 @@ class PianoooBridgeViewController: CAPBridgeViewController {
         webView?.scrollView.bounces = false
         webView?.scrollView.pinchGestureRecognizer?.isEnabled = false
     }
-
-    override var prefersHomeIndicatorAutoHidden: Bool { true }
-    override var prefersStatusBarHidden: Bool { true }
 }

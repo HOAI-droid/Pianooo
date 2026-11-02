@@ -53,7 +53,9 @@ jobs:
             CURRENT_PROJECT_VERSION=${{ github.run_number }} \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             build 2>&1 | tee xcodebuild.log | grep -E "error:|BUILD (SUCCEEDED|FAILED)" || true
-          test -d build/Build/Products/Release-iphoneos/Pianooo.app
+          # A failed build can leave a half-made .app behind — insist on a real one
+          grep -q "BUILD SUCCEEDED" xcodebuild.log
+          test -f build/Build/Products/Release-iphoneos/Pianooo.app/Pianooo
 
       - name: Show compiler errors
         if: failure()
