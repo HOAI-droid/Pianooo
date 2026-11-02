@@ -12,10 +12,10 @@ import CoreAudioKit
 /// Bluetooth MIDI keyboards are paired with Apple's Bluetooth MIDI dialog
 /// (showBluetoothPairing). Once paired there, the keyboard is a normal CoreMIDI
 /// source and destination.
-@objc(OrfeoMidiPlugin)
-public class OrfeoMidiPlugin: CAPPlugin, CAPBridgedPlugin, UIAdaptivePresentationControllerDelegate {
-    public let identifier = "OrfeoMidiPlugin"
-    public let jsName = "OrfeoMidi"
+@objc(PianoooMidiPlugin)
+public class PianoooMidiPlugin: CAPPlugin, CAPBridgedPlugin, UIAdaptivePresentationControllerDelegate {
+    public let identifier = "PianoooMidiPlugin"
+    public let jsName = "PianoooMidi"
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "listDevices", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "send", returnType: CAPPluginReturnPromise),
@@ -30,7 +30,7 @@ public class OrfeoMidiPlugin: CAPPlugin, CAPBridgedPlugin, UIAdaptivePresentatio
     private var pairingCall: CAPPluginCall?
 
     override public func load() {
-        let status = MIDIClientCreateWithBlock("Orfeo" as CFString, &client) { [weak self] notification in
+        let status = MIDIClientCreateWithBlock("Pianooo" as CFString, &client) { [weak self] notification in
             guard let self = self else { return }
             if notification.pointee.messageID == .msgSetupChanged {
                 self.connectAllSources()
@@ -38,15 +38,15 @@ public class OrfeoMidiPlugin: CAPPlugin, CAPBridgedPlugin, UIAdaptivePresentatio
             }
         }
         guard status == noErr else {
-            CAPLog.print("[OrfeoMidi] MIDIClientCreate failed: \(status)")
+            CAPLog.print("[PianoooMidi] MIDIClientCreate failed: \(status)")
             return
         }
-        MIDIInputPortCreateWithProtocol(client, "Orfeo In" as CFString, ._1_0, &inPort) { [weak self] eventList, srcRefCon in
+        MIDIInputPortCreateWithProtocol(client, "Pianooo In" as CFString, ._1_0, &inPort) { [weak self] eventList, srcRefCon in
             guard let self = self, let refCon = srcRefCon else { return }
             let sourceId = String(Int32(truncatingIfNeeded: Int(bitPattern: refCon)))
             self.receive(eventList, from: sourceId)
         }
-        MIDIOutputPortCreate(client, "Orfeo Out" as CFString, &outPort)
+        MIDIOutputPortCreate(client, "Pianooo Out" as CFString, &outPort)
         connectAllSources()
     }
 

@@ -1,6 +1,6 @@
 // ── Web MIDI on iPad ─────────────────────────────────────────────────────────
 // iPadOS web views have no Web MIDI (navigator.requestMIDIAccess). The app's
-// native OrfeoMidi plugin (ios/App/App/OrfeoMidiPlugin.swift) talks to CoreMIDI
+// native PianoooMidi plugin (ios/App/App/PianoooMidiPlugin.swift) talks to CoreMIDI
 // — USB keyboards and Bluetooth LE MIDI keyboards such as the Kawai ES120 —
 // and this file presents it as the standard Web MIDI API, so Orfeo's own MIDI
 // keyboard code (hooks/useMidiInput.ts) and the General MIDI output (JZZ)
@@ -9,7 +9,7 @@
 import { Capacitor, registerPlugin, type PluginListenerHandle } from '@capacitor/core'
 
 interface NativeEndpoint { id: string; name: string; manufacturer: string }
-interface OrfeoMidiPlugin {
+interface PianoooMidiPlugin {
   listDevices(): Promise<{ inputs: NativeEndpoint[]; outputs: NativeEndpoint[] }>
   send(opts: { id: string; data: number[] }): Promise<void>
   showBluetoothPairing(): Promise<void>
@@ -17,7 +17,7 @@ interface OrfeoMidiPlugin {
   addListener(event: 'devicesChanged', fn: () => void): Promise<PluginListenerHandle>
 }
 
-export const OrfeoMidi = registerPlugin<OrfeoMidiPlugin>('OrfeoMidi')
+export const PianoooMidi = registerPlugin<PianoooMidiPlugin>('PianoooMidi')
 
 type PortState = 'connected' | 'disconnected'
 
@@ -35,7 +35,7 @@ class Port extends EventTarget {
     // Drop SysEx: nothing in Orfeo needs it and BLE links choke on large ones
     const bytes = Array.from(data)
     if (!bytes.length || bytes[0] === 0xF0) return
-    void OrfeoMidi.send({ id: this.id, data: bytes }).catch(() => {})
+    void PianoooMidi.send({ id: this.id, data: bytes }).catch(() => {})
   }
   clear() {}
   deliver(bytes: number[]) {
@@ -79,7 +79,7 @@ function sync(map: Map<string, Port>, list: NativeEndpoint[], type: 'input' | 'o
 }
 
 async function refreshDevices() {
-  const { inputs: ins, outputs: outs } = await OrfeoMidi.listDevices()
+  const { inputs: ins, outputs: outs } = await PianoooMidi.listDevices()
   const changed = [...sync(inputs, ins, 'input'), ...sync(outputs, outs, 'output')]
   for (const p of changed) {
     const e = new Event('statechange')
@@ -91,8 +91,8 @@ async function refreshDevices() {
 let ready: Promise<void> | null = null
 function start(): Promise<void> {
   ready ??= (async () => {
-    await OrfeoMidi.addListener('midiMessage', ({ id, data }) => inputs.get(id)?.deliver(data))
-    await OrfeoMidi.addListener('devicesChanged', () => { void refreshDevices() })
+    await PianoooMidi.addListener('midiMessage', ({ id, data }) => inputs.get(id)?.deliver(data))
+    await PianoooMidi.addListener('devicesChanged', () => { void refreshDevices() })
     await refreshDevices()
   })()
   return ready
@@ -100,7 +100,7 @@ function start(): Promise<void> {
 
 /** Installs navigator.requestMIDIAccess backed by CoreMIDI (iPad app only). */
 export function installWebMidi() {
-  if (!Capacitor.isPluginAvailable('OrfeoMidi')) return
+  if (!Capacitor.isPluginAvailable('PianoooMidi')) return
   const requestMIDIAccess = async () => {
     await start()
     const a = new Access()
@@ -109,7 +109,7 @@ export function installWebMidi() {
   }
   Object.defineProperty(navigator, 'requestMIDIAccess', { value: requestMIDIAccess, configurable: true, writable: true })
   // Shown in Settings → MIDI Keyboard
-  ;(window as any).orfeoIpad = {
-    showBluetoothMidi: () => OrfeoMidi.showBluetoothPairing(),
+  ;(window as any).pianoooIpad = {
+    showBluetoothMidi: () => PianoooMidi.showBluetoothPairing(),
   }
 }

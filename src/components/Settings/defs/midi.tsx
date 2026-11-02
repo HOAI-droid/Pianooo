@@ -123,7 +123,7 @@ function KeyboardsControl() {
 
 // iPad app only: Bluetooth MIDI keyboards are paired from inside the app
 // (Apple's Bluetooth MIDI dialog), not in the iPad's Bluetooth settings
-const ipadBluetooth = (window as any).orfeoIpad?.showBluetoothMidi as (() => Promise<void>) | undefined
+const ipadBluetooth = (window as any).pianoooIpad?.showBluetoothMidi as (() => Promise<void>) | undefined
 function BluetoothMidiButton() {
   if (!ipadBluetooth) return null
   return (
