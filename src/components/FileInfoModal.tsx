@@ -13,6 +13,7 @@ import { PENCIL_CURSOR } from '../utils/cursors'
 import { parseMidiMetadata, buildRenamedFileName, formatKeyOrDash, type MidiFileMetadata } from '../utils/midiMetadata'
 import { modalCloseButtonStyle, modalCloseButtonHoverColor, modalCloseButtonIdleColor } from '../utils/modalCloseButtonStyle'
 import { useFocusTrap } from '../hooks/useFocusTrap'
+import { t } from '../utils/i18n'
 
 interface FileLogEvent { type: string; timestamp: number; summary: string }
 interface FileVersion { name: string; path: string; version: number; mtime: number }
@@ -223,7 +224,7 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-label="File info"
+        aria-label={t`File info`}
         className="orfeo-modal-glow app-no-drag"
         style={{
           background: 'var(--bg-modal)', border: '1px solid var(--border2)',
@@ -240,7 +241,7 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
             color: 'var(--text-amber)', letterSpacing: '0.08em', textTransform: 'uppercase',
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>
-            File info
+            {t`File info`}
           </span>
           <button
             data-no-drag onClick={onClose}
@@ -300,7 +301,7 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
         )}
 
         {!meta && !error && (
-          <div style={{ fontSize: 11, color: 'var(--text-inactive)', padding: '8px 0' }}>Reading file…</div>
+          <div style={{ fontSize: 11, color: 'var(--text-inactive)', padding: '8px 0' }}>{t`Reading file…`}</div>
         )}
 
         {meta && (
@@ -310,7 +311,7 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
                 file rename only happens on Save below, never per keystroke. ── */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0', minHeight: 24, boxSizing: 'border-box' }}>
               <span style={{ width: 70, flexShrink: 0, fontSize: 10, lineHeight: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--accent-amber-icon-dim)' }}>
-                Artist
+                {t`Artist`}
               </span>
               {editingArtist ? (
                 <input
@@ -343,7 +344,7 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0', minHeight: 24, boxSizing: 'border-box', borderTop: '1px solid var(--border-row)' }}>
               <span style={{ width: 70, flexShrink: 0, fontSize: 10, lineHeight: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--accent-amber-icon-dim)' }}>
-                Song
+                {t`Song`}
               </span>
               {editingSong ? (
                 <input
@@ -430,7 +431,7 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
                 onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-amber)'; e.currentTarget.style.borderColor = 'var(--accent-amber-strong)' }}
                 onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.borderColor = 'var(--border2)' }}
               >
-                <FolderOpen size={13} /> Show in folder
+                <FolderOpen size={13} /> {t`Show in folder`}
               </button>
             </div>
           </div>
@@ -447,13 +448,13 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
         {meta && (
           <div style={{ marginTop: 12, borderTop: '1px solid var(--border-row)', paddingTop: 10 }}>
             <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--accent-amber-icon-dim)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
-              Pianooo History
+              {t`Pianooo History`}
             </div>
             <div style={{ height: 52, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 6 }}>
               {log === null ? (
-                <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--text-inactive)' }}>Loading…</div>
+                <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--text-inactive)' }}>{t`Loading…`}</div>
               ) : log.length === 0 ? (
-                <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--text-inactive)' }}>No recorded changes yet.</div>
+                <div style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--text-inactive)' }}>{t`No recorded changes yet.`}</div>
               ) : (
                 [...log].reverse().map((ev, i) => (
                   <div key={i} style={{ display: 'flex', gap: 8, fontSize: 10, fontFamily: 'var(--font-mono)', flexShrink: 0 }}>

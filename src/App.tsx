@@ -52,6 +52,7 @@ import { CountInOverlay } from './components/CountInOverlay'
 import { useSupportNoteService } from './hooks/useSupportNote'
 import { isExporting } from './audio/exportAudio'
 import { SupportNote } from './components/SupportNote'
+import { t } from './utils/i18n'
 
 export default function App() {
   // ── Update status + sound-set progress: one listener each for the app's
@@ -632,7 +633,7 @@ export default function App() {
           were on the file they dropped rather than this bottom-center toast,
           the explanation could otherwise vanish before it's read. ────────── */}
       {dropError && (
-        <Tooltip title="Dismiss" description="Click anywhere on this message to close it.">
+        <Tooltip title={t`Dismiss`} description="Click anywhere on this message to close it.">
         <div
           role="alert"
           onClick={() => {

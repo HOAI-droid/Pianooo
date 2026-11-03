@@ -42,19 +42,19 @@ export default function QuickSettings() {
       })}
       {/* ── About — unchanged from the old drawer bottom ── */}
       <div style={{ padding: '14px 14px 10px', display: 'flex', alignItems: 'center', gap: 6 }}>
-        <Tooltip title="Pianooo auf GitHub" oneLine>
+        <Tooltip title={t`Pianooo on GitHub`} oneLine>
           <button onClick={() => window.electronAPI.openExternal('https://github.com/HOAI-droid/Pianooo')}
             style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
             <OrfeoMark height={16} />
-            <span style={{ color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>Pianooo · v{__APP_VERSION__}</span>
+            <span style={{ color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>{t`Pianooo · v`}{__APP_VERSION__}</span>
           </button>
         </Tooltip>
         {/* GPL-3.0 §5: a modified version keeps showing the original author's
             notice — Pianooo first, Orfeo credited as its origin */}
-        <Tooltip title="Pianooo is based on Orfeo by SquareBow (GPL-3.0)" oneLine>
+        <Tooltip title={t`Pianooo is based on Orfeo by SquareBow (GPL-3.0)`} oneLine>
           <button onClick={() => window.electronAPI.openExternal('https://github.com/Squarebow/Orfeo')}
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>
-            · based on Orfeo © SquareBow
+            {t`· based on Orfeo © SquareBow`}
           </button>
         </Tooltip>
       </div>

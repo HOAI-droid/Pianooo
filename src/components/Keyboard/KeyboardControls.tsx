@@ -241,10 +241,10 @@ export default function KeyboardControls() {
           <>
             <div style={{ ...lineStyle, left: `${pct}%` }} />
             <div style={{ ...labelBase, left: 0, width: `${pct}%`, justifyContent: 'flex-end', paddingRight: 6 }}>
-              <span style={textStyle}>Left Hand</span>
+              <span style={textStyle}>{t`Left Hand`}</span>
             </div>
             <div style={{ ...labelBase, left: `${pct}%`, right: 0, justifyContent: 'flex-start', paddingLeft: 'var(--space-2)' }}>
-              <span style={textStyle}>Right Hand</span>
+              <span style={textStyle}>{t`Right Hand`}</span>
             </div>
           </>
         )
@@ -306,7 +306,7 @@ function NoteCounter() {
   if (!midi) return null
   return (
     <span style={{ color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)' }}>
-      {midi.noteCount.toLocaleString()} notes · {midi.tracks.length} tracks
+      {midi.noteCount.toLocaleString()} {t`notes ·`} {midi.tracks.length} {t`tracks`}
     </span>
   )
 }

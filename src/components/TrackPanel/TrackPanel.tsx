@@ -218,7 +218,7 @@ export default function TrackPanel() {
           display: 'flex', flexDirection: 'column', alignItems: 'center',
           height: '100%', paddingTop: 10,
         }}>
-          <Tooltip title="Open Tracks panel" description="Shows every track with its mute, solo, and visibility controls.">
+          <Tooltip title={t`Open Tracks panel`} description="Shows every track with its mute, solo, and visibility controls.">
           <button
             onClick={() => setTrackPanelOpen(true)}
             style={{
@@ -280,7 +280,7 @@ export default function TrackPanel() {
             </button>
             </Tooltip>
           )}
-          <Tooltip title="Console Mixer" description="Adjust volume, pan, and effects for every track individually." wrapperStyle={{ marginTop: 8 }}>
+          <Tooltip title={t`Console Mixer`} description="Adjust volume, pan, and effects for every track individually." wrapperStyle={{ marginTop: 8 }}>
           <button
             onClick={() => useStore.getState().setMixerOpen(true)}
             style={{
@@ -298,7 +298,7 @@ export default function TrackPanel() {
           {/* ── Dashed outline + low opacity — a same-shade disabled icon read as
               a normal, clickable nav icon until hovered; this makes "not yet
               shipped" visible at rest, not just on tooltip. ──────────────── */}
-          <Tooltip title="A dedicated Practice mode is planned but not built yet." oneLine wrapperStyle={{ marginTop: 8 }}>
+          <Tooltip title={t`A dedicated Practice mode is planned but not built yet.`} oneLine wrapperStyle={{ marginTop: 8 }}>
           <div
             style={{
               color: 'var(--state-disabled)', padding: 3,
@@ -323,7 +323,7 @@ export default function TrackPanel() {
             paddingTop: 10,
             borderRight: '1px solid var(--bg-tile)',
           }}>
-            <Tooltip title="Close panel" oneLine placement="left">
+            <Tooltip title={t`Close panel`} oneLine placement="left">
             <button
               onClick={() => setTrackPanelOpen(false)}
               style={{
@@ -384,7 +384,7 @@ export default function TrackPanel() {
               </button>
               </Tooltip>
             )}
-            <Tooltip title="Console Mixer" description={"Adjust volume, pan, chorus, and reverb \nfor every track and apply compression."} wrapperStyle={{ marginTop: 8 }}>
+            <Tooltip title={t`Console Mixer`} description={"Adjust volume, pan, chorus, and reverb \nfor every track and apply compression."} wrapperStyle={{ marginTop: 8 }}>
             <button
               onClick={() => useStore.getState().setMixerOpen(true)}
               style={{
@@ -400,7 +400,7 @@ export default function TrackPanel() {
             </button>
             </Tooltip>
             {/* ── Dashed outline + low opacity — see collapsed-strip twin above ── */}
-            <Tooltip title="Practice mode - coming soon" oneLine wrapperStyle={{ marginTop: 8 }}>
+            <Tooltip title={t`Practice mode - coming soon`} oneLine wrapperStyle={{ marginTop: 8 }}>
             <div
               style={{
                 color: 'var(--state-disabled)', padding: 3,
@@ -428,7 +428,7 @@ export default function TrackPanel() {
           }}>
             <ListTree size={14} style={{ color: 'var(--text-inactive)', flexShrink: 0 }} />
             <span style={{ color: 'var(--text-dimmest)', fontSize: 'var(--text-sm)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              Tracks
+              {t`Tracks`}
             </span>
             {midi && (
               <>
@@ -490,7 +490,7 @@ export default function TrackPanel() {
           <div style={{ flex: 1, overflowY: 'auto', padding: '4px 0' }}>
             {!midi && (
               <div style={{ padding: '12px 14px', fontSize: 'var(--text-xs)', color: 'var(--text-muted)' }}>
-                Open a MIDI file to see tracks
+                {t`Open a MIDI file to see tracks`}
               </div>
             )}
 
@@ -738,7 +738,7 @@ function TrackRow({
 
       {/* ── Row 2: track number (left) + M/S/V/K controls (right) ─────────── */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 3, paddingLeft: 26 }}>
-        <span style={{ fontSize: 10, color: 'var(--text-inactive)', fontFamily: 'var(--font-mono)' }}>track {track.index + 1}</span>
+        <span style={{ fontSize: 10, color: 'var(--text-inactive)', fontFamily: 'var(--font-mono)' }}>{t`track`} {track.index + 1}</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)' }}>
           <IBtn onClick={onMute} active={track.muted}
             title={track.muted ? 'Unmute' : 'Mute'}
@@ -769,11 +769,11 @@ function TrackRow({
 
       {/* ── Row 3: MIDI channel + program + note count ────────────────────── */}
       <div style={{ display: 'flex', gap: 6, marginTop: 2, paddingLeft: 26 }}>
-        <span style={{ fontSize: 10, lineHeight: '11px', color: 'var(--text-track-meta)', fontFamily: 'var(--font-mono)' }}>ch {ch}</span>
+        <span style={{ fontSize: 10, lineHeight: '11px', color: 'var(--text-track-meta)', fontFamily: 'var(--font-mono)' }}>{t`ch`} {ch}</span>
         <span style={{ fontSize: 10, lineHeight: '11px', color: 'var(--text-track-meta)', fontFamily: 'var(--font-mono)' }}>·</span>
         <span style={{ fontSize: 10, lineHeight: '11px', color: 'var(--text-track-meta)', fontFamily: 'var(--font-mono)' }}>{prog}</span>
         <span style={{ fontSize: 10, lineHeight: '11px', color: 'var(--text-track-meta)', fontFamily: 'var(--font-mono)' }}>·</span>
-        <span style={{ fontSize: 10, lineHeight: '11px', color: 'var(--text-track-meta)', fontFamily: 'var(--font-mono)' }}>{noteCount} notes</span>
+        <span style={{ fontSize: 10, lineHeight: '11px', color: 'var(--text-track-meta)', fontFamily: 'var(--font-mono)' }}>{noteCount} {t`notes`}</span>
       </div>
     </div>
   )

@@ -335,7 +335,7 @@ export default function ChannelStrip({ trackIndex, locked, isDragging, onDragSta
           />
         </div>
         {!locked && (
-          <Tooltip title="Reorder" description="Drag this strip left/right to change its position in the Mixer">
+          <Tooltip title={t`Reorder`} description="Drag this strip left/right to change its position in the Mixer">
           <button
             draggable
             onMouseDown={(e) => e.stopPropagation()}
@@ -363,7 +363,7 @@ export default function ChannelStrip({ trackIndex, locked, isDragging, onDragSta
           value={chorus} onChange={handleChorus}
           accentColor="var(--knob-chorus)" size={52}
           disabled={knobsDisabled} label="Chorus" labelOffset={-10}
-          title="Chorus" description="Thickens the tone"
+          title={t`Chorus`} description="Thickens the tone"
           disabledHint="Switch to the Studio or Native engine to use Chorus."
         />
       </div>
@@ -378,7 +378,7 @@ export default function ChannelStrip({ trackIndex, locked, isDragging, onDragSta
           value={reverb} onChange={handleReverb}
           accentColor="var(--knob-reverb)" size={52}
           disabled={knobsDisabled} label="Reverb" labelOffset={-10}
-          title="Reverb" description="Adds room/space ambience"
+          title={t`Reverb`} description="Adds room/space ambience"
           disabledHint="Switch to the Studio or Native engine to use Reverb."
         />
       </div>
@@ -399,7 +399,7 @@ export default function ChannelStrip({ trackIndex, locked, isDragging, onDragSta
           value={pan} onChange={handlePan}
           accentColor="var(--text-amber)" size={52}
           disabled={knobsDisabled} bipolar label="Pan"
-          title="Pan" description="Left/right position in the stereo field"
+          title={t`Pan`} description="Left/right position in the stereo field"
           disabledHint="Switch to the Studio or Native engine to use Pan."
         />
         <span style={{
@@ -502,7 +502,7 @@ export default function ChannelStrip({ trackIndex, locked, isDragging, onDragSta
                     transform: 'translateY(-50%)', whiteSpace: 'nowrap',
                     fontSize: 9, fontFamily: 'var(--font-mono)', color,
                   }}>
-                    dB
+                    {t`dB`}
                   </span>
                 </div>
               )
@@ -543,7 +543,7 @@ export default function ChannelStrip({ trackIndex, locked, isDragging, onDragSta
             onMouseDown={handleFaderMouseDown}
             tabIndex={muted ? -1 : 0}
             role="slider"
-            aria-label="Channel volume"
+            aria-label={t`Channel volume`}
             aria-valuemin={0}
             aria-valuemax={1}
             aria-valuenow={volume}
@@ -601,7 +601,7 @@ export default function ChannelStrip({ trackIndex, locked, isDragging, onDragSta
             padding: '1px 5px', letterSpacing: '0.02em',
             whiteSpace: 'nowrap', pointerEvents: 'none',
           }}>
-            {dbText} dB
+            {dbText} {t`dB`}
           </div>
 
         </div>
@@ -619,7 +619,7 @@ export default function ChannelStrip({ trackIndex, locked, isDragging, onDragSta
             fontSize: 10, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em',
             textTransform: 'uppercase', color: 'var(--text-dimmest)',
           }}>
-            Vol
+            {t`Vol`}
           </span>
         </div>
       </div>
@@ -637,7 +637,7 @@ export default function ChannelStrip({ trackIndex, locked, isDragging, onDragSta
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           maxWidth: '100%', textAlign: 'center',
         }}>
-          Track {trackIndex + 1}
+          {t`Track`} {trackIndex + 1}
         </span>
       </div>
     </div>

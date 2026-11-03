@@ -5,6 +5,7 @@ import type { HitEffectPattern } from '../../../types'
 import Tooltip from '../../Tooltip'
 import { Switch, RollZoomStepper, GlanceLine, SubLabel, HelpText, HitEffectColorSwatch, SettingsDropdown } from '../controls'
 import type { SettingDef } from '../types'
+import { t } from '../../../utils/i18n'
 
 export const HIT_EFFECT_DESCRIPTIONS: Record<HitEffectPattern, string> = {
   glowBloom: 'Soft radial glow that blooms outward and fades.',
@@ -31,7 +32,7 @@ function Slider({ label, value, min, max, step, onChange, digits }: {
   return (
     <>
       <SubLabel>{`${label} — ${value.toFixed(digits)}`}</SubLabel>
-      <Tooltip title="Drag to change" oneLine wrapperStyle={{ display: 'block', width: '100%' }}>
+      <Tooltip title={t`Drag to change`} oneLine wrapperStyle={{ display: 'block', width: '100%' }}>
         <input
           type="range" min={min} max={max} step={step} value={value}
           onChange={e => onChange(Number(e.target.value))}
@@ -58,7 +59,7 @@ function VisualEffectsExtra() {
   const st = useStore.getState()
   return (
     <>
-      <SubLabel>Scope & Color</SubLabel>
+      <SubLabel>{t`Scope & Color`}</SubLabel>
       <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'stretch' }}>
         <Tooltip
           title={scope === 'keyboard' ? 'Piano tracks only' : 'All tracks'}
@@ -81,7 +82,7 @@ function VisualEffectsExtra() {
         </Tooltip>
         <HitEffectColorSwatch color={color} onChange={setColor} />
         {color && (
-          <Tooltip title="Use each track's own color again" wrapperStyle={{ flexShrink: 0 }}>
+          <Tooltip title={t`Use each track's own color again`} wrapperStyle={{ flexShrink: 0 }}>
             <button
               onClick={() => setColor(null)}
               style={{ display: 'flex', alignItems: 'center', color: 'var(--text-dimmest)', background: 'none', border: 'none', cursor: 'pointer', padding: '0 2px', flexShrink: 0 }}
@@ -91,7 +92,7 @@ function VisualEffectsExtra() {
           </Tooltip>
         )}
       </div>
-      <SubLabel>Pattern</SubLabel>
+      <SubLabel>{t`Pattern`}</SubLabel>
       <SettingsDropdown
         value={pattern}
         onChange={v => setPattern(v as HitEffectPattern)}
@@ -105,7 +106,7 @@ function VisualEffectsExtra() {
       <Slider label="Intensity" value={intensity} min={0} max={4} step={0.1} digits={1} onChange={st.setHitEffectBloomIntensity} />
       <Slider label="Spread" value={spread} min={0} max={12} step={0.5} digits={1} onChange={st.setHitEffectBloomSpread} />
       <Slider label="Threshold" value={threshold} min={0} max={1} step={0.05} digits={2} onChange={st.setHitEffectBloomThreshold} />
-      <HelpText>Lower values make more of the effect glow; higher values only bloom the brightest parts.</HelpText>
+      <HelpText>{t`Lower values make more of the effect glow; higher values only bloom the brightest parts.`}</HelpText>
     </>
   )
 }

@@ -22,7 +22,7 @@ function SoundEngineControl() {
   return (
     <div style={{ display: 'flex', gap: 'var(--space-1)' }}>
       <OptionBtn active={audioEngine === 'gm'} title={t`Generic — sounds like a 1996 Nokia phone`} oneLine
-        onClick={async () => { if (useStore.getState().audioEngine === 'native') await stopNative(); useStore.getState().setAudioEngine('gm') }}>GM</OptionBtn>
+        onClick={async () => { if (useStore.getState().audioEngine === 'native') await stopNative(); useStore.getState().setAudioEngine('gm') }}>{t`GM`}</OptionBtn>
       <OptionBtn active={audioEngine === 'samples'} title={t`Perfect for listening — real recorded instruments`} oneLine onClick={chooseSamplesFromQuick}>{t`Studio`}</OptionBtn>
       {NATIVE_AVAILABLE && <OptionBtn active={audioEngine === 'native'} title={t`Ideal for playing along on a connected keyboard`} oneLine onClick={() => useStore.getState().setAudioEngine('native')}>{t`Native`}</OptionBtn>}
     </div>
@@ -181,7 +181,7 @@ function SoundEngineLoading() {
   return (
     <div style={{ marginTop: 7 }}>
       <div style={{ fontSize: 9, color: 'var(--text-dimmest)', fontFamily: 'var(--font-ui)', marginBottom: 4 }}>
-        Loading soundfont… {Math.round(samplesProgress * 100)}%
+        {t`Loading soundfont…`} {Math.round(samplesProgress * 100)}%
       </div>
       <div style={{ height: 3, background: 'var(--border)', borderRadius: 2, overflow: 'hidden' }}>
         <div style={{ height: '100%', background: 'var(--text-amber)', borderRadius: 2, width: `${Math.round(samplesProgress * 100)}%`, transition: 'width 0.1s' }} />
@@ -218,9 +218,9 @@ function SoundFontsControl() {
                   overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
                 }}
               >• {sf.name}</span>
-              <span style={{ fontSize: 9, color: 'var(--text-dimmest)', fontFamily: 'var(--font-ui)', textAlign: 'right' }}>{sf.sizeMB} MB</span>
+              <span style={{ fontSize: 9, color: 'var(--text-dimmest)', fontFamily: 'var(--font-ui)', textAlign: 'right' }}>{sf.sizeMB} {t`MB`}</span>
               {sf.id === 'generaluser-gs' ? (
-                <span style={{ fontSize: 9, color: 'var(--text-muted)', fontFamily: 'var(--font-ui)', textAlign: 'right' }}>bundled</span>
+                <span style={{ fontSize: 9, color: 'var(--text-muted)', fontFamily: 'var(--font-ui)', textAlign: 'right' }}>{t`bundled`}</span>
               ) : sf.downloaded ? (
                 <SoundfontActionLink label="remove" color="var(--text-dimmest)" tooltip={sf.custom ? 'Remove imported file' : 'Delete downloaded file'} onClick={() => void deleteSoundfont(sf.id)} />
               ) : downloadingId === sf.id ? (
@@ -246,9 +246,9 @@ function SoundFontsControl() {
           onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-default)'; e.currentTarget.style.borderColor = 'var(--text-muted)' }}
         >
           <Upload size={11} strokeWidth={1.5} />
-          Import your own .sf2/.sf3
+          {t`Import your own .sf2/.sf3`}
         </button>
-      <HelpText>Make sure you have the rights to use imported soundfonts.</HelpText>
+      <HelpText>{t`Make sure you have the rights to use imported soundfonts.`}</HelpText>
     </div>
   )
 }

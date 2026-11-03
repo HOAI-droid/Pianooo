@@ -16,6 +16,7 @@ import { HAND_LH_CSS, HAND_RH_CSS } from '../../utils/handColors'
 import { HitEffectsRenderer } from './HitEffects'
 import { drainHitEffects } from '../../utils/hitEffectQueue'
 import { isShown } from '../../utils/trackShown'
+import { t } from '../../utils/i18n'
 
 const VISIBLE_SECONDS  = 6
 const NOTE_RADIUS      = 3
@@ -379,10 +380,10 @@ function LoopOverlay() {
             textTransform: 'uppercase', letterSpacing: '0.08em',
             color: 'var(--accent-amber-tooltip-text)',
           }}>
-            Loop region set
+            {t`Loop region set`}
           </span>
           <span style={{ fontFamily: 'var(--font-ui)', fontSize: 10, color: 'var(--text-tooltip-secondary)' }}>
-            Drag to reorder, right-click to clear
+            {t`Drag to reorder, right-click to clear`}
           </span>
         </div>
       )}
@@ -2204,7 +2205,7 @@ export default function PianoRoll() {
       {contextMenu && (
         <div
           role="menu"
-          aria-label="Note actions"
+          aria-label={t`Note actions`}
           onMouseDown={e => e.stopPropagation()}
           style={{
             position: 'fixed',

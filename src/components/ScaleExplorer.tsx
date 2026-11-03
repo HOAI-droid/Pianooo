@@ -945,7 +945,7 @@ export default function ScaleExplorer() {
       ref={panelRef}
       role="dialog"
       aria-modal="true"
-      aria-label="Scales Explorer"
+      aria-label={t`Scales Explorer`}
       className="orfeo-modal-glow app-no-drag"
       style={{
         position: 'fixed',
@@ -974,7 +974,7 @@ export default function ScaleExplorer() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
           <OrfeoMark height={22} />
           <span style={{ fontFamily: 'var(--font-ui)', fontSize: 14, fontWeight: 700, color: 'var(--text-amber)', letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-            Scales Explorer
+            {t`Scales Explorer`}
           </span>
         </div>
         <button
@@ -1009,7 +1009,7 @@ export default function ScaleExplorer() {
                 : 'Click a key on the circle to explore its scale and diatonic chords. Select a progression and click play to hear the chords in the scale. Try chord inversions and variations!'}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 1, width: 116 }}>
-              <span style={{ ...ROW_LABEL, fontSize: 12, marginBottom: 3, color: 'var(--text-amber)' }}>Scale</span>
+              <span style={{ ...ROW_LABEL, fontSize: 12, marginBottom: 3, color: 'var(--text-amber)' }}>{t`Scale`}</span>
               {SCALES.map((s, i) => {
                 const sel = selectedScaleIdx === i
                 return (
@@ -1174,8 +1174,8 @@ export default function ScaleExplorer() {
         <div style={{ marginTop: 'auto', paddingTop: 32, display: 'grid', gridTemplateColumns: '250px minmax(0,1fr)' }}>
         <div style={{ gridColumn: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ ...ROW_LABEL, fontSize: 13 }}>Chords in the Scale</span>
-            <Tooltip title="Play Chords" description={chordSeqPlaying ? 'Stop playback.' : 'Play all chords in the scale one after another.'}>
+            <span style={{ ...ROW_LABEL, fontSize: 13 }}>{t`Chords in the Scale`}</span>
+            <Tooltip title={t`Play Chords`} description={chordSeqPlaying ? 'Stop playback.' : 'Play all chords in the scale one after another.'}>
               <button
                 onClick={playChordsInSequence}
                 disabled={selectedRoot === null}
@@ -1204,7 +1204,7 @@ export default function ScaleExplorer() {
       <div style={{ flexShrink: 0, padding: 'var(--space-1) var(--space-3)', minHeight: 'var(--row-height)' }}>
         {selectedRoot === null ? (
           <div style={{ minHeight: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Select a key from the circle above to see diatonic chords</span>
+            <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>{t`Select a key from the circle above to see diatonic chords`}</span>
           </div>
         ) : (
           <div style={{ display: 'flex', gap: 'var(--space-1)' }}>
@@ -1267,7 +1267,7 @@ export default function ScaleExplorer() {
             {infoRowChord ? (
               <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 'var(--space-1)', minWidth: 60, flexWrap: 'wrap' }}>
                 <span style={{ fontFamily: 'var(--font-ui)', fontSize: 11, fontWeight: 700, color: 'var(--text-dimmest)', letterSpacing: '0.10em', textTransform: 'uppercase', userSelect: 'none', flexShrink: 0 }}>
-                  Chord Quality
+                  {t`Chord Quality`}
                 </span>
                 {infoRowChord.labels.map((label, i) => (
                   <span key={i} style={{
@@ -1294,7 +1294,7 @@ export default function ScaleExplorer() {
                 slot (worst case: 3 chars, e.g. "C#m") so it never shifts. ──── */}
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 'var(--space-1)', minWidth: 60 }}>
               <span style={{ fontFamily: 'var(--font-ui)', fontSize: 11, fontWeight: 700, color: 'var(--text-dimmest)', letterSpacing: '0.10em', textTransform: 'uppercase', userSelect: 'none' }}>
-                Key Of
+                {t`Key Of`}
               </span>
               <span style={{ fontFamily: 'var(--font-ui)', fontSize: 15, fontWeight: 700, color: 'var(--text-amber)', userSelect: 'none', lineHeight: 1, minWidth: '3ch', display: 'inline-block' }}>
                 {infoText ? `${infoText.rootName}${keyQuality}` : ''}
@@ -1397,7 +1397,7 @@ export default function ScaleExplorer() {
 
         <SettingRow title={t`Inversions`} desc={t`Step through inversions`}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <Tooltip oneLine title="Previous inversion">
+            <Tooltip oneLine title={t`Previous inversion`}>
               <button onMouseDown={() => stepInversion('prev')} disabled={!hasTileSelected}
                 style={{ background: 'none', border: 'none', color: hasTileSelected ? 'var(--text-amber)' : 'var(--state-disabled)', cursor: hasTileSelected ? 'pointer' : 'default', padding: '0 2px', display: 'flex', alignItems: 'center' }}
                 onMouseEnter={e => { if (hasTileSelected) e.currentTarget.style.color = 'var(--accent-amber-hover)' }}
@@ -1407,7 +1407,7 @@ export default function ScaleExplorer() {
             <span style={{ fontFamily: 'var(--font-ui)', fontSize: 10, fontWeight: 600, color: 'var(--text-inactive)', letterSpacing: '0.12em', textTransform: 'uppercase', userSelect: 'none' }}>
               {t`Play`}
             </span>
-            <Tooltip oneLine title="Next inversion">
+            <Tooltip oneLine title={t`Next inversion`}>
               <button onMouseDown={() => stepInversion('next')} disabled={!hasTileSelected}
                 style={{ background: 'none', border: 'none', color: hasTileSelected ? 'var(--text-amber)' : 'var(--state-disabled)', cursor: hasTileSelected ? 'pointer' : 'default', padding: '0 2px', display: 'flex', alignItems: 'center' }}
                 onMouseEnter={e => { if (hasTileSelected) e.currentTarget.style.color = 'var(--accent-amber-hover)' }}
@@ -1554,13 +1554,13 @@ export default function ScaleExplorer() {
 
         {/* Switch to Chord Explorer */}
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Tooltip oneLine title="Switch to Chords Explorer">
+          <Tooltip oneLine title={t`Switch to Chords Explorer`}>
             <button
               onClick={() => { setScaleExplorerOpen(false); setChordExplorerOpen(true) }}
               style={EXPLORER_SWITCH_STYLE}
               onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-amber)' }}
               onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-inactive)' }}
-            >Chords Explorer <ArrowUpRight size={11} /></button>
+            >{t`Chords Explorer`} <ArrowUpRight size={11} /></button>
           </Tooltip>
         </div>
       </div>

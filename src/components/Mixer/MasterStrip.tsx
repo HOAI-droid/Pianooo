@@ -506,7 +506,7 @@ export default function MasterStrip() {
           fontSize: 12, fontFamily: 'var(--font-mono)', letterSpacing: '0.14em',
           textTransform: 'uppercase', color: 'var(--text-amber)', fontWeight: 700,
         }}>
-          Master
+          {t`Master`}
         </span>
       </div>
 
@@ -661,14 +661,14 @@ export default function MasterStrip() {
           value={chorus} onChange={handleChorus}
           accentColor="var(--knob-chorus)" size={52}
           disabled={knobsDisabled} label="Chorus" labelOffset={-10}
-          title="Chorus" description="Thickens the overall mix by layering slightly detuned copies of it"
+          title={t`Chorus`} description="Thickens the overall mix by layering slightly detuned copies of it"
           disabledHint="Switch to the Studio or Native engine to use Chorus."
         />
         <MixerKnob
           value={reverb} onChange={handleReverb}
           accentColor="var(--knob-reverb)" size={52}
           disabled={knobsDisabled} label="Reverb" labelOffset={-10}
-          title="Reverb" description="Adds room/space ambience to the mix"
+          title={t`Reverb`} description="Adds room/space ambience to the mix"
           disabledHint="Switch to the Studio or Native engine to use Reverb."
         />
       </div>
@@ -703,7 +703,7 @@ export default function MasterStrip() {
             value={tone} onChange={handleTone}
             accentColor="var(--knob-tone)" size={52}
             disabled={knobsDisabled} bipolar
-            title="Tone" description="Tilts the overall EQ darker or brighter"
+            title={t`Tone`} description="Tilts the overall EQ darker or brighter"
             disabledHint="Switch to the Studio or Native engine to use Tone."
           />
           <span style={{
@@ -712,7 +712,7 @@ export default function MasterStrip() {
             textTransform: 'uppercase', color: 'var(--text-dimmest)',
             userSelect: 'none', lineHeight: 1, whiteSpace: 'nowrap',
           }}>
-            Tone
+            {t`Tone`}
           </span>
         </div>
 
@@ -764,7 +764,7 @@ export default function MasterStrip() {
             textTransform: 'uppercase', color: 'var(--text-dimmest)',
             userSelect: 'none', lineHeight: 1, whiteSpace: 'nowrap',
           }}>
-            Compressor
+            {t`Compressor`}
           </span>
         </div>
       </div>
@@ -833,7 +833,7 @@ export default function MasterStrip() {
             fontSize: 10, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em',
             textTransform: 'uppercase', color: 'var(--text-dimmest)',
           }}>
-            Volume
+            {t`Volume`}
           </span>
         </div>
       </div>

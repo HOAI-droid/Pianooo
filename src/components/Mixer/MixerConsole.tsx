@@ -15,6 +15,7 @@ import { detectKeyFromTracks, parseKeySignature } from '../../utils/keyDetection
 import { KEYBOARD_GROUPS } from '../../utils/keyboardGroups'
 import { useFocusTrap } from '../../hooks/useFocusTrap'
 import { useClampPositionOnZoom } from '../../hooks/useClampPositionOnZoom'
+import { t } from '../../utils/i18n'
 
 // ── MixerConsole — floating draggable modal ───────────────────────────────────
 // Opened via Ctrl+Shift+M or the Console (SlidersVertical) icon in the TrackPanel.
@@ -331,7 +332,7 @@ export default function MixerConsole() {
       ref={modalRef}
       role="dialog"
       aria-modal="true"
-      aria-label="Console Mixer"
+      aria-label={t`Console Mixer`}
       className="orfeo-modal-glow app-no-drag"
       onMouseDown={() => setZIndex(bringToFront())}
       style={{
@@ -381,7 +382,7 @@ export default function MixerConsole() {
           color: 'var(--text-amber)', letterSpacing: '0.14em', textTransform: 'uppercase',
           flexShrink: 0,
         }}>
-          Console Mixer
+          {t`Console Mixer`}
         </span>
 
         {/* ── Permanent description — centered in whatever space is left between
@@ -407,7 +408,7 @@ export default function MixerConsole() {
               ...(headerDescOverflow > 0 ? { '--marquee-distance': `-${headerDescOverflow}px` } as CSSProperties : {}),
             }}
           >
-            Adjust track levels, apply effects and compress overall loudness
+            {t`Adjust track levels, apply effects and compress overall loudness`}
           </span>
         </div>
 
@@ -455,7 +456,7 @@ export default function MixerConsole() {
               color: 'var(--text-dimmest)', fontSize: 12, fontFamily: 'var(--font-mono)',
               letterSpacing: '0.08em', textTransform: 'uppercase',
             }}>
-              No tracks — load a MIDI file
+              {t`No tracks — load a MIDI file`}
             </div>
           ) : (
             displayTracks.map(t => {

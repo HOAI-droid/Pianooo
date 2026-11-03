@@ -175,10 +175,10 @@ export default function SettingsWindow() {
             </div>
             {/* ── PIANOOO + version (opens GitHub) | update check ── */}
             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', alignItems: 'center', padding: '8px 10px 8px 14px', borderTop: '1px solid var(--border-row)' }}>
-              <Tooltip title="Pianooo auf GitHub" oneLine placement="top">
+              <Tooltip title={t`Pianooo auf GitHub`} oneLine placement="top">
                 <button onClick={() => window.electronAPI.openExternal('https://github.com/HOAI-droid/Pianooo')}
                   style={{ display: 'flex', alignItems: 'baseline', gap: 7, background: 'none', border: 'none', cursor: 'pointer', padding: 0, minWidth: 0 }}>
-                  <span style={{ color: 'var(--text-amber)', fontSize: 'var(--text-sm)', fontWeight: 700, letterSpacing: '0.12em', fontFamily: 'var(--font-ui)' }}>PIANOOO</span>
+                  <span style={{ color: 'var(--text-amber)', fontSize: 'var(--text-sm)', fontWeight: 700, letterSpacing: '0.12em', fontFamily: 'var(--font-ui)' }}>{t`PIANOOO`}</span>
                   <span style={{ color: 'var(--text-inactive)', fontSize: 10, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>v{displayVersion(__APP_VERSION__)}</span>
                 </button>
               </Tooltip>

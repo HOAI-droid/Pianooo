@@ -238,7 +238,7 @@ function KeyToEarGlance() {
   const style = { fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--text-inactive)' } as const
   if (b.outputMs === null) return <span style={style}>{t`Keyboard → speaker: can't be measured for this sound output`}</span>
   const total = (st.avgInputMs ?? 0) + (st.avgHandleMs ?? 0) + b.synthBlockMs + b.chainMs + b.outputMs
-  return <span style={style}>{t`Keyboard → speaker on this device: about`} <span style={{ color: 'var(--text-amber)' }}>{Math.round(total)} ms</span></span>
+  return <span style={style}>{t`Keyboard → speaker on this device: about`} <span style={{ color: 'var(--text-amber)' }}>{Math.round(total)} {t`ms`}</span></span>
 }
 
 // "No keyboards connected" — at the right of the Keyboards tab row, only while none is
@@ -272,7 +272,7 @@ function LatencyOffsetGlance() {
   const measured = b.outputMs === null ? null : Math.round(b.outputMs)
   return (
     <GlanceLine>
-      {t`Measured`} {measured === null ? t`— not measurable` : `${measured} ms`} · {t`used`} <span style={{ color: 'var(--text-amber)' }}>{Math.max(0, (measured ?? 0) + off)} ms</span>
+      {t`Measured`} {measured === null ? t`— not measurable` : `${measured} ms`} · {t`used`} <span style={{ color: 'var(--text-amber)' }}>{Math.max(0, (measured ?? 0) + off)} {t`ms`}</span>
     </GlanceLine>
   )
 }

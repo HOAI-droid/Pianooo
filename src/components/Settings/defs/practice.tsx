@@ -20,12 +20,12 @@ export const PRACTICE_DEFS: SettingDef[] = [
   {
     id: 'chordPrompter', icon: BookOpen, kind: 'switch',
     Control: () => { const v = useStore(s => s.chordPrompterEnabled); return <Switch value={v} onChange={useStore.getState().setChordPrompterEnabled} label="Chord Prompter" /> },
-    Description: () => <>Shows past, current and upcoming chords during playback. Click <InlineIcon><PrompterIcon /></InlineIcon> icon above keyboard to enable it.</>,
+    Description: () => <>{t`Shows past, current and upcoming chords during playback. Click`} <InlineIcon><PrompterIcon /></InlineIcon> {t`icon above keyboard to enable it.`}</>,
   },
   {
     id: 'closePanels', icon: PanelLeftClose, kind: 'switch',
     Control: () => { const v = useStore(s => s.autoCollapseDrawers); return <Switch value={v} onChange={useStore.getState().setAutoCollapseDrawers} label="Close panels on playback" /> },
-    Description: () => <>Automatically hide side panels during playback to maximize the piano roll view. For full-screen view click <InlineIcon><Expand size={10} /></InlineIcon> to enter presentation mode.</>,
+    Description: () => <>{t`Automatically hide side panels during playback to maximize the piano roll view. For full-screen view click`} <InlineIcon><Expand size={10} /></InlineIcon> {t`to enter presentation mode.`}</>,
   },
   {
     id: 'handTags', icon: Hand, kind: 'switch',
