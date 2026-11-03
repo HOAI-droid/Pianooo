@@ -154,7 +154,7 @@ export default function FloatingKeyboard() {
           </span>
         </div>
         <div style={{ display: 'flex', gap: 'var(--space-1)' }} data-no-drag="true">
-          <Tooltip title={t`Dock keyboard`} description="Reattaches the keyboard to the bottom of the window.">
+          <Tooltip title={t`Dock keyboard`} description={t`Reattaches the keyboard to the bottom of the window.`}>
           <button
             onClick={() => setKeyboardMode('docked')}
             data-no-drag="true"
@@ -165,7 +165,7 @@ export default function FloatingKeyboard() {
             <Pin size={10} strokeWidth={1.8} />
           </button>
           </Tooltip>
-          <Tooltip title={t`Close`} description="Docks the keyboard back to the bottom of the window.">
+          <Tooltip title={t`Close`} description={t`Docks the keyboard back to the bottom of the window.`}>
           <button
             onClick={() => setKeyboardMode('docked')}
             data-no-drag="true"

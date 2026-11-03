@@ -268,7 +268,7 @@ export function HitEffectColorSwatch({ color, onChange }: { color: string | null
     <div ref={ref} style={{ position: 'relative', flexShrink: 0 }}>
       <Tooltip
         title={t`Particle color`}
-        description="Overrides every track's color for the effect flourish — the falling notes and key glow keep their own track colors."
+        description={t`Overrides every track's color for the effect flourish — the falling notes and key glow keep their own track colors.`}
       >
       <button
         onClick={() => { setHexInput(color ?? '#e8a027'); setOpen(o => !o) }}
@@ -566,7 +566,9 @@ export function RollZoomStepper() {
 export function DevModeBadge({ placement = 'top' }: { placement?: 'left' | 'right' | 'top' | 'bottom' }) {
   if (!simAvailable) return null
   return (
-    <Tooltip title={t`Dev mode`} description={"Test tools are on: the dashed \"test builds only\"\npanels in Settings. Ctrl+Alt+Shift+D\nswitches them on and off."} placement={placement}>
+    <Tooltip title={t`Dev mode`} description={t`Test tools are on: the dashed "test builds only"
+panels in Settings. Ctrl+Alt+Shift+D
+switches them on and off.`} placement={placement}>
       <span style={{ color: 'var(--text-amber)', fontSize: 9, fontFamily: 'var(--font-mono)', letterSpacing: '0.05em', whiteSpace: 'nowrap', cursor: 'default' }}>{t`DEV MODE`}</span>
     </Tooltip>
   )
@@ -617,7 +619,7 @@ export function UpdateButton({ placement = 'left', showStatus = true }: { placem
         title={
           updateInfo.mode === 'manual'         ? t`Check for a new version of Pianooo` :
           updateInfo.mode === 'store'          ? t`Updates come from the Microsoft Store — click to open Pianooo there` :
-          updateStatus.state === 'checking'    ? 'Checking for updates…' :
+          updateStatus.state === 'checking'    ? t`Checking for updates…` :
           updateStatus.state === 'downloading' ? `Downloading update${updateStatus.percent ? ` — ${Math.round(updateStatus.percent)}%` : '…'}` :
           updateStatus.state === 'ready'       ? `Update ${updateStatus.version ?? ''} ready — click to restart and install` :
           updateStatus.state === 'error'       ? `${(updateStatus.message ?? 'Update check failed').slice(0, 160)} — click to open the download page` :

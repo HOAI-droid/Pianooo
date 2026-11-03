@@ -18,9 +18,9 @@ export function groupLabel(group: string): string {
 }
 
 const NOTE_NAMING_OPTIONS: { value: NoteNaming; label: string }[] = [
-  { value: 'english', label: 'UK/US' },
-  { value: 'central-european', label: 'EU' },
-  { value: 'solfege', label: 'Solfège' },
+  { value: 'english', label: t`UK/US` },
+  { value: 'central-european', label: t`EU` },
+  { value: 'solfege', label: t`Solfège` },
 ]
 
 function DisplaySystemControl() {
@@ -44,8 +44,8 @@ function DisplaySystemGlance() {
     <PreviewBox>
       {noteNaming === 'english'          && 'C  D  E  F  G  A  B'}
       {noteNaming === 'central-european' && 'C  D  E  F  G  A  H'}
-      {noteNaming === 'solfege'          && 'Do Re Mi Fa Sol La Si'}
-      {noteNaming === 'hidden'           && '— labels hidden —'}
+      {noteNaming === 'solfege'          && t`Do Re Mi Fa Sol La Si`}
+      {noteNaming === 'hidden'           && t`— labels hidden —`}
     </PreviewBox>
   )
 }
@@ -73,7 +73,7 @@ function AccidentalsControl() {
 }
 function AccidentalsGlance() {
   const accidentals = useStore(s => s.accidentals)
-  return <GlanceLine center>{accidentals === 'flat' ? 'Bb  Eb  Ab  Db  Gb' : 'A#  D#  G#  C#  F#'}</GlanceLine>
+  return <GlanceLine center>{accidentals === 'flat' ? t`Bb  Eb  Ab  Db  Gb` : 'A#  D#  G#  C#  F#'}</GlanceLine>
 }
 
 function ChordTrackingControl() {
@@ -97,9 +97,9 @@ function ChordTrackingGlance() {
   const mode = useStore(s => s.chordTrackingMode)
   return (
     <GlanceLine>
-      {mode === 'auto' && 'Follows the chord instruments (piano, keys, guitar, strings), ignoring melody and ornament lines. Best for most songs.'}
-      {mode === 'harmony' && 'Every non-drum track pooled together, including melody. For dense textures where no one instrument holds the chords.'}
-      {mode === 'follow' && 'Scoped to one instrument or group you choose.'}
+      {mode === 'auto' && t`Follows the chord instruments (piano, keys, guitar, strings), ignoring melody and ornament lines. Best for most songs.`}
+      {mode === 'harmony' && t`Every non-drum track pooled together, including melody. For dense textures where no one instrument holds the chords.`}
+      {mode === 'follow' && t`Scoped to one instrument or group you choose.`}
     </GlanceLine>
   )
 }
@@ -124,7 +124,7 @@ function ChordTrackingExtra() {
         <SettingsDropdown
           value={group ?? ''}
           onChange={(v) => setGroup(v || null)}
-          options={[{ value: '', label: '— choose a group —' }, ...CHORD_FOLLOW_GROUPS.map(g => ({ value: g, label: groupLabel(g) }))]}
+          options={[{ value: '', label: t`— choose a group —` }, ...CHORD_FOLLOW_GROUPS.map(g => ({ value: g, label: groupLabel(g) }))]}
         />
       ) : tracks.length === 0 ? (
         <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text-inactive)', fontFamily: 'var(--font-ui)', fontStyle: 'italic' }}>{t`No file open`}</div>
@@ -132,7 +132,7 @@ function ChordTrackingExtra() {
         <SettingsDropdown
           value={trackIndex === null ? '' : String(trackIndex)}
           onChange={(v) => setTrackIndex(v === '' ? null : Number(v))}
-          options={[{ value: '', label: '— choose a track —' }, ...tracks.map(tr => ({ value: String(tr.index), label: tr.trackName }))]}
+          options={[{ value: '', label: t`— choose a track —` }, ...tracks.map(tr => ({ value: String(tr.index), label: tr.trackName }))]}
         />
       )}
     </>
@@ -171,7 +171,7 @@ function ChordNamingControl() {
 }
 function ChordNamingExtra() {
   const style = useStore(s => s.chordNamingStyle)
-  return <PreviewBox spacing="0.04em">{style === 'abbreviation' ? 'Bb(b5)/D  ·  Cm7  ·  Gaug  ·  Fdim7' : 'Bb(♭5)/D  ·  Cm7  ·  G+  ·  F°7'}</PreviewBox>
+  return <PreviewBox spacing="0.04em">{style === 'abbreviation' ? t`Bb(b5)/D  ·  Cm7  ·  Gaug  ·  Fdim7` : t`Bb(♭5)/D  ·  Cm7  ·  G+  ·  F°7`}</PreviewBox>
 }
 
 export const NOTATION_DEFS: SettingDef[] = [

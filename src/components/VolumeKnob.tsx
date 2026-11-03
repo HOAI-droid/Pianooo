@@ -90,7 +90,7 @@ export default function VolumeKnob() {
       >
         <TooltipBox
           anchorRect={(hover || isDragging) ? trackRef.current?.getBoundingClientRect() ?? null : null}
-          content={{ title: 'Volume', description: `${pct}%` }}
+          content={{ title: t`Volume`, description: `${pct}%` }}
           placement="left"
           visible={hover || isDragging}
           readout={isDragging}

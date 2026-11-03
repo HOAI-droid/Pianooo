@@ -1006,7 +1006,7 @@ export default function ScaleExplorer() {
             } as CSSProperties}>
               {showStarmap
                 ? t`Click a note on the ring to explore its scale and chords: every chord you play lights up as a star. Select a progression and click play to watch the stars move.`
-                : 'Click a key on the circle to explore its scale and diatonic chords. Select a progression and click play to hear the chords in the scale. Try chord inversions and variations!'}
+                : t`Click a key on the circle to explore its scale and diatonic chords. Select a progression and click play to hear the chords in the scale. Try chord inversions and variations!`}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 1, width: 116 }}>
               <span style={{ ...ROW_LABEL, fontSize: 12, marginBottom: 3, color: 'var(--text-amber)' }}>{t`Scale`}</span>
@@ -1175,7 +1175,7 @@ export default function ScaleExplorer() {
         <div style={{ gridColumn: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ ...ROW_LABEL, fontSize: 13 }}>{t`Chords in the Scale`}</span>
-            <Tooltip title={t`Play Chords`} description={chordSeqPlaying ? 'Stop playback.' : 'Play all chords in the scale one after another.'}>
+            <Tooltip title={t`Play Chords`} description={chordSeqPlaying ? t`Stop playback.` : t`Play all chords in the scale one after another.`}>
               <button
                 onClick={playChordsInSequence}
                 disabled={selectedRoot === null}
@@ -1388,7 +1388,7 @@ export default function ScaleExplorer() {
                   }}
                 >
                   {progPlaying ? <Square size={12} /> : <ChevronPlayIcon size={12} />}
-                  {progPlaying ? 'STOP' : 'PLAY'}
+                  {progPlaying ? t`STOP` : t`PLAY`}
                 </button>
               )
             })()}

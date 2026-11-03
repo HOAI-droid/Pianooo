@@ -328,8 +328,8 @@ export default function App() {
       // 1. Note Editor unsaved changes
       if (NES.dirty) {
         const choice = await confirmDialog({
-          title: 'Unsaved Changes',
-          message: 'You have unsaved changes in the Note Editor.',
+          title: t`Unsaved Changes`,
+          message: t`You have unsaved changes in the Note Editor.`,
           buttons: ['Save', 'Discard', 'Cancel'],
         })
         if (choice === 2) return  // Cancel — leave app open
@@ -347,8 +347,8 @@ export default function App() {
           (s.bpm !== s.originalBpm || (s.detectedKey?.transpose ?? 0) !== 0)
         if (tempoKeyDirty) {
           const choice = await confirmDialog({
-            title: 'Unsaved Tempo/Key Changes',
-            message: 'You have unsaved tempo/key changes.',
+            title: t`Unsaved Tempo/Key Changes`,
+            message: t`You have unsaved tempo/key changes.`,
             buttons: ['Save', 'Discard', 'Cancel'],
           })
           if (choice === 2) return  // Cancel — leave app open
@@ -408,9 +408,9 @@ export default function App() {
     const { noteEditorActive } = useStore.getState()
     if (noteEditorActive && NES.dirty) {
       const choice = await confirmDialog({
-        title: 'Unsaved Changes',
-        message: 'Save note editor changes before entering Presentation Mode?',
-        detail: 'Your edits will be preserved in the file.',
+        title: t`Unsaved Changes`,
+        message: t`Save note editor changes before entering Presentation Mode?`,
+        detail: t`Your edits will be preserved in the file.`,
         buttons: ['Save', 'Discard', 'Cancel'],
       })
       if (choice === 2) return
@@ -633,7 +633,7 @@ export default function App() {
           were on the file they dropped rather than this bottom-center toast,
           the explanation could otherwise vanish before it's read. ────────── */}
       {dropError && (
-        <Tooltip title={t`Dismiss`} description="Click anywhere on this message to close it.">
+        <Tooltip title={t`Dismiss`} description={t`Click anywhere on this message to close it.`}>
         <div
           role="alert"
           onClick={() => {

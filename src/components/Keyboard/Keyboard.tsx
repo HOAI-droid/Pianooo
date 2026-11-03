@@ -665,7 +665,7 @@ export default function Keyboard() {
           <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-2)', padding: '0 var(--space-3)', position: 'relative' }}>
             {/* ── Left: CHORDS trigger + prompter toggle ────────────────────────── */}
             <div style={{ position: 'absolute', left: 10, display: 'flex', alignItems: 'center', gap: 5 }}>
-              <Tooltip title={t`Chords Explorer`} description="Opens a dedicated view for browsing and detecting chords across the full keyboard.">
+              <Tooltip title={t`Chords Explorer`} description={t`Opens a dedicated view for browsing and detecting chords across the full keyboard.`}>
                 <span
                   onClick={() => setChordExplorerOpen(true)}
                   role="button"
@@ -678,7 +678,7 @@ export default function Keyboard() {
               </Tooltip>
               {/* ── Prompter toggle — amber when open, dim when closed, faded when no file ─ */}
               {chordPrompterEnabled && (
-                <Tooltip title={t`Chord Prompter`} description="Shows a scrolling past → current → next chord sequence alongside the chord name, synced to playback.">
+                <Tooltip title={t`Chord Prompter`} description={t`Shows a scrolling past → current → next chord sequence alongside the chord name, synced to playback.`}>
                   <div
                     onClick={() => midi && setChordPrompterOpen(!chordPrompterOpen)}
                     role="button"
@@ -712,7 +712,7 @@ export default function Keyboard() {
                     <span style={{ fontFamily: 'var(--font-ui)', fontSize: 10, color: 'var(--text-default)', userSelect: 'none' }}>
                       {explorerDisplay.ordinal}
                       <span style={{ fontSize: 7, verticalAlign: 'super' }}>{ordinalSuffix(Number(explorerDisplay.ordinal))}</span>
-                      {' inv'}
+                      {t` inv`}
                     </span>
                   )}
                 </>
@@ -751,7 +751,7 @@ export default function Keyboard() {
 
             {/* ── Right: SCALES trigger ─────────────────────────────────────────── */}
             <div style={{ position: 'absolute', right: 10, display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
-              <Tooltip title={t`Scales Explorer`} description="Opens a dedicated view for exploring scales and highlighting their notes on the keyboard.">
+              <Tooltip title={t`Scales Explorer`} description={t`Opens a dedicated view for exploring scales and highlighting their notes on the keyboard.`}>
                 <span
                   onClick={() => setScaleExplorerOpen(true)}
                   role="button"
@@ -772,7 +772,7 @@ export default function Keyboard() {
 
             {/* ── Left: CHORDS trigger + prompter toggle ────────────────────── */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
-              <Tooltip title={t`Chords`} description="Opens a dedicated view for browsing and detecting chords across the full keyboard.">
+              <Tooltip title={t`Chords`} description={t`Opens a dedicated view for browsing and detecting chords across the full keyboard.`}>
                 <span
                   onClick={() => setChordExplorerOpen(true)}
                   role="button"
@@ -784,7 +784,7 @@ export default function Keyboard() {
                 </span>
               </Tooltip>
               {/* ── Prompter toggle (amber — always active while open) ────────── */}
-              <Tooltip title={t`Chord Prompter`} description="Shows a scrolling past → current → next chord sequence alongside the chord name, synced to playback.">
+              <Tooltip title={t`Chord Prompter`} description={t`Shows a scrolling past → current → next chord sequence alongside the chord name, synced to playback.`}>
                 <div
                   onClick={() => setChordPrompterOpen(!chordPrompterOpen)}
                   role="button"
@@ -809,7 +809,7 @@ export default function Keyboard() {
                   return (
                     <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <span style={{ fontSize: 'var(--text-xs)', color: 'var(--text-muted)', fontFamily: 'var(--font-ui)' }}>
-                        {noFile ? 'Open a MIDI file' : noChords ? 'No chords detected' : 'Press play'}
+                        {noFile ? t`Open a MIDI file` : noChords ? t`No chords detected` : t`Press play`}
                       </span>
                     </div>
                   )
@@ -920,7 +920,7 @@ export default function Keyboard() {
 
             {/* ── Right: SCALES trigger ─────────────────────────────────────────── */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', flexShrink: 0 }}>
-              <Tooltip title={t`Scales`} description="Opens a dedicated view for exploring scales and highlighting their notes on the keyboard.">
+              <Tooltip title={t`Scales`} description={t`Opens a dedicated view for exploring scales and highlighting their notes on the keyboard.`}>
                 <span
                   onClick={() => setScaleExplorerOpen(true)}
                   role="button"

@@ -21,6 +21,25 @@ const files = fs.readdirSync('src', { recursive: true })
 const hasLetters = s => /\p{L}{2,}/u.test(s)
 const escapeTpl = s => s.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${')
 
+// Strings people read: UI-ish object properties, hint assignments, and text
+// rendered as a JSX child ({cond ? 'a' : 'b'} between tags)
+const PROPS = new Set(['label', 'title', 'hint', 'description', 'message', 'detail', 'tooltip', 'summary'])
+const looksLikeText = s => /\p{L}{2,}/u.test(s) && (/\s/.test(s) || /^\p{Lu}/u.test(s)) && !/^[\w-]+\.[a-z]{2,4}$/i.test(s) && !/^(https?:|#|\/|var\()/.test(s)
+function wantString(n) {
+  if (!looksLikeText(n.text)) return false
+  let p = n.parent
+  if (ts.isPropertyAssignment(p) && p.initializer === n) return PROPS.has(p.name.getText())
+  if (ts.isBinaryExpression(p) && p.operatorToken.kind === ts.SyntaxKind.EqualsToken && p.right === n) return /(^|\.)hint$/i.test(p.left.getText())
+  // climb through ?: / || / ( ) to a JSX expression that is a child of an element
+  while (p && (ts.isConditionalExpression(p) || ts.isParenthesizedExpression(p) || (ts.isBinaryExpression(p) && [ts.SyntaxKind.BarBarToken, ts.SyntaxKind.QuestionQuestionToken, ts.SyntaxKind.AmpersandAmpersandToken].includes(p.operatorToken.kind)))) {
+    if (ts.isConditionalExpression(p) && p.condition === n) return false
+    n = p; p = p.parent
+  }
+  if (!p || !ts.isJsxExpression(p) || !p.parent) return false
+  if (ts.isJsxAttribute(p.parent)) { const name = p.parent.name.getText(); return ATTRS.has(name) || PROPS.has(name) }
+  return ts.isJsxElement(p.parent) || ts.isJsxFragment(p.parent)
+}
+
 let total = 0
 for (const file of files) {
   const src = fs.readFileSync(file, 'utf8')
@@ -35,7 +54,9 @@ for (const file of files) {
         const text = trimmed.replace(/\s*\n\s*/g, ' ')
         edits.push({ start, end: start + trimmed.length, text: `{t\`${escapeTpl(text)}\`}` })
       }
-    } else if (ts.isJsxAttribute(n) && ATTRS.has(n.name.getText(sf)) && n.initializer && ts.isStringLiteral(n.initializer)) {
+    } else if (ts.isStringLiteral(n) && wantString(n)) {
+      edits.push({ start: n.getStart(sf), end: n.end, text: `t\`${escapeTpl(n.text)}\`` })
+    } else if (ts.isJsxAttribute(n) && (ATTRS.has(n.name.getText(sf)) || PROPS.has(n.name.getText(sf))) && n.initializer && ts.isStringLiteral(n.initializer) && looksLikeText(n.initializer.text)) {
       const v = n.initializer.text
       if (hasLetters(v)) edits.push({ start: n.initializer.getStart(sf), end: n.initializer.end, text: `{t\`${escapeTpl(v)}\`}` })
     }

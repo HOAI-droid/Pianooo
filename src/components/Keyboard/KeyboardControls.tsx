@@ -161,10 +161,10 @@ export default function KeyboardControls() {
 
         {/* ── Dock / Float toggle — hidden in Presentation Mode ────────────────── */}
         {!presentationMode && <Tooltip
-          title={isDocked ? (undockBlocked ? "Can't float yet" : 'Float keyboard') : 'Dock keyboard'}
+          title={isDocked ? (undockBlocked ? t`Can't float yet` : t`Float keyboard`) : t`Dock keyboard`}
           description={isDocked
-            ? (undockBlocked ? 'Close the open modal first — it shares the keyboard\'s anchor point.' : 'Detaches the keyboard so it can be moved and resized independently.')
-            : 'Reattaches the keyboard to the bottom of the window.'}
+            ? (undockBlocked ? t`Close the open modal first — it shares the keyboard's anchor point.` : t`Detaches the keyboard so it can be moved and resized independently.`)
+            : t`Reattaches the keyboard to the bottom of the window.`}
         >
         <button
           onClick={() => { if (isDocked && undockBlocked) return; setKeyboardMode(isDocked ? 'floating' : 'docked') }}
@@ -194,7 +194,7 @@ export default function KeyboardControls() {
               <line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/>
             </svg>
           )}
-          {isDocked ? 'Docked' : 'Floating'}
+          {isDocked ? t`Docked` : t`Floating`}
         </button>
         </Tooltip>}
       </div>
@@ -206,7 +206,7 @@ export default function KeyboardControls() {
           <span ref={hintRef} style={{ display: 'inline-flex', alignItems: 'center', gap: 28, transform: `translateX(${hintShift}px)` }}>
             {stepThroughEnabled && <StepArrow dir={-1} enabled={hasSong} />}
             <span style={{ fontSize: 11, color: 'var(--text-faint)', fontFamily: 'var(--font-ui)', userSelect: 'none', whiteSpace: 'nowrap' }}>
-              Shift+Click three keys or more to build &amp; lock a chord
+              {t`Shift+Click three keys or more to build & lock a chord`}
             </span>
             {stepThroughEnabled && <StepArrow dir={1} enabled={hasSong} />}
           </span>
@@ -255,8 +255,9 @@ export default function KeyboardControls() {
 
       {/* ── Presentation Mode toggle — replaces Docked/NoteCounter in PM footer ─ */}
       <Tooltip
-        title={presentationMode ? 'Exit Presentation Mode' : 'Presentation Mode'}
-        description={presentationMode ? 'Press Esc to leave, or click here.' : 'Distraction-free fullscreen view.\nF11 to open, Esc to close.'}
+        title={presentationMode ? t`Exit Presentation Mode` : t`Presentation Mode`}
+        description={presentationMode ? t`Press Esc to leave, or click here.` : t`Distraction-free fullscreen view.
+F11 to open, Esc to close.`}
       >
       <button
         onClick={() => setPresentationMode(!presentationMode)}

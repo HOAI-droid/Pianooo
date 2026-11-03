@@ -902,7 +902,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
                   </Tooltip>
                 )}
               </div>
-              <Tooltip title={libraryNeedsRefresh ? 'A file was saved — click to refresh the library' : 'Refresh library'} oneLine>
+              <Tooltip title={libraryNeedsRefresh ? t`A file was saved — click to refresh the library` : t`Refresh library`} oneLine>
               <button
                 onClick={handleRefresh}
                 className={libraryNeedsRefresh ? 'loop-nudge-blink' : undefined}
@@ -937,7 +937,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
             {/* Filter tabs */}
             <div style={{ display: 'flex', gap: 'var(--space-1)' }}>
               {(['all', 'starred'] as const).map(f => (
-                <Tooltip key={f} title={f === 'all' ? 'Show all files' : 'Show favorites only'} oneLine wrapperStyle={{ flex: 1 }}>
+                <Tooltip key={f} title={f === 'all' ? t`Show all files` : t`Show favorites only`} oneLine wrapperStyle={{ flex: 1 }}>
                 <button
                   onClick={() => setFilter(f)}
                   style={{
@@ -948,7 +948,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
                     cursor: 'pointer', transition: 'all 0.12s',
                   }}
                 >
-                  {f === 'all' ? `All (${libraryFiles.length})` : `★ ${starredCount}`}
+                  {f === 'all' ? t`All (${libraryFiles.length})` : `★ ${starredCount}`}
                 </button>
                 </Tooltip>
               ))}
@@ -967,7 +967,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
                 <Folders size={10} />
               </button>
               </Tooltip>
-              <Tooltip title={showHiddenLibraryFiles ? 'Hide hidden files in library' : 'Reveal hidden files in library'} oneLine>
+              <Tooltip title={showHiddenLibraryFiles ? t`Hide hidden files in library` : t`Reveal hidden files in library`} oneLine>
               <button
                 onClick={() => setShowHiddenLibraryFiles(!showHiddenLibraryFiles)}
                 style={{
@@ -1219,7 +1219,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
                 <TempoWarningDot path={loadedFile.path} onHoverChange={suppress} />
                 <FavouriteStar
                   starred={starred}
-                  title={starred ? 'Remove from favourites' : 'Add to favourites'}
+                  title={starred ? t`Remove from favourites` : t`Add to favourites`}
                   onClick={e => { e.stopPropagation(); toggleFavourite(loadedFile!.path) }}
                   onHoverChange={suppress}
                   style={{ padding: '2px 3px' }}
@@ -1235,7 +1235,8 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
           <div style={{ padding: '16px 14px', fontSize: 'var(--text-xs)', color: 'var(--text-muted)', textAlign: 'center' }}>
             {librarySearch.trim()
               ? `No files matching "${librarySearch.trim()}".`
-              : filter === 'starred' ? 'No starred files yet.\nStar a file with ★' : 'No MIDI files found.'}
+              : filter === 'starred' ? t`No starred files yet.
+Star a file with ★` : t`No MIDI files found.`}
           </div>
         )}
 
@@ -1399,7 +1400,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
                   )}
                   {!protectedFolder && folderHasUndo && (
                     <RowIconButton
-                      tooltip="Undo all moves into this folder (this session only)"
+                      tooltip={t`Undo all moves into this folder (this session only)`}
                       onClick={e => { e.stopPropagation(); handleUndoFolder(group.folder!, group.files) }}
                       onHoverChange={suppress}
                       style={{ padding: '1px 2px' }}
@@ -1410,7 +1411,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
                   {!protectedFolder && group.files.length > 0 && (
                     <FavouriteStar
                       starred={folderAllStarred}
-                      title={folderAllStarred ? 'Unstar all songs in this folder' : 'Star all songs in this folder'}
+                      title={folderAllStarred ? t`Unstar all songs in this folder` : t`Star all songs in this folder`}
                       onClick={e => { e.stopPropagation(); handleToggleFolderFavourites(group.files) }}
                       onHoverChange={suppress}
                       style={{ padding: '1px 2px' }}
@@ -1517,7 +1518,7 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
                     <TempoWarningDot path={file.path} onHoverChange={suppress} />
                     <FavouriteStar
                       starred={starred}
-                      title={starred ? 'Remove from favourites' : 'Add to favourites'}
+                      title={starred ? t`Remove from favourites` : t`Add to favourites`}
                       onClick={e => { e.stopPropagation(); toggleFavourite(file.path) }}
                       onHoverChange={suppress}
                       style={{ padding: '2px 3px' }}
@@ -1610,7 +1611,7 @@ export default function SettingsPanel() {
           display: 'flex', flexDirection: 'column', alignItems: 'center',
           height: '100%', paddingTop: 10, paddingBottom: 10,
         }}>
-          <Tooltip title={t`Open Library`} description="Browse and load MIDI files from your library folder.">
+          <Tooltip title={t`Open Library`} description={t`Browse and load MIDI files from your library folder.`}>
           <button
             onClick={() => { setActiveTab('library'); setSettingsPanelOpen(true) }}
             style={{
@@ -1680,7 +1681,7 @@ export default function SettingsPanel() {
           {/* ── Tab bar: Library / Settings, left-aligned with content ─────── */}
           <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
             {([
-              { id: 'library',  icon: <Library size={16} />,  label: 'Library'  },
+              { id: 'library',  icon: <Library size={16} />,  label: t`Library`  },
               { id: 'settings', icon: <Settings2 size={16} />, label: t`Setup` },
             ] as { id: DrawerTab; icon: React.ReactNode; label: string }[]).map(tab => (
               <button

@@ -205,11 +205,11 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
   const currentVersionLabel = currentVersion ? (currentVersion.version === 0 ? 'Original' : `v${currentVersion.version}`) : null
 
   const rows: { label: string; value: string }[] = meta ? [
-    { label: 'Key', value: formatKeyOrDash(meta.key, noteNaming, accidentals) },
-    { label: 'BPM', value: String(meta.bpm) },
-    { label: 'Time', value: meta.timeSignature },
-    { label: 'Tracks', value: String(meta.trackCount) },
-    { label: 'Copyright', value: meta.copyright ?? '—' },
+    { label: t`Key`, value: formatKeyOrDash(meta.key, noteNaming, accidentals) },
+    { label: t`BPM`, value: String(meta.bpm) },
+    { label: t`Time`, value: meta.timeSignature },
+    { label: t`Tracks`, value: String(meta.trackCount) },
+    { label: t`Copyright`, value: meta.copyright ?? '—' },
   ] : []
 
   return createPortal(
@@ -287,7 +287,7 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
                       onMouseEnter={e => { if (v.path !== currentPath) e.currentTarget.style.background = 'var(--bg-tile)' }}
                       onMouseLeave={e => { if (v.path !== currentPath) e.currentTarget.style.background = 'transparent' }}
                     >
-                      {v.version === 0 ? 'Original' : `v${v.version}`}
+                      {v.version === 0 ? t`Original` : `v${v.version}`}
                     </button>
                   ))}
                 </div>
@@ -418,7 +418,7 @@ export default function FileInfoModal({ filePath, fileName, onClose, onRenamed }
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
                 }}
               >
-                <Save size={13} /> {saving ? 'Saving…' : 'Save changes'}
+                <Save size={13} /> {saving ? t`Saving…` : t`Save changes`}
               </button>
               <button
                 onClick={() => window.electronAPI.showItemInFolder(currentPath)}

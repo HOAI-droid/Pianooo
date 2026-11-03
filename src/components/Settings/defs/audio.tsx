@@ -222,7 +222,7 @@ function SoundFontsControl() {
               {sf.id === 'generaluser-gs' ? (
                 <span style={{ fontSize: 9, color: 'var(--text-muted)', fontFamily: 'var(--font-ui)', textAlign: 'right' }}>{t`bundled`}</span>
               ) : sf.downloaded ? (
-                <SoundfontActionLink label="remove" color="var(--text-dimmest)" tooltip={sf.custom ? 'Remove imported file' : 'Delete downloaded file'} onClick={() => void deleteSoundfont(sf.id)} />
+                <SoundfontActionLink label="remove" color="var(--text-dimmest)" tooltip={sf.custom ? t`Remove imported file` : t`Delete downloaded file`} onClick={() => void deleteSoundfont(sf.id)} />
               ) : downloadingId === sf.id ? (
                 <div style={{ width: 60, height: 3, background: 'var(--border)', borderRadius: 2, overflow: 'hidden' }}>
                   <div style={{ height: '100%', background: 'var(--text-amber)', borderRadius: 2, width: `${Math.round(downloadProgress * 100)}%`, transition: 'width 0.1s' }} />
@@ -259,7 +259,7 @@ export const AUDIO_DEFS: SettingDef[] = [
   { id: 'soundFonts', icon: Library, kind: 'choice', Control: SoundFontsControl },
   {
     id: 'autoLevel', icon: Gauge, kind: 'switch',
-    Control: () => { const v = useStore(s => s.autoLevelOnLoad); return <Switch value={v} onChange={useStore.getState().setAutoLevelOnLoad} label="Auto-Level on Load" /> },
+    Control: () => { const v = useStore(s => s.autoLevelOnLoad); return <Switch value={v} onChange={useStore.getState().setAutoLevelOnLoad} label={t`Auto-Level on Load`} /> },
   },
   {
     id: 'exportAudio', icon: FileAudio, kind: 'switch',

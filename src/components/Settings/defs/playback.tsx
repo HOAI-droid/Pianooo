@@ -107,7 +107,7 @@ function HandColoursLink() {
 export const PLAYBACK_DEFS: SettingDef[] = [
   {
     id: 'noteEditor', icon: AudioLines, kind: 'switch',
-    Control: () => { const v = useStore(s => s.noteEditorEnabled); return <Switch value={v} onChange={useStore.getState().setNoteEditorEnabled} label="MIDI Note Editor" /> },
+    Control: () => { const v = useStore(s => s.noteEditorEnabled); return <Switch value={v} onChange={useStore.getState().setNoteEditorEnabled} label={t`MIDI Note Editor`} /> },
     Description: () => <>{t`Shows`} <InlineIcon><AudioLines size={11} /></InlineIcon> {t`icon in the Tracks panel. Enables MIDI note-editing mode directly on the piano roll.`}</>,
   },
   {
@@ -138,7 +138,7 @@ export const PLAYBACK_DEFS: SettingDef[] = [
   },
   {
     id: 'handAssignment', icon: Hand, kind: 'switch', Extra: HandAssignmentExtra,
-    Control: () => { const v = useStore(s => s.showHandLabels); return <Switch value={v} onChange={useStore.getState().setShowHandLabels} label="Hand Assignment" /> },
+    Control: () => { const v = useStore(s => s.showHandLabels); return <Switch value={v} onChange={useStore.getState().setShowHandLabels} label={t`Hand Assignment`} /> },
     Description: () => <>
       {t`Automated hand assignment for piano that colors each note by the hand that plays it. A guideline, not a verified transcript!`}
       <br /><br />
@@ -150,7 +150,7 @@ export const PLAYBACK_DEFS: SettingDef[] = [
   },
   {
     id: 'loopRegion', icon: Repeat, kind: 'switch',
-    Control: () => { const v = useStore(s => s.loopRegionEnabled); return <Switch value={v} onChange={useStore.getState().setLoopRegionEnabled} label="Loop region" /> },
+    Control: () => { const v = useStore(s => s.loopRegionEnabled); return <Switch value={v} onChange={useStore.getState().setLoopRegionEnabled} label={t`Loop region`} /> },
     Description: () => <>{t`Shows a strip to select and loop-play a section. Alt+Click & drag to select. Click`} <InlineIcon><Repeat size={11} /></InlineIcon> {t`icon to loop.`}</>,
   },
   {
@@ -159,6 +159,6 @@ export const PLAYBACK_DEFS: SettingDef[] = [
   },
   {
     id: 'focusMode', icon: Focus, kind: 'switch',
-    Control: () => { const v = useStore(s => s.autoMuteNonKeyboard); return <Switch value={v} onChange={useStore.getState().setAutoMuteNonKeyboard} label="Focus mode" /> },
+    Control: () => { const v = useStore(s => s.autoMuteNonKeyboard); return <Switch value={v} onChange={useStore.getState().setAutoMuteNonKeyboard} label={t`Focus mode`} /> },
   },
 ]

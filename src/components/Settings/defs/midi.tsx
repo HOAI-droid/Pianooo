@@ -162,7 +162,7 @@ function SimulatorPanel() {
       <div style={{ display: 'flex', gap: 'var(--space-1)', marginBottom: 6 }}>
         {sim.models.map(m => (
           <OptionBtn key={m.key} active={target === m.key} onClick={() => setTarget(m.key)}>
-            {m.key === 's88' ? 'S88 MK3' : m.key === 'mpk' ? 'MPK mini' : 'Launchkey'}
+            {m.key === 's88' ? t`S88 MK3` : m.key === 'mpk' ? t`MPK mini` : t`Launchkey`}
           </OptionBtn>
         ))}
       </div>

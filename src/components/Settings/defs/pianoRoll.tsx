@@ -62,10 +62,10 @@ function VisualEffectsExtra() {
       <SubLabel>{t`Scope & Color`}</SubLabel>
       <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'stretch' }}>
         <Tooltip
-          title={scope === 'keyboard' ? 'Piano tracks only' : 'All tracks'}
+          title={scope === 'keyboard' ? t`Piano tracks only` : t`All tracks`}
           description={scope === 'keyboard'
-            ? 'Effects on keyboard tracks only — click to include every track in the file.'
-            : 'Effects on every track in the file — click to limit to keyboard tracks only.'}
+            ? t`Effects on keyboard tracks only — click to include every track in the file.`
+            : t`Effects on every track in the file — click to limit to keyboard tracks only.`}
           wrapperStyle={{ width: 116, flexShrink: 0 }}
         >
           <button
@@ -76,7 +76,7 @@ function VisualEffectsExtra() {
               ? <ToggleLeft size={16} strokeWidth={1.5} style={{ flexShrink: 0, color: 'var(--text-amber)' }} />
               : <ToggleRight size={16} strokeWidth={1.5} style={{ flexShrink: 0, color: 'var(--text-amber)' }} />}
             <span style={{ color: 'var(--text-faint)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', textAlign: 'left' }}>
-              {scope === 'keyboard' ? 'Piano only' : 'All tracks'}
+              {scope === 'keyboard' ? t`Piano only` : t`All tracks`}
             </span>
           </button>
         </Tooltip>
@@ -103,9 +103,9 @@ function VisualEffectsExtra() {
         }))}
       />
       <HelpText>{HIT_EFFECT_DESCRIPTIONS[pattern]}</HelpText>
-      <Slider label="Intensity" value={intensity} min={0} max={4} step={0.1} digits={1} onChange={st.setHitEffectBloomIntensity} />
-      <Slider label="Spread" value={spread} min={0} max={12} step={0.5} digits={1} onChange={st.setHitEffectBloomSpread} />
-      <Slider label="Threshold" value={threshold} min={0} max={1} step={0.05} digits={2} onChange={st.setHitEffectBloomThreshold} />
+      <Slider label={t`Intensity`} value={intensity} min={0} max={4} step={0.1} digits={1} onChange={st.setHitEffectBloomIntensity} />
+      <Slider label={t`Spread`} value={spread} min={0} max={12} step={0.5} digits={1} onChange={st.setHitEffectBloomSpread} />
+      <Slider label={t`Threshold`} value={threshold} min={0} max={1} step={0.05} digits={2} onChange={st.setHitEffectBloomThreshold} />
       <HelpText>{t`Lower values make more of the effect glow; higher values only bloom the brightest parts.`}</HelpText>
     </>
   )
@@ -115,14 +115,14 @@ export const PIANO_ROLL_DEFS: SettingDef[] = [
   { id: 'rollZoom', icon: ZoomIn, kind: 'choice', Control: RollZoomStepper, Glance: RollZoomGlance, NameSuffix: RollZoomSuffix },
   {
     id: 'barNumbers', icon: Grid3x3, kind: 'switch',
-    Control: () => { const v = useStore(s => s.showBarNumbers); return <Switch value={v} onChange={useStore.getState().setShowBarNumbers} label="Bar numbers & grid lines" /> },
+    Control: () => { const v = useStore(s => s.showBarNumbers); return <Switch value={v} onChange={useStore.getState().setShowBarNumbers} label={t`Bar numbers & grid lines`} /> },
   },
   {
     id: 'playbar', icon: Minus, kind: 'switch',
-    Control: () => { const v = useStore(s => s.playbarVisible); return <Switch value={v} onChange={useStore.getState().setPlaybarVisible} label="Show Playbar" /> },
+    Control: () => { const v = useStore(s => s.playbarVisible); return <Switch value={v} onChange={useStore.getState().setPlaybarVisible} label={t`Show Playbar`} /> },
   },
   {
     id: 'visualEffects', icon: Sparkles, kind: 'switch', Extra: VisualEffectsExtra,
-    Control: () => { const v = useStore(s => s.hitEffectsEnabled); return <Switch value={v} onChange={useStore.getState().setHitEffectsEnabled} label="Visual Effects" /> },
+    Control: () => { const v = useStore(s => s.hitEffectsEnabled); return <Switch value={v} onChange={useStore.getState().setHitEffectsEnabled} label={t`Visual Effects`} /> },
   },
 ]

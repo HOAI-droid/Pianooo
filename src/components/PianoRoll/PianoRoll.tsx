@@ -1178,11 +1178,11 @@ export default function PianoRoll() {
             const atStart = canResize && cy >= ef.topY + ef.noteH - RESIZE_ZONE_PX
             if (atEnd || atStart) {
               app.canvas.style.cursor = 'ns-resize'
-              hint = 'Drag to resize'
+              hint = t`Drag to resize`
               setEditTooltip(null)
             } else {
               app.canvas.style.cursor = 'move'
-              hint = 'Drag to move · Shift+click to add to selection'
+              hint = t`Drag to move · Shift+click to add to selection`
               if (NES.showNoteNamesRef.current && ef.noteH < 14 && clientX !== undefined && clientY !== undefined) {
                 const { noteNaming, accidentals } = storeRef.current
                 const naming = noteNaming === 'hidden' ? 'english' : noteNaming
@@ -1194,26 +1194,26 @@ export default function PianoRoll() {
             }
           } else if (tool === 'pen') {
             app.canvas.style.cursor = PENCIL_CURSOR
-            hint = 'Click to mark for delete · Right-click for options'
+            hint = t`Click to mark for delete · Right-click for options`
             setEditTooltip(null)
           } else {
             app.canvas.style.cursor = 'crosshair'
-            hint = 'Click to select · Right-click for options'
+            hint = t`Click to select · Right-click for options`
             setEditTooltip(null)
           }
         } else {
           if (tool === 'select') {
             app.canvas.style.cursor = 'grab'
-            hint = 'Drag to pan · Shift+wheel to scrub finely'
+            hint = t`Drag to pan · Shift+wheel to scrub finely`
           } else if (tool === 'pen') {
             app.canvas.style.cursor = PENCIL_CURSOR
-            hint = 'Alt+click to add a note'
+            hint = t`Alt+click to add a note`
           } else if (tool === 'marquee') {
             app.canvas.style.cursor = 'crosshair'
-            hint = 'Drag to select a cluster'
+            hint = t`Drag to select a cluster`
           } else {
             app.canvas.style.cursor = 'crosshair'
-            hint = 'Drag through notes to select them'
+            hint = t`Drag through notes to select them`
           }
           setEditTooltip(null)
         }
@@ -1727,12 +1727,12 @@ export default function PianoRoll() {
         if (hasSelection) {
           if (NES.reassignHandsMode) {
             options.push({
-              label: 'Assign to Left Hand',
+              label: t`Assign to Left Hand`,
               swatchColor: 'var(--hand-lh)',
               onClick: () => { assignSelectedHand('L'); setContextMenu(null) },
             })
             options.push({
-              label: 'Assign to Right Hand',
+              label: t`Assign to Right Hand`,
               swatchColor: 'var(--hand-rh)',
               onClick: () => { assignSelectedHand('R'); setContextMenu(null) },
             })
@@ -1744,12 +1744,12 @@ export default function PianoRoll() {
             })
           }
           options.push({
-            label: 'Deselect',
+            label: t`Deselect`,
             onClick: () => { editSelectedNotes.clear(); setContextMenu(null) },
           })
         }
-        options.push({ label: 'Undo', disabled: !NES.history.canUndo, onClick: () => { doHistoryUndo(); setContextMenu(null) } })
-        options.push({ label: 'Redo', disabled: !NES.history.canRedo, onClick: () => { doHistoryRedo(); setContextMenu(null) } })
+        options.push({ label: t`Undo`, disabled: !NES.history.canUndo, onClick: () => { doHistoryUndo(); setContextMenu(null) } })
+        options.push({ label: t`Redo`, disabled: !NES.history.canRedo, onClick: () => { doHistoryRedo(); setContextMenu(null) } })
         // Delete always last — destructive action shouldn't be the first
         // thing a right-click reaches for.
         if (hasSelection) {

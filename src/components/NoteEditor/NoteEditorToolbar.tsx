@@ -357,8 +357,8 @@ export default function NoteEditorToolbar() {
   const doReset = async () => {
     if (NES.dirty) {
       const choice = await confirmDialog({
-        title: 'Reset Note Editor',
-        message: 'Discard all changes in this editing session?',
+        title: t`Reset Note Editor`,
+        message: t`Discard all changes in this editing session?`,
         buttons: ['Discard', 'Cancel'],
         destructiveIndex: 0,
       })
@@ -513,13 +513,13 @@ export default function NoteEditorToolbar() {
           height and made the tooltip row below feel cramped. ─────────────── */}
       <div style={{ display: 'flex', alignItems: 'center', height: 40, padding: '4px 8px', gap: 10, borderTop: '1px solid var(--state-hover-bg)' }}>
         <span style={rowLabelStyle}>{t`TOOLS`}</span>
-        <ToolBtn active={activeTool === 'marquee'} onClick={() => setTool('marquee')} onHint={setIconHint} hint="Marquee — drag a box over a cluster to select it">
+        <ToolBtn active={activeTool === 'marquee'} onClick={() => setTool('marquee')} onHint={setIconHint} hint={t`Marquee — drag a box over a cluster to select it`}>
           <SquareDashed size={13} />
         </ToolBtn>
-        <ToolBtn active={activeTool === 'lasso'} onClick={() => setTool('lasso')} onHint={setIconHint} hint="Freehand select — drag through notes to select them">
+        <ToolBtn active={activeTool === 'lasso'} onClick={() => setTool('lasso')} onHint={setIconHint} hint={t`Freehand select — drag through notes to select them`}>
           <CircleDashed size={13} />
         </ToolBtn>
-        <ToolBtn active={activeTool === 'pen'} onClick={() => setTool('pen')} onHint={setIconHint} hint="Pen — Alt+click to add, click a note to mark for delete">
+        <ToolBtn active={activeTool === 'pen'} onClick={() => setTool('pen')} onHint={setIconHint} hint={t`Pen — Alt+click to add, click a note to mark for delete`}>
           <PenLine size={13} />
         </ToolBtn>
         <button onClick={doUndo} disabled={!canUndo} {...hintHandlers('Undo — revert the last edit (Ctrl+Z)')} style={iconBtnStyle(!canUndo)}><span style={{ display: 'inline-block', transform: 'rotate(-45deg)' }}>↺</span></button>
@@ -528,11 +528,11 @@ export default function NoteEditorToolbar() {
         <div style={{ flex: 1 }} />
 
         <span style={rowLabelStyle}>{t`MODES`}</span>
-        <ToolBtn active={showNoteNames} onClick={toggleNoteNames} onHint={setIconHint} hint="Note names — show pitch labels on notes">
+        <ToolBtn active={showNoteNames} onClick={toggleNoteNames} onHint={setIconHint} hint={t`Note names — show pitch labels on notes`}>
           <WholeWord size={16} />
         </ToolBtn>
 
-        <ToolBtn active={reassignHands} onClick={toggleReassignHands} onHint={setIconHint} hint="Reassign hands — show LH/RH colors and enable Assign LH/RH">
+        <ToolBtn active={reassignHands} onClick={toggleReassignHands} onHint={setIconHint} hint={t`Reassign hands — show LH/RH colors and enable Assign LH/RH`}>
           <Hand size={13} />
         </ToolBtn>
 
@@ -557,7 +557,7 @@ export default function NoteEditorToolbar() {
           <IconVelocity />
         </button>
 
-        <ToolBtn active={snapEnabled} onClick={() => setSnap(!snapEnabled)} onHint={setIconHint} hint={snapEnabled ? 'Snap ON — moving, resizing or adding a note rounds its timing to the grid' : 'Snap OFF — moved/resized/added notes keep their exact dragged timing'}>
+        <ToolBtn active={snapEnabled} onClick={() => setSnap(!snapEnabled)} onHint={setIconHint} hint={snapEnabled ? t`Snap ON — moving, resizing or adding a note rounds its timing to the grid` : t`Snap OFF — moved/resized/added notes keep their exact dragged timing`}>
           <Magnet size={13} />
         </ToolBtn>
 

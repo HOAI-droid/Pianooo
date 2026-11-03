@@ -68,84 +68,84 @@ const GM_FAMILY_ICONS: Record<string, React.ReactNode> = {
 }
 
 const GM_FAMILIES: { key: string; label: string; programs: { num: number; name: string }[] }[] = [
-  { key: 'piano', label: 'Piano', programs: [
+  { key: 'piano', label: t`Piano`, programs: [
     {num:0,name:'Acoustic Grand Piano'},{num:1,name:'Bright Acoustic Piano'},
     {num:2,name:'Electric Grand Piano'},{num:3,name:'Honky-tonk Piano'},
     {num:4,name:'Electric Piano 1'},{num:5,name:'Electric Piano 2'},
     {num:6,name:'Harpsichord'},{num:7,name:'Clavinet'},
   ]},
-  { key: 'chromatic', label: 'Chromatic Perc', programs: [
+  { key: 'chromatic', label: t`Chromatic Perc`, programs: [
     {num:8,name:'Celesta'},{num:9,name:'Glockenspiel'},{num:10,name:'Music Box'},
     {num:11,name:'Vibraphone'},{num:12,name:'Marimba'},{num:13,name:'Xylophone'},
     {num:14,name:'Tubular Bells'},{num:15,name:'Dulcimer'},
   ]},
-  { key: 'organ', label: 'Organ', programs: [
+  { key: 'organ', label: t`Organ`, programs: [
     {num:16,name:'Drawbar Organ'},{num:17,name:'Percussive Organ'},{num:18,name:'Rock Organ'},
     {num:19,name:'Church Organ'},{num:20,name:'Reed Organ'},{num:21,name:'Accordion'},
     {num:22,name:'Harmonica'},{num:23,name:'Tango Accordion'},
   ]},
-  { key: 'guitar', label: 'Guitar', programs: [
+  { key: 'guitar', label: t`Guitar`, programs: [
     {num:24,name:'Nylon Guitar'},{num:25,name:'Steel Guitar'},{num:26,name:'Jazz Guitar'},
     {num:27,name:'Clean Guitar'},{num:28,name:'Muted Guitar'},{num:29,name:'Overdriven Guitar'},
     {num:30,name:'Distortion Guitar'},{num:31,name:'Guitar Harmonics'},
   ]},
-  { key: 'bass', label: 'Bass', programs: [
+  { key: 'bass', label: t`Bass`, programs: [
     {num:32,name:'Acoustic Bass'},{num:33,name:'Finger Bass'},{num:34,name:'Pick Bass'},
     {num:35,name:'Fretless Bass'},{num:36,name:'Slap Bass 1'},{num:37,name:'Slap Bass 2'},
     {num:38,name:'Synth Bass 1'},{num:39,name:'Synth Bass 2'},
   ]},
-  { key: 'strings', label: 'Strings', programs: [
+  { key: 'strings', label: t`Strings`, programs: [
     {num:40,name:'Violin'},{num:41,name:'Viola'},{num:42,name:'Cello'},{num:43,name:'Contrabass'},
     {num:44,name:'Tremolo Strings'},{num:45,name:'Pizzicato Strings'},
     {num:46,name:'Orchestral Harp'},{num:47,name:'Timpani'},
   ]},
-  { key: 'ensemble', label: 'Ensemble', programs: [
+  { key: 'ensemble', label: t`Ensemble`, programs: [
     {num:48,name:'String Ensemble 1'},{num:49,name:'String Ensemble 2'},
     {num:50,name:'Synth Strings 1'},{num:51,name:'Synth Strings 2'},
     {num:52,name:'Choir Aahs'},{num:53,name:'Voice Oohs'},
     {num:54,name:'Synth Voice'},{num:55,name:'Orchestra Hit'},
   ]},
-  { key: 'brass', label: 'Brass', programs: [
+  { key: 'brass', label: t`Brass`, programs: [
     {num:56,name:'Trumpet'},{num:57,name:'Trombone'},{num:58,name:'Tuba'},
     {num:59,name:'Muted Trumpet'},{num:60,name:'French Horn'},{num:61,name:'Brass Section'},
     {num:62,name:'Synth Brass 1'},{num:63,name:'Synth Brass 2'},
   ]},
-  { key: 'reed', label: 'Reed', programs: [
+  { key: 'reed', label: t`Reed`, programs: [
     {num:64,name:'Soprano Sax'},{num:65,name:'Alto Sax'},{num:66,name:'Tenor Sax'},
     {num:67,name:'Baritone Sax'},{num:68,name:'Oboe'},{num:69,name:'English Horn'},
     {num:70,name:'Bassoon'},{num:71,name:'Clarinet'},
   ]},
-  { key: 'pipe', label: 'Pipe', programs: [
+  { key: 'pipe', label: t`Pipe`, programs: [
     {num:72,name:'Piccolo'},{num:73,name:'Flute'},{num:74,name:'Recorder'},
     {num:75,name:'Pan Flute'},{num:76,name:'Blown Bottle'},{num:77,name:'Shakuhachi'},
     {num:78,name:'Whistle'},{num:79,name:'Ocarina'},
   ]},
-  { key: 'synth_lead', label: 'Synth Lead', programs: [
+  { key: 'synth_lead', label: t`Synth Lead`, programs: [
     {num:80,name:'Square Lead'},{num:81,name:'Sawtooth Lead'},{num:82,name:'Calliope Lead'},
     {num:83,name:'Chiff Lead'},{num:84,name:'Charang Lead'},{num:85,name:'Voice Lead'},
     {num:86,name:'Fifths Lead'},{num:87,name:'Bass+Lead'},
   ]},
-  { key: 'synth_pad', label: 'Synth Pad', programs: [
+  { key: 'synth_pad', label: t`Synth Pad`, programs: [
     {num:88,name:'New Age Pad'},{num:89,name:'Warm Pad'},{num:90,name:'Polysynth Pad'},
     {num:91,name:'Choir Pad'},{num:92,name:'Bowed Pad'},{num:93,name:'Metallic Pad'},
     {num:94,name:'Halo Pad'},{num:95,name:'Sweep Pad'},
   ]},
-  { key: 'synth_fx', label: 'Synth FX', programs: [
+  { key: 'synth_fx', label: t`Synth FX`, programs: [
     {num:96,name:'Rain FX'},{num:97,name:'Soundtrack FX'},{num:98,name:'Crystal FX'},
     {num:99,name:'Atmosphere FX'},{num:100,name:'Brightness FX'},{num:101,name:'Goblins FX'},
     {num:102,name:'Echoes FX'},{num:103,name:'Sci-fi FX'},
   ]},
-  { key: 'ethnic', label: 'Ethnic', programs: [
+  { key: 'ethnic', label: t`Ethnic`, programs: [
     {num:104,name:'Sitar'},{num:105,name:'Banjo'},{num:106,name:'Shamisen'},
     {num:107,name:'Koto'},{num:108,name:'Kalimba'},{num:109,name:'Bag Pipe'},
     {num:110,name:'Fiddle'},{num:111,name:'Shanai'},
   ]},
-  { key: 'percussive', label: 'Percussive', programs: [
+  { key: 'percussive', label: t`Percussive`, programs: [
     {num:112,name:'Tinkle Bell'},{num:113,name:'Agogo'},{num:114,name:'Steel Drums'},
     {num:115,name:'Woodblock'},{num:116,name:'Taiko Drum'},{num:117,name:'Melodic Tom'},
     {num:118,name:'Synth Drum'},{num:119,name:'Reverse Cymbal'},
   ]},
-  { key: 'sound_fx', label: 'Sound FX', programs: [
+  { key: 'sound_fx', label: t`Sound FX`, programs: [
     {num:120,name:'Guitar Fret Noise'},{num:121,name:'Breath Noise'},{num:122,name:'Seashore'},
     {num:123,name:'Bird Tweet'},{num:124,name:'Telephone Ring'},{num:125,name:'Helicopter'},
     {num:126,name:'Applause'},{num:127,name:'Gunshot'},
@@ -1167,7 +1167,7 @@ export default function MidiEditor() {
     const excludedRows = state.rows.filter(r => !r.included)
     if (excludedRows.length > 0) {
       const choice = await confirmDialog({
-        title: 'Delete tracks?',
+        title: t`Delete tracks?`,
         message: `You're about to delete ${excludedRows.length} track${excludedRows.length === 1 ? '' : 's'} in the saved version.`,
         detail: excludedRows.map(r => r.trackName).join(', '),
         buttons: ['Delete & Save', 'Cancel'],
@@ -1246,7 +1246,7 @@ export default function MidiEditor() {
     const summary = buildSaveSummary()
     if (summary) {
       const choice = await confirmDialog({
-        title: 'Save changes before editing?',
+        title: t`Save changes before editing?`,
         message: `This session ${summary}. Save before opening the Note Editor?`,
         buttons: ['Save', 'Discard', 'Cancel'],
       })
@@ -1424,14 +1424,14 @@ export default function MidiEditor() {
       {/* ── Column headers ───────────────────────────────────────────────────── */}
       <div style={{ display: 'grid', gridTemplateColumns: ROW_COLS, alignItems: 'center', padding: `6px ${14 + SCROLLBAR_W}px 6px 14px`, borderBottom: '1px solid var(--bg-tile)', background: 'var(--bg-modal-header)', flexShrink: 0, gap: 6 }}>
         {[
-          { label: 'Include', title: 'Include or exclude track in saved file' },
-          { label: 'Track', title: 'Track name — double-click to rename' },
-          { label: 'Merge', title: 'Select two or more tracks to merge them into one unified track' },
-          { label: 'Split', title: 'Split a keyboard track into separate Left Hand / Right Hand tracks' },
-          { label: 'Color', title: 'Change the track color in the piano roll and on the keyboard' },
-          { label: 'Piano roll', title: 'Show or hide this track in the piano roll — saves with the file' },
-          { label: 'Keyboard', title: "Light this track's notes on the keyboard — saves with the file" },
-          { label: 'Assign Instrument', title: "Reassign track's MIDI instrument" },
+          { label: t`Include`, title: t`Include or exclude track in saved file` },
+          { label: t`Track`, title: t`Track name — double-click to rename` },
+          { label: t`Merge`, title: t`Select two or more tracks to merge them into one unified track` },
+          { label: t`Split`, title: t`Split a keyboard track into separate Left Hand / Right Hand tracks` },
+          { label: t`Color`, title: t`Change the track color in the piano roll and on the keyboard` },
+          { label: t`Piano roll`, title: t`Show or hide this track in the piano roll — saves with the file` },
+          { label: t`Keyboard`, title: t`Light this track's notes on the keyboard — saves with the file` },
+          { label: t`Assign Instrument`, title: t`Reassign track's MIDI instrument` },
         ].map((h, i) => (
           // Explicit justifySelf: a bare <span> grid item is auto-width and
           // stretch-eligible by default, while the icon buttons below have a
@@ -1553,7 +1553,7 @@ export default function MidiEditor() {
                     </Tooltip>
                     <span style={{ lineHeight: '11px' }}>
                       {infoStats.confidenceUnknown ? (
-                        'Hand split shown is automatic.'
+                        t`Hand split shown is automatic.`
                       ) : infoStats.lowConfidenceCount > 0 ? (
                         // Bright red (matches the closed-eye "hidden" icon) so this
                         // collapsed-row flag reads as an alert at a glance — kept
@@ -1561,14 +1561,14 @@ export default function MidiEditor() {
                         // which is deliberately quieter since it's always-on chrome.
                         <><span style={{ color: 'var(--status-error-hover)', fontFamily: 'var(--font-ui)' }}>{Math.round(infoStats.lowConfidenceRatio * 100)}{t`% flagged low-confidence`}</span> {t`— for a perfectly accurate split, edit in Note Editor`}</>
                       ) : (
-                        'Hand split looks accurate — edit in Note Editor to fine-tune'
+                        t`Hand split looks accurate — edit in Note Editor to fine-tune`
                       )}
                     </span>
                     <Tooltip
-                      title={noteEditorEnabled ? 'Open in Note Editor' : 'Note Editor disabled'}
+                      title={noteEditorEnabled ? t`Open in Note Editor` : t`Note Editor disabled`}
                       description={noteEditorEnabled
-                        ? "Opens this track in the Note Editor, solo'd and editable."
-                        : 'Turn on MIDI Note Editor in Settings'}
+                        ? t`Opens this track in the Note Editor, solo'd and editable.`
+                        : t`Turn on MIDI Note Editor in Settings`}
                     >
                       <button
                         onClick={() => { if (noteEditorEnabled) handleOpenInNoteEditor(track.index) }}
@@ -1623,10 +1623,10 @@ export default function MidiEditor() {
                     <div style={{ fontSize: 10, lineHeight: '11px', color: 'var(--text-inactive)', fontFamily: 'var(--font-mono)' }}>
                       {infoStats.taggedNotes} {t`notes tagged —`} {infoStats.leftCount} {t`left,`} {infoStats.rightCount} {t`right by hand.`}{' '}
                       {infoStats.confidenceUnknown
-                        ? 'Tags restored from a prior split — confidence not re-evaluated.'
+                        ? t`Tags restored from a prior split — confidence not re-evaluated.`
                         : infoStats.lowConfidenceCount > 0
                           ? `${Math.round(infoStats.lowConfidenceRatio * 100)}% fall in a low-confidence passage — check those first.`
-                          : 'No passages flagged — split looks reliable.'}
+                          : t`No passages flagged — split looks reliable.`}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 10, color: 'var(--text-inactive)', fontFamily: 'var(--font-ui)', lineHeight: '12.6px' }}>
                       <AlertCircle size={11} style={{ flexShrink: 0, color: 'var(--text-inactive)' }} />
@@ -1711,10 +1711,10 @@ export default function MidiEditor() {
                   <div style={{ flex: 2, fontSize: 10, lineHeight: '11px', color: 'var(--text-inactive)', fontFamily: 'var(--font-mono)' }}>
                     {stats.taggedNotes} {t`notes tagged —`} {stats.leftCount} {t`left,`} {stats.rightCount} {t`right by hand.`}{' '}
                     {stats.confidenceUnknown
-                      ? 'Tags restored from a prior split — confidence not re-evaluated.'
+                      ? t`Tags restored from a prior split — confidence not re-evaluated.`
                       : stats.lowConfidenceCount > 0
                         ? `${Math.round(stats.lowConfidenceRatio * 100)}% fall in a low-confidence passage — check those first.`
-                        : 'No passages flagged — split looks reliable.'}
+                        : t`No passages flagged — split looks reliable.`}
                   </div>
                   <div style={{ flex: 1, display: 'flex', gap: 6 }}>
                     <button
@@ -1911,7 +1911,7 @@ export default function MidiEditor() {
                 disabled={saving}
                 style={{ width: FOOTER_BTN_W, padding: '6px 0', borderRadius: 'var(--radius-md)', background: saving ? 'var(--bg-tile)' : 'var(--text-amber)', border: 'none', color: saving ? 'var(--text-inactive)' : 'var(--text-near-black)', fontSize: 'var(--text-sm)', fontWeight: 600, cursor: saving ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, whiteSpace: 'nowrap' }}
               >
-                <Save size={13} /> {saving ? 'Saving…' : 'Save & Reload'}
+                <Save size={13} /> {saving ? t`Saving…` : t`Save & Reload`}
               </button>
             </div>
           )}

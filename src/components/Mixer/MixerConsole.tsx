@@ -100,7 +100,7 @@ export default function MixerConsole() {
 
     const filePath = (midi as any)._filePath ?? ''
     const choice = await confirmDialog({
-      title: 'Save mixer changes?',
+      title: t`Save mixer changes?`,
       message: `Volume, pan, reverb, and chorus were changed for ${changed.length} channel(s).`,
       buttons: ['Save & Reload', 'Discard', 'Cancel'],
     })
@@ -113,7 +113,7 @@ export default function MixerConsole() {
         channels: changed.map(t => ({ index: t.index, volume: t.volume, pan: t.pan, chorus: t.chorus, reverb: t.reverb })),
       })
       if (!result.ok || !result.base64 || !result.fileName || !result.filePath) {
-        await confirmDialog({ title: 'Save failed', message: result.message ?? 'Could not save mixer changes.', buttons: ['OK'] })
+        await confirmDialog({ title: t`Save failed`, message: result.message ?? 'Could not save mixer changes.', buttons: ['OK'] })
         return // leave mixer open so the user can retry
       }
       const binary = atob(result.base64)
@@ -131,7 +131,7 @@ export default function MixerConsole() {
       useStore.getState().notifyLibrarySaved(result.filePath)
       setMixerOpen(false)
     } catch (e: any) {
-      await confirmDialog({ title: 'Save failed', message: e?.message ?? 'Could not save mixer changes.', buttons: ['OK'] })
+      await confirmDialog({ title: t`Save failed`, message: e?.message ?? 'Could not save mixer changes.', buttons: ['OK'] })
     }
   }, [setMixerOpen])
 

@@ -706,11 +706,11 @@ export default function ChordExplorer() {
               {(['name', 'notes', 'both'] as const).map(scope => (
                 <Tooltip
                   key={scope}
-                  title={scope === 'name' ? 'Search by name' : scope === 'notes' ? 'Search by notes' : 'Search both'}
+                  title={scope === 'name' ? t`Search by name` : scope === 'notes' ? t`Search by notes` : t`Search both`}
                   description={
-                    scope === 'name'  ? 'Matches chord names and types, like m7, maj7, dim…' :
-                    scope === 'notes' ? 'Matches note names in the chord for the selected root' :
-                    'Matches chord names and note names together'
+                    scope === 'name'  ? t`Matches chord names and types, like m7, maj7, dim…` :
+                    scope === 'notes' ? t`Matches note names in the chord for the selected root` :
+                    t`Matches chord names and note names together`
                   }
                 >
                 <button
@@ -726,7 +726,7 @@ export default function ChordExplorer() {
                   onMouseEnter={e => { if (searchScope !== scope) e.currentTarget.style.color = 'var(--text-muted)' }}
                   onMouseLeave={e => { if (searchScope !== scope) e.currentTarget.style.color = 'var(--text-inactive)' }}
                 >
-                  {scope === 'name' ? 'Name' : scope === 'notes' ? 'Notes' : 'Both'}
+                  {scope === 'name' ? t`Name` : scope === 'notes' ? t`Notes` : t`Both`}
                 </button>
                 </Tooltip>
               ))}
@@ -753,8 +753,8 @@ export default function ChordExplorer() {
             />
           )}
           <Tooltip
-            title={isPowerMode ? 'Search unavailable' : searchOpen ? 'Close search' : 'Find a chord'}
-            description={isPowerMode ? 'Switch out of Power mode to search chords' : searchOpen ? 'Hides the chord search bar' : 'Search by chord name or by the notes it contains'}
+            title={isPowerMode ? t`Search unavailable` : searchOpen ? t`Close search` : t`Find a chord`}
+            description={isPowerMode ? t`Switch out of Power mode to search chords` : searchOpen ? t`Hides the chord search bar` : t`Search by chord name or by the notes it contains`}
           >
           <button
             onClick={isPowerMode ? undefined : toggleSearch}
@@ -809,18 +809,18 @@ export default function ChordExplorer() {
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
           {/* Tier */}
           <div style={{ display: 'flex', background: 'var(--bg-tile)', borderRadius: 'var(--radius-md)', padding: 2, gap: 1 }}>
-            {(['common', 'power', 'extended'] as const).map(t => (
+            {(['common', 'power', 'extended'] as const).map(tier_ => (
               <Tooltip
-                key={t}
-                title={t === 'common' ? 'Common' : t === 'power' ? 'Power' : 'Extended'}
+                key={tier_}
+                title={tier_ === 'common' ? t`Common` : tier_ === 'power' ? t`Power` : t`Extended`}
                 description={
-                  t === 'common'   ? 'Triads, sevenths, everyday voicings' :
-                  t === 'power'    ? 'Root + fifth, one per pitch class' :
-                                     '9ths, 11ths, 13ths, altered tensions'
+                  tier_ === 'common'   ? t`Triads, sevenths, everyday voicings` :
+                  tier_ === 'power'    ? t`Root + fifth, one per pitch class` :
+                                         t`9ths, 11ths, 13ths, altered tensions`
                 }
               >
-              <button onClick={() => setTier(t)} style={btnBase(tier === t)}>
-                {t === 'common' ? 'Common' : t === 'power' ? 'Power' : 'Extended'}
+              <button onClick={() => setTier(tier_)} style={btnBase(tier === tier_)}>
+                {tier_ === 'common' ? t`Common` : tier_ === 'power' ? t`Power` : t`Extended`}
               </button>
               </Tooltip>
             ))}
@@ -832,15 +832,15 @@ export default function ChordExplorer() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 4, opacity: isPowerMode ? 0.35 : 1, pointerEvents: isPowerMode ? 'none' : 'auto', transition: 'opacity 0.15s' }}>
             <span style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'var(--font-ui)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{t`Hand`}</span>
             <div style={{ display: 'flex', background: 'var(--bg-tile)', borderRadius: 4, padding: 2, gap: 1 }}>
-              <Tooltip title={t`All`} description="Chords playable with either hand">
+              <Tooltip title={t`All`} description={t`Chords playable with either hand`}>
                 <button onClick={() => setHandFilter('all')} style={btnBase(handFilter === 'all')}>{t`All`}</button>
               </Tooltip>
-              <Tooltip title={t`One hand`} description="Chords playable with a single hand">
+              <Tooltip title={t`One hand`} description={t`Chords playable with a single hand`}>
                 <button onClick={() => setHandFilter('one')} style={btnBase(handFilter === 'one')}>
                   <span style={{ display: 'inline-flex', transform: 'rotate(-20deg)' }}><Hand size={12} /></span>
                 </button>
               </Tooltip>
-              <Tooltip title={t`Two hands`} description="Chords that need both hands">
+              <Tooltip title={t`Two hands`} description={t`Chords that need both hands`}>
                 <button onClick={() => setHandFilter('two')} style={btnBase(handFilter === 'two')}>
                   <span style={{ display: 'inline-flex', transform: 'rotate(20deg)' }}><Hand size={12} /></span>
                   <span style={{ display: 'inline-flex', transform: 'scaleX(-1) rotate(20deg)' }}><Hand size={12} /></span>
@@ -859,7 +859,7 @@ export default function ChordExplorer() {
                 <Tooltip
                   key={n}
                   oneLine
-                  title={n === 'any' ? 'Chords regardless of note count' : n === '6+' ? 'Chords with 6 or more notes' : `Chords with exactly ${n} notes`}
+                  title={n === 'any' ? t`Chords regardless of note count` : n === '6+' ? t`Chords with 6 or more notes` : `Chords with exactly ${n} notes`}
                 >
                   <button onClick={() => setNoteFilter(n)} style={{ ...btnBase(noteFilter === n), minWidth: 22 }}>{n}</button>
                 </Tooltip>
@@ -895,10 +895,10 @@ export default function ChordExplorer() {
               onMouseEnter={e => e.currentTarget.style.color = 'var(--text-amber)'}
               onMouseLeave={e => { e.currentTarget.style.color = activeProg ? 'var(--text-amber)' : 'var(--text-muted)' }}
             >
-              {activeProg ? activeProg.name : 'Select'} ▾
+              {activeProg ? activeProg.name : t`Select`} ▾
             </button>
             {activeProg && (
-              <Tooltip title={t`Clear progression`} description="Stops playback and clears the selected progression">
+              <Tooltip title={t`Clear progression`} description={t`Stops playback and clears the selected progression`}>
               <button
                 onClick={() => { stopProgression(); setSelectedProg(null) }}
                 style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-inactive)', fontSize: 14, lineHeight: 1, padding: '0 2px', fontFamily: 'var(--font-ui)' }}
@@ -965,7 +965,7 @@ export default function ChordExplorer() {
                   }}
                 >
                   {progPlaying ? <Square size={12} /> : <ChevronPlayIcon size={12} />}
-                  {progPlaying ? 'STOP' : 'PLAY'}
+                  {progPlaying ? t`STOP` : t`PLAY`}
                 </button>
               )
               // ── Only shown once a pattern's picked — space stays reserved so
@@ -1020,7 +1020,7 @@ export default function ChordExplorer() {
               <span style={{ fontFamily: 'var(--font-ui)', fontSize: 11, color: 'var(--text-default)', userSelect: 'none' }}>
                 {nowPlaying.ordinal}
                 <span style={{ fontSize: 8, verticalAlign: 'super' }}>{ordinalSuffix(Number(nowPlaying.ordinal))}</span>
-                {' inv'}
+                {t` inv`}
               </span>
             )}
           </div>
@@ -1220,7 +1220,7 @@ export default function ChordExplorer() {
         </div>
 
         {/* Accent Root (same setting as the Scales Explorer's) */}
-        <Tooltip title={t`Accent Root Note`} description="Highlights the chord's true root pitch class in pink, in any octave, instead of blending it.">
+        <Tooltip title={t`Accent Root Note`} description={t`Highlights the chord's true root pitch class in pink, in any octave, instead of blending it.`}>
           <button
             onClick={() => setColorRootNoteEnabled(!colorRootNoteEnabled)}
             style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', padding: 0, flexShrink: 0 }}
