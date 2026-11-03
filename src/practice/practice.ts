@@ -468,10 +468,20 @@ useStore.subscribe((s) => {
   else usePractice.setState({ stats: emptyStats(), summary: null })
 })
 
-// ── Test hook: the keys the current step still needs (wait mode) ───────────
+// ── The keys the current step still needs (wait mode) — what the microphone
+// listens for (micInput.ts) ─────────────────────────────────────────────────
+export function expectedNotes(): number[] {
+  const st = usePractice.getState()
+  if (!st.running || st.mode !== 'wait' || st.countdown !== null) return []
+  const s = steps[stepIdx]; const tr = transpose()
+  return s ? s.notes.filter(n => !s.hit.has(n)).map(n => n.midi + tr) : []
+}
+
+// ── Test hook ───────────────────────────────────────────────────────────────
 ;(window as any).__pianoooPractice = {
   input: practiceNoteInput,
   expected: () => { const s = steps[stepIdx]; const tr = transpose(); return s ? s.notes.filter(n => !s.hit.has(n)).map(n => n.midi + tr) : [] },
+  steps: () => { const tr = transpose(); return steps.map(s => s.notes.map(n => n.midi + tr)) },
   time: () => t,
   due: () => { const tr = transpose(); return targets.filter(x => !x.judged && x.time - t < 0.11 && x.time - t > -0.02).map(x => x.midi + tr) },
 }

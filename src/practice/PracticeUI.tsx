@@ -4,10 +4,11 @@
 // PracticeHud: score while practising, the count-in, and the result card.
 
 import React, { useEffect, useRef, useState } from 'react'
-import { GraduationCap, Check, X, RotateCcw, Hand as HandIcon, Timer, Hourglass, Play } from 'lucide-react'
+import { GraduationCap, Check, X, RotateCcw, Hand as HandIcon, Timer, Hourglass, Play, Mic, Piano } from 'lucide-react'
 import { useStore } from '../store'
 import { t } from '../utils/i18n'
 import { usePractice, startPractice, stopPractice, type PracticeMode, type PracticeHand, type PracticeStats } from './practice'
+import { useMic, type InputSource, type Sensitivity } from './micInput'
 
 const card: React.CSSProperties = {
   background: 'var(--bg-modal-header)', border: '1px solid var(--border)', borderRadius: 10,
@@ -50,6 +51,75 @@ function ToggleRow({ label, hint, value, onChange }: { label: string; hint: stri
 
 const label: React.CSSProperties = { fontSize: 10.5, fontWeight: 700, letterSpacing: '.12em', color: 'var(--text-muted)', margin: '12px 0 6px', textTransform: 'uppercase' }
 
+const NAMES = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B']
+export const noteName = (m: number) => NAMES[m % 12] + (Math.floor(m / 12) - 1)
+
+function LevelBar({ level }: { level: number }) {
+  return (
+    <div style={{ height: 6, borderRadius: 3, background: 'var(--border)', overflow: 'hidden', flex: 1 }}>
+      <div style={{ height: '100%', width: `${Math.round(level * 100)}%`, background: level > 0.85 ? 'var(--flag-red, #d9606e)' : 'var(--meter-green, #5fbf6a)', transition: 'width 60ms linear' }} />
+    </div>
+  )
+}
+
+function MicSection({ mode }: { mode: PracticeMode }) {
+  const input = useMic(s => s.input)
+  const status = useMic(s => s.status)
+  const level = useMic(s => s.level)
+  const tuning = useMic(s => s.tuningCents)
+  const calibrating = useMic(s => s.calibrating)
+  const calibResult = useMic(s => s.calibResult)
+  const sensitivity = useMic(s => s.sensitivity)
+  const accompany = usePractice(s => s.accompany)
+  const m = useMic.getState()
+  const small: React.CSSProperties = { fontSize: 11.5, color: 'var(--text-muted)', lineHeight: 1.45, margin: '6px 0 0' }
+  const cents = (c: number) => `${c > 0 ? '+' : ''}${c} ${t`cents`}`
+  return (
+    <>
+      <div style={label}>{t`Input`}</div>
+      <Segmented<InputSource> value={input} onChange={m.setInput} options={[
+        { v: 'midi', label: t`MIDI keyboard`, icon: <Piano size={13} /> },
+        { v: 'mic', label: t`Microphone`, icon: <Mic size={13} /> },
+      ]} />
+      {input === 'midi' && <p style={small}>{t`Digital piano over Bluetooth or USB. For a piano without MIDI, choose the microphone.`}</p>}
+      {input === 'mic' && <>
+        {mode === 'rhythm'
+          ? <p style={{ ...small, color: 'var(--text-amber)' }}>{t`The microphone works in “Wait for me”. For “Play in time” connect a MIDI keyboard.`}</p>
+          : <p style={small}>{t`The app listens to your piano and checks the expected notes – chords too. Nothing is recorded.`}</p>}
+        {status === 'denied' && <p style={{ ...small, color: 'var(--flag-red, #d9606e)' }}>{t`No access to the microphone. Allow it in the system settings under Privacy › Microphone.`}</p>}
+        {(status === 'unsupported' || status === 'error') && <p style={{ ...small, color: 'var(--flag-red, #d9606e)' }}>{t`The microphone could not be started.`}</p>}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8 }}>
+          <Mic size={14} style={{ color: status === 'on' ? 'var(--meter-green, #5fbf6a)' : 'var(--text-muted)', flexShrink: 0 }} />
+          <LevelBar level={status === 'on' ? level : 0} />
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 10 }}>
+          <span style={{ flex: 1, fontSize: 12.5 }}>
+            {t`Tuning`}: <b>{cents(tuning)}</b>
+          </span>
+          <button onClick={() => m.calibrate()} disabled={calibrating}
+            style={{ minHeight: 32, padding: '0 12px', borderRadius: 7, cursor: 'pointer', border: '1px solid var(--text-amber)', background: 'transparent', color: 'var(--text-amber)', fontFamily: 'var(--font-ui)', fontSize: 12.5, fontWeight: 600, opacity: calibrating ? .6 : 1 }}>
+            {calibrating ? t`Listening…` : t`Tune to my piano`}
+          </button>
+        </div>
+        <p style={small}>
+          {calibrating ? t`Play an A now and let it ring – for example the A above middle C.`
+            : calibResult === 'fail' ? t`No clear A heard. Try again a little louder.`
+            : typeof calibResult === 'number' ? t`Done: your piano is tuned ${cents(calibResult)} from standard pitch.`
+            : t`Once: play an A so the app knows how your piano is tuned.`}
+        </p>
+
+        <div style={label}>{t`Sensitivity`}</div>
+        <Segmented<Sensitivity> value={sensitivity} onChange={m.setSensitivity} options={[
+          { v: 'low', label: t`Low` }, { v: 'medium', label: t`Medium` }, { v: 'high', label: t`High` },
+        ]} />
+        <p style={small}>{t`Notes not recognised? Raise it. Moves on without you playing? Lower it.`}</p>
+        {accompany && <p style={{ ...small, color: 'var(--text-amber)' }}>{t`Use headphones if the app plays the other parts – otherwise the microphone hears them too.`}</p>}
+      </>}
+    </>
+  )
+}
+
 export function PracticeButton() {
   const mode = usePractice(s => s.mode)
   const hand = usePractice(s => s.hand)
@@ -68,6 +138,13 @@ export function PracticeButton() {
     window.addEventListener('pointerdown', close, true)
     return () => window.removeEventListener('pointerdown', close, true)
   }, [open])
+
+  const input = useMic(s => s.input)
+  // Panel open with the microphone chosen: keep it on for the level meter
+  useEffect(() => {
+    useMic.getState().setPreview(open && mode !== 'off' && input === 'mic')
+    return () => useMic.getState().setPreview(false)
+  }, [open, mode, input])
 
   const p = usePractice.getState()
   const on = mode !== 'off'
@@ -109,6 +186,8 @@ export function PracticeButton() {
               { v: 'R', label: t`Right`, icon: <HandIcon size={13} /> },
               { v: 'both', label: t`Both` },
             ]} />
+
+            <MicSection mode={mode} />
 
             <div style={label}>{t`Tempo`} · {pct} %</div>
             <div style={{ display: 'flex', gap: 6 }}>
@@ -166,6 +245,9 @@ export function PracticeHud() {
   const stats = usePractice(s => s.stats)
   const summary = usePractice(s => s.summary)
   const judgement = usePractice(s => s.judgement)
+  const micOn = useMic(s => s.status === 'on' && s.input === 'mic')
+  const micLevel = useMic(s => s.level)
+  const heard = useMic(s => s.heard)
   const [, force] = useState(0)
 
   // Let the judgement word fade out
@@ -200,6 +282,13 @@ export function PracticeHud() {
         {stats.streak >= 5 && <div style={{ fontSize: 11, color: 'var(--text-amber)', marginTop: 3 }}>{t`Streak`}: {stats.streak} 🔥</div>}
         {!running && !summary && <div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 4 }}>{t`Press Play to start`}</div>}
         {running && waiting && countdown === null && <div style={{ fontSize: 11.5, color: 'var(--text-muted)', marginTop: 4 }}>{t`Play the lit keys`}</div>}
+        {micOn && mode === 'wait' && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 5 }}>
+            <Mic size={12} style={{ color: 'var(--meter-green, #5fbf6a)', flexShrink: 0 }} />
+            <LevelBar level={micLevel} />
+            {heard && performance.now() - heard.at < 1500 && <span style={{ fontSize: 11, color: 'var(--meter-green, #5fbf6a)', minWidth: 30 }}>{noteName(heard.midi)}</span>}
+          </div>
+        )}
       </div>
 
       {/* Judgement */}

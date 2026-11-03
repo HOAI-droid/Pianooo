@@ -26,6 +26,7 @@ Pianooo escucha tu piano digital (MIDI Bluetooth o USB). Toca **Práctica** en l
 
 - **Tu mano:** izquierda, derecha o ambas – la app toca el resto (otra mano, otros instrumentos)
 - **Más rápido:** empieza al 50 % del tempo; con *acelerar automáticamente*, cada pasada con un 90 % de aciertos suma un 5 % hasta el tempo completo
+- **¿Piano acústico sin MIDI?** Elige el **micrófono**: en *Espérame* la app escucha y comprueba las notas esperadas – también acordes
 - **Bucle** en un pasaje difícil – cada pasada con su puntuación y racha
 
 <p align="center"><img src="site/img/practice-panel.jpg" alt="Práctica que te hace mejorar" width="80%"></p>

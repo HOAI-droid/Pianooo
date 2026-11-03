@@ -26,6 +26,7 @@ Pianooo hört auf dein Digitalpiano (Bluetooth- oder USB-MIDI). Tippe bei den fa
 
 - **Deine Hand:** links, rechts oder beide – die App spielt den Rest (andere Hand, andere Instrumente)
 - **Schneller werden:** mit 50 % Tempo starten; mit *Tempo automatisch steigern* gibt es nach jedem Durchgang mit mindestens 90 % richtig 5 % mehr Tempo, bis zum Originaltempo
+- **Klavier ohne MIDI?** **Mikrofon** wählen: bei *Warte auf mich* hört die App zu und prüft die erwarteten Töne – auch Akkorde
 - **Loop** um eine schwierige Stelle – jeder Durchgang mit eigener Trefferquote und Serie
 
 <p align="center"><img src="site/img/practice-panel.jpg" alt="Üben, das dich besser macht" width="80%"></p>

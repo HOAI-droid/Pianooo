@@ -26,6 +26,7 @@ Pianooo listens to your digital piano (Bluetooth or USB MIDI). Tap **Practice** 
 
 - **Your hand:** left, right or both – the app plays the rest (other hand, other instruments)
 - **Get faster:** start at 50 % tempo; with *speed up automatically*, every pass with at least 90 % right adds 5 % until full speed
+- **Acoustic piano without MIDI?** Choose the **microphone**: in *Wait for me* the app listens and checks the expected notes – chords too
 - **Loop** a hard passage – every pass gets its own score, streak and accuracy
 
 <p align="center"><img src="site/img/practice-panel.jpg" alt="Practice that makes you better" width="80%"></p>

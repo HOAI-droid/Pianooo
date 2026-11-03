@@ -169,6 +169,8 @@
 			</dict>
 		</dict>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>In practice mode Pianooo listens to your piano to check the notes you play. The sound is analysed on the device and never recorded.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Pianooo connects to Bluetooth MIDI keyboards and digital pianos so you can play along.</string>
 	<key>UIFileSharingEnabled</key>

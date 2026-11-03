@@ -73,6 +73,24 @@ Wiederholen-Knopf). Jeder Durchgang wird einzeln bewertet – zusammen mit
 
 Ohne angeschlossenes Klavier lässt sich auch auf der Bildschirm-Tastatur üben.
 
+### Klavier ohne MIDI: das Mikrofon
+
+Für ein akustisches Klavier (oder ein E-Piano ohne MIDI) unter **Eingabe** auf
+**Mikrofon** stellen. Beim ersten Mal fragt das iPad bzw. der Mac nach der
+Erlaubnis. Die App hört dann zu und prüft, ob die **erwarteten Töne** gerade
+angeschlagen wurden – auch Akkorde. Es wird nichts aufgenommen.
+
+- Funktioniert im Modus **Warte auf mich**. Für **Im Takt** ist ein MIDI-Keyboard nötig.
+- **Auf mein Klavier stimmen:** einmal antippen und ein A spielen (z. B. das A
+  über dem mittleren C). Die App merkt sich, wie dein Klavier gestimmt ist.
+- **Empfindlichkeit:** werden Töne nicht erkannt, erhöhen; geht es weiter, ohne
+  dass du spielst, verringern.
+- **Andere Stimmen mitspielen** wird beim Umschalten auf das Mikrofon
+  ausgeschaltet, weil das Mikrofon sonst die App mithört. Mit Kopfhörern kannst
+  du es wieder einschalten.
+- Die Pegelanzeige unter der Wertung zeigt, dass das Mikrofon etwas hört, und
+  daneben kurz den zuletzt erkannten Ton.
+
 ## Notenblatt
 
 - **Umschalten:** oben rechts **Sheet music**. Das Notenblatt füllt die ganze

@@ -27,6 +27,7 @@ Pianooo écoute votre piano numérique (MIDI Bluetooth ou USB). Touchez **Entra�
 
 - **Votre main :** gauche, droite ou les deux – l’app joue le reste (autre main, autres instruments)
 - **Accélérez :** commencez à 50 % du tempo ; avec *accélérer automatiquement*, chaque passage réussi à 90 % ajoute 5 % jusqu’au tempo complet
+- **Piano acoustique sans MIDI ?** Choisissez le **micro** : en mode *Attends-moi*, l’app écoute et vérifie les notes attendues – accords compris
 - **Boucle** sur un passage difficile – chaque passage a son score et sa série
 
 <p align="center"><img src="site/img/practice-panel.jpg" alt="Un entraînement qui vous fait progresser" width="80%"></p>
