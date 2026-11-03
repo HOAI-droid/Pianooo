@@ -15,6 +15,7 @@
 // keyboard. Nothing is recorded or stored; the analysis runs on the device.
 
 import { create } from 'zustand'
+import { Capacitor, registerPlugin, type PluginListenerHandle } from '@capacitor/core'
 import { usePractice, practiceNoteInput, expectedNotes } from './practice'
 
 export type InputSource = 'midi' | 'mic'
@@ -101,6 +102,18 @@ const lastEmit = new Map<number, number>()
 let calib: number[] = []
 let calibUntil = 0
 let starting = false
+let nativeOn = false
+let nativeListener: PluginListenerHandle | null = null
+
+// iPad and Mac app: the microphone is read natively (ios/App/App/PianoooMidiPlugin.swift)
+// — the web view's own microphone access isn't available everywhere
+interface NativeMic {
+  startMic(): Promise<{ sampleRate: number; fftSize: number }>
+  stopMic(): Promise<void>
+  addListener(event: 'micFrame', fn: (e: { db: string; rms: number; sr: number; n: number }) => void): Promise<PluginListenerHandle>
+}
+const NativeMicPlugin = registerPlugin<NativeMic>('PianoooMidi')
+const useNative = () => Capacitor.isNativePlatform() && Capacitor.isPluginAvailable('PianoooMidi')
 
 function wanted(): boolean {
   const m = useMic.getState(), p = usePractice.getState()
@@ -109,8 +122,51 @@ function wanted(): boolean {
 }
 
 function sync() {
-  if (wanted()) { if (!ctx && !starting) void start() }
-  else if (ctx) stop()
+  const on = !!ctx || nativeOn
+  if (wanted()) { if (!on && !starting) void (useNative() ? startNative() : start()) }
+  else if (on) { if (nativeOn) stopNative(); else stop() }
+}
+
+function resetAnalysis() { histFill = 0; lastEmit.clear() }
+
+async function startNative() {
+  starting = true
+  useMic.setState({ status: 'starting' })
+  try {
+    if (!nativeListener) nativeListener = await NativeMicPlugin.addListener('micFrame', nativeFrame)
+    await NativeMicPlugin.startMic()
+    nativeOn = true
+    resetAnalysis()
+    useMic.setState({ status: 'on' })
+    if (!wanted()) stopNative()
+  } catch (e: any) {
+    const denied = e && (e.code === 'denied' || /denied/i.test(String(e.message ?? '')))
+    useMic.setState({ status: denied ? 'denied' : 'error' })
+  } finally {
+    starting = false
+  }
+}
+
+function stopNative() {
+  nativeOn = false
+  void NativeMicPlugin.stopMic().catch(() => {})
+  useMic.setState({ status: 'off', level: 0 })
+}
+
+// One spectrum from the native side: magnitudes up to 5 kHz in 0.5 dB steps
+function nativeFrame(e: { db: string; rms: number; sr: number; n: number }) {
+  if (!nativeOn) return
+  const bin = atob(e.db)
+  if (db.length !== bin.length) { db = new Float32Array(bin.length); mag = new Float32Array(bin.length) }
+  for (let i = 0; i < bin.length; i++) {
+    const d = bin.charCodeAt(i) / 2 - 130
+    db[i] = d
+    mag[i] = i === 0 ? 0 : Math.pow(10, d / 20)
+  }
+  binHz = e.sr / e.n
+  // Partials above the last bin sent count as absent (peak() checks nyquist·0.95)
+  nyquist = (bin.length - 1) * binHz / 0.95
+  analyse(e.rms)
 }
 
 async function start() {
@@ -138,7 +194,7 @@ async function start() {
     td = new Float32Array(an.fftSize)
     binHz = c.sampleRate / an.fftSize
     nyquist = c.sampleRate / 2
-    histFill = 0; lastEmit.clear()
+    resetAnalysis()
     timer = setInterval(frame, FRAME_MS)
     useMic.setState({ status: 'on' })
   } catch (e: any) {
@@ -218,6 +274,7 @@ function accept(m: number, expected: Set<number>, floor: number, tuning: number,
   return true
 }
 
+// One spectrum from the web view's microphone (desktop and test browsers)
 function frame() {
   if (!analyser || !ctx) return
   analyser.getFloatFrequencyData(db)
@@ -226,6 +283,10 @@ function frame() {
   let rms = 0
   for (let i = 0; i < td.length; i++) rms += td[i] * td[i]
   rms = Math.sqrt(rms / td.length)
+  analyse(rms)
+}
+
+function analyse(rms: number) {
   const level = Math.max(0, Math.min(1, (20 * Math.log10(rms + 1e-9) + 60) / 50))
 
   const mic = useMic.getState()
@@ -295,3 +356,8 @@ function finishCalibration() {
 
 // Follow the practice run: listen while "Wait for me" is running
 usePractice.subscribe(() => sync())
+
+// ── Test hook: feed spectra as the native side sends them ───────────────────
+;(window as any).__pianoooMic = {
+  feedNative: (e: { db: string; rms: number; sr: number; n: number }) => { nativeOn = true; nativeFrame(e) },
+}

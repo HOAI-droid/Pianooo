@@ -108,8 +108,14 @@ Das Notenblatt läuft nicht automatisch mit – geblättert wird wie auf Papier.
 
 ## Eigene Songs
 
+- **Am einfachsten – aus der App heraus:** in der Bibliothek auf
+  **Dateien importieren (MIDI + PDF)** tippen (oder den Öffnen-Knopf oben links).
+  Es öffnet sich die Dateiauswahl (iPad: Dateien-App, Mac: Finder-Fenster).
+  MIDI und PDF eines Songs **gemeinsam** auswählen – mehrere Dateien auf einmal
+  gehen auch. Alles landet in der Bibliothek, der erste Song öffnet sich.
 - **Aus Safari, Mail, Dateien oder AirDrop:** Datei antippen › Teilen ›
-  **Pianooo**. Sie landet in der Bibliothek und öffnet sich sofort.
+  **Pianooo**. Ein Song landet in der Bibliothek und öffnet sich sofort; ein
+  Noten-PDF wird neben den Song mit gleichem Namen gelegt.
 - **iPad:** In der Dateien-App unter **Auf meinem iPad › Pianooo** ablegen, dann in
   der Bibliothek auf ↻ (Aktualisieren) tippen.
 - **Mac:** Datei auf das Pianooo-Fenster ziehen, oder Öffnen-Knopf oben links.

@@ -2,6 +2,8 @@ import Foundation
 import Capacitor
 import CoreMIDI
 import CoreAudioKit
+import AVFoundation
+import Accelerate
 
 /// MIDI for the iPad app. iPadOS web views have no Web MIDI, so this plugin
 /// talks to CoreMIDI directly: every MIDI source (USB keyboards, Bluetooth LE
@@ -20,6 +22,8 @@ public class PianoooMidiPlugin: CAPPlugin, CAPBridgedPlugin, UIAdaptivePresentat
         CAPPluginMethod(name: "listDevices", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "send", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "showBluetoothPairing", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "startMic", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "stopMic", returnType: CAPPluginReturnPromise),
     ]
 
     private var client = MIDIClientRef()
@@ -222,5 +226,134 @@ public class PianoooMidiPlugin: CAPPlugin, CAPBridgedPlugin, UIAdaptivePresentat
         notifyListeners("devicesChanged", data: [:])
         pairingCall?.resolve()
         pairingCall = nil
+    }
+
+    // MARK: - Microphone (practice with an acoustic piano)
+    //
+    // The web view's own microphone access doesn't work everywhere (the Mac
+    // version), so the microphone is read here. Every 25 ms the last 8192
+    // samples get a Blackman window and an FFT; the magnitudes up to 5 kHz go
+    // to the web app as 0.5 dB steps (src/practice/micInput.ts does the note
+    // checks). Nothing is recorded or kept.
+
+    private static let fftN = 8192
+    private let micQueue = DispatchQueue(label: "pianooo.mic")
+    private var micEngine: AVAudioEngine?
+    private var micTimer: DispatchSourceTimer?
+    private var micRing = [Float](repeating: 0, count: PianoooMidiPlugin.fftN)
+    private var micPos = 0
+    private var micRate: Double = 48000
+    private var micWindow = [Float](repeating: 0, count: PianoooMidiPlugin.fftN)
+    private var micDFT: vDSP_DFT_Setup?
+
+    @objc func startMic(_ call: CAPPluginCall) {
+        let begin = {
+            self.micQueue.async {
+                do {
+                    try self.startMicEngine()
+                    call.resolve(["sampleRate": self.micRate, "fftSize": PianoooMidiPlugin.fftN])
+                } catch {
+                    call.reject(error.localizedDescription, "error")
+                }
+            }
+        }
+        switch AVCaptureDevice.authorizationStatus(for: .audio) {
+        case .authorized: begin()
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .audio) { ok in
+                if ok { begin() } else { call.reject("Microphone access denied", "denied") }
+            }
+        default: call.reject("Microphone access denied", "denied")
+        }
+    }
+
+    @objc func stopMic(_ call: CAPPluginCall) {
+        micQueue.async {
+            self.stopMicEngine()
+            call.resolve()
+        }
+    }
+
+    private func startMicEngine() throws {
+        stopMicEngine()
+        #if !targetEnvironment(macCatalyst)
+        let session = AVAudioSession.sharedInstance()
+        try session.setCategory(.playAndRecord, mode: .measurement, options: [.defaultToSpeaker, .mixWithOthers, .allowBluetoothA2DP])
+        try session.setActive(true)
+        #endif
+        let engine = AVAudioEngine()
+        let input = engine.inputNode
+        let format = input.outputFormat(forBus: 0)
+        guard format.sampleRate > 0, format.channelCount > 0 else {
+            throw NSError(domain: "Pianooo", code: 1, userInfo: [NSLocalizedDescriptionKey: "No microphone found"])
+        }
+        micRate = format.sampleRate
+        micRing = [Float](repeating: 0, count: PianoooMidiPlugin.fftN)
+        micPos = 0
+        vDSP_blkman_window(&micWindow, vDSP_Length(PianoooMidiPlugin.fftN), 0)
+        if micDFT == nil { micDFT = vDSP_DFT_zrop_CreateSetup(nil, vDSP_Length(PianoooMidiPlugin.fftN), .FORWARD) }
+        input.installTap(onBus: 0, bufferSize: 1024, format: format) { [weak self] buffer, _ in
+            guard let self = self, let data = buffer.floatChannelData?[0] else { return }
+            let samples = Array(UnsafeBufferPointer(start: data, count: Int(buffer.frameLength)))
+            self.micQueue.async { self.appendSamples(samples) }
+        }
+        engine.prepare()
+        try engine.start()
+        micEngine = engine
+        let timer = DispatchSource.makeTimerSource(queue: micQueue)
+        timer.schedule(deadline: .now() + .milliseconds(25), repeating: .milliseconds(25))
+        timer.setEventHandler { [weak self] in self?.analyseMic() }
+        timer.resume()
+        micTimer = timer
+    }
+
+    private func stopMicEngine() {
+        micTimer?.cancel()
+        micTimer = nil
+        if let engine = micEngine {
+            engine.inputNode.removeTap(onBus: 0)
+            engine.stop()
+        }
+        micEngine = nil
+        #if !targetEnvironment(macCatalyst)
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+        #endif
+    }
+
+    private func appendSamples(_ samples: [Float]) {
+        let n = PianoooMidiPlugin.fftN
+        for v in samples {
+            micRing[micPos] = v
+            micPos = (micPos + 1) % n
+        }
+    }
+
+    private func analyseMic() {
+        guard let dft = micDFT else { return }
+        let n = PianoooMidiPlugin.fftN, half = n / 2
+        // Oldest sample first
+        var frame = [Float](repeating: 0, count: n)
+        for i in 0..<n { frame[i] = micRing[(micPos + i) % n] }
+        var rms: Float = 0
+        vDSP_rmsqv(frame, 1, &rms, vDSP_Length(n))
+        var windowed = [Float](repeating: 0, count: n)
+        vDSP_vmul(frame, 1, micWindow, 1, &windowed, 1, vDSP_Length(n))
+        // Real FFT: even samples as real, odd as imaginary part
+        var inRe = [Float](repeating: 0, count: half), inIm = [Float](repeating: 0, count: half)
+        for i in 0..<half { inRe[i] = windowed[2 * i]; inIm[i] = windowed[2 * i + 1] }
+        var outRe = [Float](repeating: 0, count: half), outIm = [Float](repeating: 0, count: half)
+        vDSP_DFT_Execute(dft, inRe, inIm, &outRe, &outIm)
+        let binHz = micRate / Double(n)
+        let bins = min(half - 1, Int((5000.0 / binHz).rounded(.up)))
+        var bytes = [UInt8](repeating: 0, count: bins + 1)
+        // Same scale as Web Audio's AnalyserNode: |X| / N in dB (zrop output is 2×)
+        let scale = 1 / (2 * Float(n))
+        for k in 1...bins {
+            let mag = sqrtf(outRe[k] * outRe[k] + outIm[k] * outIm[k]) * scale
+            let db = 20 * log10f(max(mag, 1e-12))
+            bytes[k] = UInt8(max(0, min(255, Int(((db + 130) * 2).rounded()))))
+        }
+        let payload: [String: Any] = ["db": Data(bytes).base64EncodedString(), "rms": rms, "sr": micRate, "n": n]
+        DispatchQueue.main.async { self.notifyListeners("micFrame", data: payload) }
     }
 }

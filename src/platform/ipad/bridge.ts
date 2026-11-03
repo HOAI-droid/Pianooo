@@ -255,6 +255,15 @@ function createApi(): Window['electronAPI'] {
     onNativeAudioHostExit: () => {},
 
     openMidiFile: async () => {
+      // iPad and Mac app: the system file picker — several files at once,
+      // sheet-music PDFs included; everything goes into the library
+      if (Capacitor.isPluginAvailable('PianoooFiles')) {
+        const paths = await importWithPicker()
+        const song = paths.find(p => MIDI_EXT.test(p))
+        if (!song) return null
+        await waitInbox(song)
+        return call('fs:loadMidiFromPath', song)
+      }
       const [file] = await pickFiles()
       if (!file) return null
       if (!MIDI_EXT.test(file.name)) {
@@ -398,6 +407,7 @@ function createApi(): Window['electronAPI'] {
     onZoomChanged: (fn) => { zoomListeners.add(fn) },
     offZoomChanged: (fn) => { zoomListeners.delete(fn) },
     takePendingOpenFiles,
+    importFiles: Capacitor.isPluginAvailable('PianoooFiles') ? importFiles : undefined,
     // Sheet music (iPad only — see components/SheetView)
     findSheet: async (midiPath: string) => findSheet(midiPath) ?? (await vfs.refresh(DOCUMENTS), findSheet(midiPath)),
     sheetUrl: (path: string) => vfs.nativeUrl(path),
@@ -414,7 +424,8 @@ function createApi(): Window['electronAPI'] {
 // stays queued natively and App.tsx collects it with takePendingOpenFiles().
 interface PianoooFilesPlugin {
   takePending(): Promise<{ paths: string[] }>
-  addListener(event: 'fileOpened', fn: (e: { path: string }) => void): Promise<{ remove(): Promise<void> }>
+  importFiles(): Promise<{ paths: string[] }>
+  addListener(event: 'fileOpened' | 'libraryChanged', fn: (e: { path: string }) => void): Promise<{ remove(): Promise<void> }>
 }
 const PianoooFiles = registerPlugin<PianoooFilesPlugin>('PianoooFiles')
 let openListenerReady = false
@@ -423,8 +434,34 @@ async function takePendingOpenFiles(): Promise<string[]> {
   if (!Capacitor.isPluginAvailable('PianoooFiles')) return []
   try { return (await PianoooFiles.takePending()).paths } catch { return [] }
 }
+// ── Import from inside the app (library button, Open) ───────────────────────
+// Returns the library paths of the imported files and tells the library to
+// re-scan. MIDI and PDF with the same name end up side by side.
+async function importWithPicker(): Promise<string[]> {
+  let paths: string[] = []
+  try { paths = (await PianoooFiles.importFiles()).paths } catch { return [] }
+  if (!paths.length) return []
+  await vfs.refresh(DOCUMENTS)
+  window.dispatchEvent(new Event('pianooo:library-changed'))
+  return paths
+}
+
+/** Library "Import" button: imports, then opens the first song picked. */
+async function importFiles(): Promise<string[]> {
+  if (!Capacitor.isPluginAvailable('PianoooFiles')) return []
+  const paths = await importWithPicker()
+  const song = paths.find(p => MIDI_EXT.test(p))
+  if (song) window.dispatchEvent(new CustomEvent('pianooo:open-file', { detail: song }))
+  return paths
+}
+
 function listenForOpenedFiles() {
   if (!Capacitor.isPluginAvailable('PianoooFiles')) return
+  // A sheet-music PDF shared to Pianooo: re-scan so its song shows the sheet
+  void PianoooFiles.addListener('libraryChanged', async () => {
+    await vfs.refresh(DOCUMENTS)
+    window.dispatchEvent(new Event('pianooo:library-changed'))
+  })
   void PianoooFiles.addListener('fileOpened', ({ path }) => {
     if (!openListenerReady) return // collected later via takePendingOpenFiles
     void PianoooFiles.takePending().catch(() => {}) // handled here — clear the queue

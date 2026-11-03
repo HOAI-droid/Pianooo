@@ -1127,5 +1127,7 @@
   "The microphone works in “Wait for me”. For “Play in time” connect a MIDI keyboard.": "Le micro fonctionne en mode « Attends-moi ». Pour « En rythme », connectez un clavier MIDI.",
   "Tune to my piano": "Accorder sur mon piano",
   "Tuning": "Accord",
-  "Use headphones if the app plays the other parts – otherwise the microphone hears them too.": "Utilisez un casque si l’app joue les autres voix – sinon le micro les entend aussi."
+  "Use headphones if the app plays the other parts – otherwise the microphone hears them too.": "Utilisez un casque si l’app joue les autres voix – sinon le micro les entend aussi.",
+  "Choose MIDI files and their sheet-music PDFs and add them to the library": "Choisir des fichiers MIDI et leurs partitions PDF et les ajouter à la bibliothèque",
+  "Import files (MIDI + PDF)": "Importer des fichiers (MIDI + PDF)"
 }

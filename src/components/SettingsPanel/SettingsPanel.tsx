@@ -4,7 +4,7 @@ import { confirmDiscardDirtyNoteEdits } from '../../utils/noteEditorState'
 import { confirmDialog } from '../../utils/confirmController'
 import {
   ChevronLeft, ChevronDown, ChevronRight,
-  FolderOpen, Folders, RefreshCw, FileMusic, FileCode2, Guitar, BookOpen, Library, Settings, Info,
+  FolderOpen, Folders, RefreshCw, FilePlus2, FileMusic, FileCode2, Guitar, BookOpen, Library, Settings, Info,
   Search, X, Undo2, ChevronsDownUp, Settings2,
 } from 'lucide-react'
 import { useStore } from '../../store'
@@ -660,6 +660,14 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
     }
   }
 
+  // ── iPad / Mac app: files imported or shared in from outside ──────────────
+  const importFiles = (window.electronAPI as any).importFiles as (() => Promise<string[]>) | undefined
+  useEffect(() => {
+    const onChanged = () => { void handleRefreshRef.current() }
+    window.addEventListener('pianooo:library-changed', onChanged)
+    return () => window.removeEventListener('pianooo:library-changed', onChanged)
+  }, [])
+
   // ── Refresh — re-scans the current folder for new or removed MIDI files ──
   const handleRefresh = async () => {
     if (!libraryFolder) return
@@ -671,6 +679,8 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
     } catch {}
     setLoading(false)
   }
+  const handleRefreshRef = useRef(handleRefresh)
+  handleRefreshRef.current = handleRefresh
 
   // ── File loader — reads MIDI from disk and parses into store state ────────
   // loadRequestIdRef guards against overlapping loads: clicking a second library
@@ -917,6 +927,21 @@ function LibraryPanel({ hidden = false }: { hidden?: boolean }) {
               </button>
               </Tooltip>
             </div>
+
+            {importFiles && (
+              <button
+                onClick={() => { void importFiles() }}
+                title={t`Choose MIDI files and their sheet-music PDFs and add them to the library`}
+                style={{
+                  width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  minHeight: 30, marginBottom: 6, borderRadius: 4, cursor: 'pointer',
+                  border: '1px solid var(--accent-amber-strip-border, var(--text-amber))', background: 'transparent',
+                  color: 'var(--text-amber)', fontFamily: 'var(--font-ui)', fontSize: 11.5, fontWeight: 600,
+                }}
+              >
+                <FilePlus2 size={13} />{t`Import files (MIDI + PDF)`}
+              </button>
+            )}
 
             {/* Active library path — click opens it in Explorer (shows files; the folder-picker dialog above never does, that's OS-level) */}
             <Tooltip title={t`Open folder`} oneLine wrapperStyle={{ display: 'block', width: '100%' }}>
