@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { useStore } from '../store'
 import { startCountIn } from '../utils/countInRunner'
+import { practiceActive, startPractice, pausePractice, stopPractice } from '../practice/practice'
 
 export function usePlayback() {
   const rafRef = useRef<number | null>(null)
@@ -103,17 +104,21 @@ export function usePlayback() {
   const play = useCallback(async () => {
     // user-started play: count in first when that's switched on (the runner
     // starts playback itself, exactly one beat after its last click)
+    // Practice mode on: the practice run plays the song instead
+    if (practiceActive()) { startPractice(); return }
     if (startCountIn()) return
     useStore.setState({ playbackState: 'playing' })
     startRaf()
   }, [startRaf])
 
   const pause = useCallback(() => {
+    pausePractice()
     stopRaf()
     useStore.setState({ playbackState: 'paused' })
   }, [stopRaf])
 
   const stop = useCallback(() => {
+    stopPractice()
     stopRaf()
     useStore.setState({ playbackState: 'stopped', currentTime: 0 })
   }, [stopRaf])

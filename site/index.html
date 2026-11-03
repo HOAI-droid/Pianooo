@@ -56,6 +56,8 @@ section h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 22px}
 .pair figure{margin:0}
 .pair img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
 .pair figcaption{color:var(--muted);font-size:14px;margin-top:8px}
+.pair figcaption b{color:var(--text)}
+.sub{color:var(--muted);margin:-8px 0 22px;max-width:720px}
 ol.steps{padding-left:22px;margin:0}
 ol.steps li{margin-bottom:8px}
 code{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:14px}
@@ -86,7 +88,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);f
 
   <div class="hero">
     <h1 data-i="heroTitle">Orfeo for <em>iPad</em> and <em>Mac</em></h1>
-    <p class="lead" data-i="heroLead">Learn piano with falling notes or real sheet music. Connect your digital piano over Bluetooth MIDI and start with 157 classical pieces and exercises. Free and open source.</p>
+    <p class="lead" data-i="heroLead">Learn piano with falling notes or real sheet music. The notes wait until you hit the right key, or you play along in tempo and get faster with every pass. Connect your digital piano over Bluetooth MIDI and start with 157 classical pieces. Free and open source.</p>
     <div class="cta">
       <a class="btn primary" href="https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa"><span data-i="dlIpad">Download for iPad</span><small>Pianooo.ipa</small></a>
       <a class="btn ghost" href="https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip"><span data-i="dlMac">Download for Mac</span><small>Pianooo-Mac.zip</small></a>
@@ -94,6 +96,20 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);f
     <p class="note" data-i="heroNote">iPadOS 15 or later · macOS 12 or later · installed by sideloading, see below</p>
     <div class="shot"><img src="img/roll.jpg" width="1600" height="1117" alt="Pianooo on iPad: falling notes over a piano keyboard" data-i-alt="altRoll"></div>
   </div>
+
+  <section id="practice">
+    <h2 data-i="prTitle">Practice that makes you better</h2>
+    <p class="sub" data-i="prLead">Pianooo listens to your keyboard. Choose how you want to practise, which hand you play, and let the app play the rest.</p>
+    <div class="pair">
+      <figure><img src="img/practice-wait.jpg" width="1600" height="1117" loading="lazy" alt="Wait mode" data-i-alt="altWait"><figcaption><b data-i="pwT">Wait for me</b> · <span data-i="pwP">The notes stop at the line until you press the right keys. The keys to play light up. Learn the notes at your own pace.</span></figcaption></figure>
+      <figure><img src="img/practice-rhythm.jpg" width="1600" height="1117" loading="lazy" alt="Play in time mode" data-i-alt="altRhythm"><figcaption><b data-i="prT">Play in time</b> · <span data-i="prP">The song runs in tempo and every note is rated: on time, early, late or missed. With a score and your best streak.</span></figcaption></figure>
+    </div>
+    <div class="grid" style="margin-top:16px">
+      <div class="card"><h3 data-i="pc1t">Left, right or both hands</h3><p data-i="pc1p">Practise one hand while the app plays the other hand and the other instruments.</p></div>
+      <div class="card"><h3 data-i="pc2t">Get faster step by step</h3><p data-i="pc2p">Start at 50 % tempo. After every pass with at least 90 % right, the tempo goes up by 5 %, until you play at full speed.</p></div>
+      <div class="card"><h3 data-i="pc3t">Loop the hard parts</h3><p data-i="pc3p">Set a loop around a difficult passage and repeat it until it sits. Each pass gets its own score.</p></div>
+    </div>
+  </section>
 
   <section>
     <h2 data-i="featTitle">What Pianooo does</h2>
@@ -155,8 +171,22 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);f
 <script>
 const T = {
   de: {
+    prTitle: "Üben, das dich besser macht",
+    prLead: "Pianooo hört auf dein Klavier. Wähle, wie du üben willst, welche Hand du spielst, und lass die App den Rest spielen.",
+    altWait: "Modus Warte auf mich",
+    altRhythm: "Modus Im Takt",
+    pwT: "Warte auf mich",
+    pwP: "Die Noten bleiben an der Linie stehen, bis du die richtigen Tasten drückst. Die gesuchten Tasten leuchten. Lerne die Noten in deinem Tempo.",
+    prT: "Im Takt",
+    prP: "Das Stück läuft im Tempo, jede Note wird bewertet: pünktlich, zu früh, zu spät oder verpasst. Mit Trefferquote und bester Serie.",
+    pc1t: "Linke, rechte oder beide Hände",
+    pc1p: "Übe eine Hand, während die App die andere Hand und die übrigen Instrumente spielt.",
+    pc2t: "Schritt für Schritt schneller",
+    pc2p: "Starte mit 50 % Tempo. Nach jedem Durchgang mit mindestens 90 % richtig steigt das Tempo um 5 %, bis du im Originaltempo spielst.",
+    pc3t: "Schwierige Stellen im Loop",
+    pc3p: "Leg einen Loop um eine schwierige Stelle und wiederhole sie, bis sie sitzt. Jeder Durchgang wird einzeln bewertet.",
     heroTitle: 'Orfeo für <em>iPad</em> und <em>Mac</em>',
-    heroLead: 'Klavier lernen mit fallenden Noten oder echtem Notenblatt. Verbinde dein Digitalpiano per Bluetooth-MIDI und starte mit 157 klassischen Stücken und Übungen. Kostenlos und Open Source.',
+    heroLead: "Klavier lernen mit fallenden Noten oder echtem Notenblatt. Die Noten warten, bis du die richtige Taste triffst, oder du spielst im Takt mit und wirst mit jedem Durchgang schneller. Verbinde dein Digitalpiano per Bluetooth-MIDI und starte mit 157 klassischen Stücken. Kostenlos und Open Source.",
     dlIpad: 'Download für iPad', dlMac: 'Download für Mac',
     heroNote: 'iPadOS 15 oder neuer · macOS 12 oder neuer · Installation per Sideloading, siehe unten',
     altRoll: 'Pianooo auf dem iPad: fallende Noten über einer Klaviertastatur',
@@ -188,8 +218,22 @@ const T = {
     title: 'Pianooo – Orfeo für iPad und Mac · Klavier lernen mit fallenden Noten und Notenblatt'
   },
   fr: {
+    prTitle: "Un entraînement qui vous fait progresser",
+    prLead: "Pianooo écoute votre clavier. Choisissez comment vous entraîner, quelle main vous jouez, et laissez l’app jouer le reste.",
+    altWait: "Mode Attends-moi",
+    altRhythm: "Mode En rythme",
+    pwT: "Attends-moi",
+    pwP: "Les notes s’arrêtent sur la ligne jusqu’à ce que vous jouiez les bonnes touches. Les touches à jouer s’allument. Apprenez les notes à votre rythme.",
+    prT: "En rythme",
+    prP: "Le morceau défile en tempo et chaque note est évaluée : à temps, trop tôt, trop tard ou manquée. Avec un score et votre meilleure série.",
+    pc1t: "Main gauche, droite ou les deux",
+    pc1p: "Travaillez une main pendant que l’app joue l’autre main et les autres instruments.",
+    pc2t: "Plus rapide pas à pas",
+    pc2p: "Commencez à 50 % du tempo. Après chaque passage réussi à au moins 90 %, le tempo augmente de 5 %, jusqu’au tempo complet.",
+    pc3t: "Bouclez les passages difficiles",
+    pc3p: "Posez une boucle autour d’un passage difficile et répétez-le jusqu’à ce qu’il soit acquis. Chaque passage a son score.",
     heroTitle: 'Orfeo pour <em>iPad</em> et <em>Mac</em>',
-    heroLead: 'Apprenez le piano avec des notes qui tombent ou une vraie partition. Connectez votre piano numérique en MIDI Bluetooth et commencez avec 157 pièces et exercices classiques. Gratuit et open source.',
+    heroLead: "Apprenez le piano avec des notes qui tombent ou une vraie partition. Les notes attendent que vous jouiez la bonne touche, ou vous jouez en rythme et accélérez à chaque passage. Connectez votre piano numérique en MIDI Bluetooth et commencez avec 157 pièces classiques. Gratuit et open source.",
     dlIpad: 'Télécharger pour iPad', dlMac: 'Télécharger pour Mac',
     heroNote: 'iPadOS 15 ou plus récent · macOS 12 ou plus récent · installation par sideloading, voir plus bas',
     altRoll: 'Pianooo sur iPad : des notes qui tombent au-dessus d’un clavier de piano',
@@ -221,8 +265,22 @@ const T = {
     title: 'Pianooo – Orfeo pour iPad et Mac · apprendre le piano avec notes qui tombent et partition'
   },
   es: {
+    prTitle: "Práctica que te hace mejorar",
+    prLead: "Pianooo escucha tu teclado. Elige cómo quieres practicar, qué mano tocas, y deja que la app toque el resto.",
+    altWait: "Modo Espérame",
+    altRhythm: "Modo A tempo",
+    pwT: "Espérame",
+    pwP: "Las notas se detienen en la línea hasta que pulses las teclas correctas. Las teclas que tocar se iluminan. Aprende las notas a tu ritmo.",
+    prT: "A tempo",
+    prP: "La pieza avanza a tempo y cada nota se valora: a tiempo, pronto, tarde o perdida. Con puntuación y tu mejor racha.",
+    pc1t: "Mano izquierda, derecha o ambas",
+    pc1p: "Practica una mano mientras la app toca la otra mano y los demás instrumentos.",
+    pc2t: "Más rápido paso a paso",
+    pc2p: "Empieza al 50 % del tempo. Tras cada pasada con al menos un 90 % de aciertos, el tempo sube un 5 %, hasta tocar a velocidad completa.",
+    pc3t: "Repite los pasajes difíciles",
+    pc3p: "Pon un bucle en un pasaje difícil y repítelo hasta dominarlo. Cada pasada tiene su puntuación.",
     heroTitle: 'Orfeo para <em>iPad</em> y <em>Mac</em>',
-    heroLead: 'Aprende piano con notas que caen o con partitura real. Conecta tu piano digital por MIDI Bluetooth y empieza con 157 piezas y ejercicios clásicos. Gratis y de código abierto.',
+    heroLead: "Aprende piano con notas que caen o con partitura real. Las notas esperan a que pulses la tecla correcta, o tocas a tempo y vas más rápido en cada pasada. Conecta tu piano digital por MIDI Bluetooth y empieza con 157 piezas clásicas. Gratis y de código abierto.",
     dlIpad: 'Descargar para iPad', dlMac: 'Descargar para Mac',
     heroNote: 'iPadOS 15 o posterior · macOS 12 o posterior · instalación por sideloading, ver abajo',
     altRoll: 'Pianooo en iPad: notas que caen sobre un teclado de piano',

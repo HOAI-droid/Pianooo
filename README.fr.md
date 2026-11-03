@@ -6,10 +6,29 @@
 une vraie partition, 157 pièces pour commencer et le MIDI Bluetooth pour votre piano numérique
 (par exemple un Kawai ES120).
 
+<p align="center"><img src="site/img/roll.jpg" alt="Pianooo sur iPad : notes qui tombent au-dessus du clavier" width="100%"></p>
+
 **📲 Téléchargement :**
 [Pianooo.ipa (iPad)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa) ·
 [Pianooo-Mac.zip (Mac)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip)
 – installation : voir le [site web](https://hoai-droid.github.io/Pianooo/?lang=fr#install)
+
+## 🎯 Un entraînement qui vous fait progresser
+
+Pianooo écoute votre piano numérique (MIDI Bluetooth ou USB). Touchez **Entraînement** sur le rouleau de notes et choisissez :
+
+<table>
+<tr>
+<td width="50%"><img src="site/img/practice-wait.jpg" alt="Attends-moi"><br><b>⏳ Attends-moi</b><br>Les notes s’arrêtent sur la ligne jusqu’à ce que vous jouiez les bonnes touches. Les touches à jouer s’allument.</td>
+<td width="50%"><img src="site/img/practice-rhythm.jpg" alt="En rythme"><br><b>⏱️ En rythme</b><br>Le morceau défile en tempo. Chaque note est évaluée : à temps, trop tôt, trop tard ou manquée.</td>
+</tr>
+</table>
+
+- **Votre main :** gauche, droite ou les deux – l’app joue le reste (autre main, autres instruments)
+- **Accélérez :** commencez à 50 % du tempo ; avec *accélérer automatiquement*, chaque passage réussi à 90 % ajoute 5 % jusqu’au tempo complet
+- **Boucle** sur un passage difficile – chaque passage a son score et sa série
+
+<p align="center"><img src="site/img/practice-panel.jpg" alt="Un entraînement qui vous fait progresser" width="80%"></p>
 
 ## Ce que fait Pianooo
 
@@ -26,6 +45,15 @@ une vraie partition, 157 pièces pour commencer et le MIDI Bluetooth pour votre 
   éditeur de notes – tout vient d'Orfeo
 - **Quatre langues :** français, anglais, allemand, espagnol – démarre dans la langue du système
 - Commande tactile : glisser, accords à plusieurs doigts, appui long = menu contextuel
+
+### Partition et réglages
+
+<table>
+<tr>
+<td width="50%"><img src="site/img/sheet.jpg" alt="Partition page par page, prête à imprimer (A4)"><br>Partition page par page, prête à imprimer (A4)</td>
+<td width="50%"><img src="site/img/settings.jpg" alt="Connectez votre clavier ; son, toucher et pédales"><br>Connectez votre clavier ; son, toucher et pédales</td>
+</tr>
+</table>
 
 ## Origine et licence
 

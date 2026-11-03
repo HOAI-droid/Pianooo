@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback, useState, useEffect, useRef } from 'react'
+import { practiceNoteInput, usePractice } from '../../practice/practice'
 import { useStore } from '../../store'
 import { isBlackKey } from '../../utils/midiParser'
 import { getNoteLabel, getNoteName } from '../../utils/noteNames'
@@ -110,7 +111,7 @@ export default function Keyboard() {
   // when one of those genuinely changes. ─────────────────────────────────
   const reflectCacheRef = useRef<{ key: string; result: SoundingNote[] } | null>(null)
   const reflectSounding = useStore((s) => {
-    if (!s.reflectPianoRollOnKeyboard || s.playbackState === 'playing' || !s.midi) return EMPTY_SOUNDING
+    if (!s.reflectPianoRollOnKeyboard || s.playbackState === 'playing' || !s.midi || usePractice.getState().running) return EMPTY_SOUNDING
     // An Explorer on screen owns the keyboard: the song's notes at the
     // playhead would mix with its tiles' notes. They come back as it closes
     // or is minimised.
@@ -584,6 +585,7 @@ export default function Keyboard() {
     } else {
       if (lockedKeys.size > 0) clearLockedKeys()
       const playNote = (window as any).__orfeoPlayNote
+      practiceNoteInput(midi)
       if (isGlissando) {
         lightGlissandoKey(midi)
         if (playNote) playNote(midi, 0.7, 60, undefined, false)

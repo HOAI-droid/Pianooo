@@ -94,6 +94,8 @@ export default function KeyboardControls() {
   const hintCellRef = useRef<HTMLDivElement>(null)
   const hintRef = useRef<HTMLSpanElement>(null)
   const [hintShift, setHintShift] = useState(0)
+  // Room between the left and right controls; a longer hint (translations) is cut with …
+  const [hintMax, setHintMax] = useState<number | undefined>(undefined)
   const stepThroughEnabled = useStore(s => s.stepThroughEnabled)
   const hasSong = useStore(s => !!s.midi)
   useLayoutEffect(() => {
@@ -108,6 +110,7 @@ export default function KeyboardControls() {
       const right = (cell.nextElementSibling as HTMLElement | null)?.getBoundingClientRect().left ?? c.right
       const want = window.innerWidth / 2 - (c.left + c.width / 2)
       const gap = 16
+      setHintMax(Math.max(0, Math.floor(right - left - 2 * gap)))
       const min = left + gap + w / 2 - (c.left + c.width / 2)
       const max = right - gap - w / 2 - (c.left + c.width / 2)
       setHintShift(Math.round(Math.max(min, Math.min(max, want))))
@@ -115,6 +118,7 @@ export default function KeyboardControls() {
     measure()
     const ro = new ResizeObserver(measure)
     ro.observe(row)
+    if (hintRef.current) ro.observe(hintRef.current)
     window.addEventListener('resize', measure)
     return () => { ro.disconnect(); window.removeEventListener('resize', measure) }
   }, [isDocked, practiceLineActive, presentationMode, stepThroughEnabled])
@@ -203,9 +207,9 @@ export default function KeyboardControls() {
           line (below) is actively rendering; the line takes this spot instead. ── */}
       <div ref={hintCellRef} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', justifySelf: 'center', minWidth: 0 }}>
         {!practiceLineActive && !presentationMode && (
-          <span ref={hintRef} style={{ display: 'inline-flex', alignItems: 'center', gap: 28, transform: `translateX(${hintShift}px)` }}>
+          <span ref={hintRef} style={{ display: 'inline-flex', alignItems: 'center', gap: 28, maxWidth: hintMax, minWidth: 0, transform: `translateX(${hintShift}px)` }}>
             {stepThroughEnabled && <StepArrow dir={-1} enabled={hasSong} />}
-            <span style={{ fontSize: 11, color: 'var(--text-faint)', fontFamily: 'var(--font-ui)', userSelect: 'none', whiteSpace: 'nowrap' }}>
+            <span style={{ fontSize: 11, color: 'var(--text-faint)', fontFamily: 'var(--font-ui)', userSelect: 'none', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>
               {t`Shift+Click three keys or more to build & lock a chord`}
             </span>
             {stepThroughEnabled && <StepArrow dir={1} enabled={hasSong} />}

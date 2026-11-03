@@ -5,10 +5,29 @@
 **Orfeo para iPad y Mac – aprende piano en iPad y Mac** con notas que caen, partitura real,
 157 piezas para empezar y MIDI Bluetooth para tu piano digital (por ejemplo un Kawai ES120).
 
+<p align="center"><img src="site/img/roll.jpg" alt="Pianooo en iPad: notas que caen sobre el teclado" width="100%"></p>
+
 **📲 Descarga:**
 [Pianooo.ipa (iPad)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa) ·
 [Pianooo-Mac.zip (Mac)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip)
 – instalación: ver el [sitio web](https://hoai-droid.github.io/Pianooo/?lang=es#install)
+
+## 🎯 Práctica que te hace mejorar
+
+Pianooo escucha tu piano digital (MIDI Bluetooth o USB). Toca **Práctica** en las notas que caen y elige:
+
+<table>
+<tr>
+<td width="50%"><img src="site/img/practice-wait.jpg" alt="Espérame"><br><b>⏳ Espérame</b><br>Las notas se detienen en la línea hasta que pulses las teclas correctas. Las teclas que tocar se iluminan.</td>
+<td width="50%"><img src="site/img/practice-rhythm.jpg" alt="A tempo"><br><b>⏱️ A tempo</b><br>La pieza avanza a tempo. Cada nota se valora: a tiempo, pronto, tarde o perdida.</td>
+</tr>
+</table>
+
+- **Tu mano:** izquierda, derecha o ambas – la app toca el resto (otra mano, otros instrumentos)
+- **Más rápido:** empieza al 50 % del tempo; con *acelerar automáticamente*, cada pasada con un 90 % de aciertos suma un 5 % hasta el tempo completo
+- **Bucle** en un pasaje difícil – cada pasada con su puntuación y racha
+
+<p align="center"><img src="site/img/practice-panel.jpg" alt="Práctica que te hace mejorar" width="80%"></p>
 
 ## Qué hace Pianooo
 
@@ -24,6 +43,15 @@
   editor de notas – todo de Orfeo
 - **Cuatro idiomas:** español, inglés, alemán, francés – arranca en el idioma del sistema
 - Control táctil: arrastrar, acordes con varios dedos, pulsación larga = menú contextual
+
+### Partitura y ajustes
+
+<table>
+<tr>
+<td width="50%"><img src="site/img/sheet.jpg" alt="Partitura página a página, lista para imprimir (A4)"><br>Partitura página a página, lista para imprimir (A4)</td>
+<td width="50%"><img src="site/img/settings.jpg" alt="Conecta tu teclado; sonido, pulsación y pedales"><br>Conecta tu teclado; sonido, pulsación y pedales</td>
+</tr>
+</table>
 
 ## Origen y licencia
 

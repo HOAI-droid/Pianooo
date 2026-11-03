@@ -47,6 +47,8 @@ import { confirmDiscardDirtyTempoKey, saveTempoKeyChanges } from './utils/tempoK
 import { isTapCapturing, registerTap, cancelTap } from './utils/tapTempoSession'
 import { isCountingIn, cancelCountIn } from './utils/countInRunner'
 import { stepEvents } from './utils/stepThrough'
+import { practiceRunning } from './practice/practice'
+import { PracticeButton, PracticeHud } from './practice/PracticeUI'
 import { useCountIn } from './hooks/useCountIn'
 import { CountInOverlay } from './components/CountInOverlay'
 import { useSupportNoteService } from './hooks/useSupportNote'
@@ -452,7 +454,7 @@ export default function App() {
           if (isExporting()) break
           // An Explorer that paused the song keeps Space for itself
           if ((useStore.getState().chordExplorerOpen || useStore.getState().scaleExplorerOpen) && useStore.getState().explorerPausesPlayback) break
-          if (playbackState === 'playing') pause()
+          if (playbackState === 'playing' || practiceRunning()) pause()
           else play()
           break
         case 'ArrowRight':
@@ -601,6 +603,8 @@ export default function App() {
             {/* iPad: sheet music instead of the falling notes (the roll keeps running underneath) */}
             {midi && sheetSupported() && <ViewToggle hasSheet={!!sheetPath} />}
             {midi && sheetPath && sheetMode === 'sheet' && <SheetView path={sheetPath} />}
+            {midi && <PracticeButton />}
+            {midi && <PracticeHud />}
             <CountInOverlay />
           </div>
           {keyboardMode === 'docked' && <Keyboard />}

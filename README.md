@@ -5,10 +5,29 @@
 **Orfeo for iPad and Mac – learn piano on iPad and Mac** with falling notes, real sheet music,
 157 pieces to start and Bluetooth MIDI for your digital piano (for example a Kawai ES120).
 
+<p align="center"><img src="site/img/roll.jpg" alt="Pianooo on iPad: falling notes over the keyboard" width="100%"></p>
+
 **📲 Download:**
 [Pianooo.ipa (iPad)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa) ·
 [Pianooo-Mac.zip (Mac)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip)
 – installation: [SIDELOADING.md](SIDELOADING.md) (German) or the [website](https://hoai-droid.github.io/Pianooo/#install)
+
+## 🎯 Practice that makes you better
+
+Pianooo listens to your digital piano (Bluetooth or USB MIDI). Tap **Practice** on the falling notes and choose:
+
+<table>
+<tr>
+<td width="50%"><img src="site/img/practice-wait.jpg" alt="Wait for me"><br><b>⏳ Wait for me</b><br>The notes stop at the line until you press the right keys. The keys to play light up.</td>
+<td width="50%"><img src="site/img/practice-rhythm.jpg" alt="Play in time"><br><b>⏱️ Play in time</b><br>The song runs in tempo. Every note is rated: on time, early, late or missed.</td>
+</tr>
+</table>
+
+- **Your hand:** left, right or both – the app plays the rest (other hand, other instruments)
+- **Get faster:** start at 50 % tempo; with *speed up automatically*, every pass with at least 90 % right adds 5 % until full speed
+- **Loop** a hard passage – every pass gets its own score, streak and accuracy
+
+<p align="center"><img src="site/img/practice-panel.jpg" alt="Practice that makes you better" width="80%"></p>
 
 ## What Pianooo does
 
@@ -26,6 +45,15 @@
 
 **User manual** (German): [docs/HANDBUCH.md](docs/HANDBUCH.md) · iPad details, Bluetooth and
 building it yourself: [IPAD.md](IPAD.md)
+
+### Sheet music and settings
+
+<table>
+<tr>
+<td width="50%"><img src="site/img/sheet.jpg" alt="Sheet music, page by page, ready to print (A4)"><br>Sheet music, page by page, ready to print (A4)</td>
+<td width="50%"><img src="site/img/settings.jpg" alt="Connect your keyboard; sound, touch and pedals"><br>Connect your keyboard; sound, touch and pedals</td>
+</tr>
+</table>
 
 ## Origin and license
 

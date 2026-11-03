@@ -26,6 +26,7 @@ import {
 import { liveNoteOn as gmNoteOn, liveSend as gmSend, liveReset as gmReset } from './useAudioEngine'
 import { nativeCall } from '../audio/nativeClient'
 import { nativeLivePiano } from '../audio/useNativeEngine'
+import { practiceNoteInput } from '../practice/practice'
 
 const HARDWARE_COLOR = 'var(--text-amber)'
 
@@ -151,6 +152,7 @@ function noteOn(key: string, note: number, raw: number, stamp: number, t0: numbe
   heldBy(key).add(note)
   lightOn(note)
   setActive(key)
+  practiceNoteInput(note)
 }
 
 function noteOff(key: string, note: number) {

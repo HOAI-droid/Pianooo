@@ -5,6 +5,7 @@ Pianooo zeigt Musikstücke als **fallende Noten** über einer Klaviertastatur od
 Abschnitte unten heißen so wie die Gruppen in den Einstellungen (⚙︎).
 
 **Inhalt:** [Erste Schritte](#erste-schritte) ·
+[Üben mit dem eigenen Klavier](#üben-mit-dem-eigenen-klavier) ·
 [Notenblatt](#notenblatt) ·
 [Eigene Songs](#eigene-songs) ·
 [Audio](#audio) ·
@@ -28,7 +29,7 @@ Abschnitte unten heißen so wie die Gruppen in den Einstellungen (⚙︎).
 2. **Abspielen:** ▶︎ oben in der Mitte. Daneben: an den Anfang, zurück, vor, ans Ende, Wiederholen.
 3. **Tempo und Tonart:** oben links **BPM** (langsamer üben, ohne dass sich die
    Tonhöhe ändert) und **KEY** (transponieren).
-4. **Ansicht:** oben rechts **Falling notes | Sheet music** umschalten.
+4. **Ansicht:** oben rechts **Fallende Noten | Notenblatt** umschalten.
 5. **Mitspielen:** Digitalpiano verbinden (siehe [MIDI Keyboard](#midi-keyboard)) –
    gespielte Tasten leuchten auf der Bildschirm-Tastatur mit.
 
@@ -39,6 +40,38 @@ korrigieren ([Editing](#editing)).
 Bedienung: auf dem iPad tippen und ziehen, mehrere Finger auf der
 Bildschirm-Tastatur spielen Akkorde, **langes Drücken = Kontextmenü**. Auf dem Mac
 Maus/Trackpad, Rechtsklick für das Kontextmenü.
+
+## Üben mit dem eigenen Klavier
+
+Oben links auf den fallenden Noten sitzt der Knopf **Üben**. Er öffnet die Übungs-Einstellungen:
+
+- **Modus**
+  - **Aus** – normale Wiedergabe.
+  - **Warte auf mich** – die Noten bleiben an der Linie stehen, bis du die
+    richtigen Tasten drückst (bei Akkorden alle Töne, in beliebiger Reihenfolge).
+    Die gesuchten Tasten leuchten auf der Bildschirm-Tastatur in der Farbe der
+    Hand. Hier zählen nur die richtigen Töne, nicht das Timing.
+  - **Im Takt** – das Stück läuft im eingestellten Tempo, nach einem Takt
+    Vorzähler. Jede Note wird bewertet: **pünktlich** (±80 ms), **zu früh**,
+    **zu spät** (bis ±200 ms) oder **verpasst**. Tasten, die zu keiner Note passen,
+    zählen als **falsch**.
+- **Deine Hand:** Links, Rechts oder Beide. Bewertet wird nur diese Hand.
+- **Tempo:** 50 %, 75 % oder 100 % – oder genau über **BPM** oben.
+- **Andere Stimmen mitspielen:** die App spielt die andere Hand und die übrigen
+  Instrumente mit. Ausgeschaltet hörst du nur dich.
+- **Tempo automatisch steigern:** nach jedem Durchgang mit mindestens 90 %
+  richtig steigt das Tempo um 5 %, bis zum Originaltempo.
+
+Gestartet wird mit **▶︎** (oder **Üben starten**), pausiert ebenso; **⏮** setzt
+zurück an den Anfang und löscht die Wertung. Die Wertung (richtig, falsch,
+Trefferquote, Serie) steht oben links. Am Ende des Stücks erscheint das Ergebnis
+mit **Nochmal**.
+
+**Tipp:** Einen **Loop** um eine schwierige Stelle legen (Taktleiste unten bzw.
+Wiederholen-Knopf). Jeder Durchgang wird einzeln bewertet – zusammen mit
+*Tempo automatisch steigern* wird die Stelle Schritt für Schritt schneller.
+
+Ohne angeschlossenes Klavier lässt sich auch auf der Bildschirm-Tastatur üben.
 
 ## Notenblatt
 

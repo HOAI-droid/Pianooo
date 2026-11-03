@@ -6,6 +6,7 @@ import {
 } from 'lucide-react'
 import { useStore } from '../../store'
 import { usePlayback } from '../../hooks/usePlayback'
+import { usePractice } from '../../practice/practice'
 import { useMidiFile } from '../../hooks/useMidiFile'
 import { formatTime } from '../../utils/midiParser'
 import { formatKey, transposeDetectedKey } from '../../utils/keyDetection'
@@ -103,12 +104,13 @@ export default function TopBar() {
 
 
   const { play, pause, stop, seek, seekAndPlay } = usePlayback()
+  const practiceRunning = usePractice((s) => s.running)
   const { openFile } = useMidiFile()
   const wasPlayingRef = useRef(false)
 
   const handlePlayPause = useCallback(() => {
     if (isCountingIn()) { cancelCountIn(); return }
-    if (playbackState === 'playing') pause(); else play()
+    if (playbackState === 'playing' || usePractice.getState().running) pause(); else play()
   }, [playbackState, play, pause])
 
   const handleReset = useCallback(async () => {
@@ -437,7 +439,7 @@ by a semitone (max −12).`}><ChevronDown size={10} /></ArrowBtn>
           <TBtn onClick={stop} disabled={!midi} title={t`Go to start`} oneLine><SkipBack size={16} strokeWidth={1.5} /></TBtn>
           <TBtn onClick={() => handleSkip(-1)} disabled={!midi} title={`Rewind ${SKIP_SECS}s`} oneLine><Rewind size={15} strokeWidth={1.5} /></TBtn>
           <TBtn onClick={handlePlayPause} disabled={!midi || (chordExplorerOpen && explorerPausesPlayback)} accent title={t`Play / Pause (Space)`} large oneLine>
-            {playbackState === 'playing'
+            {playbackState === 'playing' || practiceRunning
               ? <Pause size={24} fill="currentColor" strokeWidth={0} />
               : <Play size={24} fill="currentColor" strokeWidth={0} />}
           </TBtn>
