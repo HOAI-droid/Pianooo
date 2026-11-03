@@ -2,7 +2,7 @@
 
 [English](README.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · **Español** · 🌐 [Sitio web](https://hoai-droid.github.io/Pianooo/?lang=es)
 
-**Orfeo para iPad y Mac – aprende piano en iPad y Mac** con notas que caen, partitura real,
+**Aprende piano en iPad y Mac** con notas que caen, partitura real,
 157 piezas para empezar y MIDI Bluetooth para tu piano digital (por ejemplo un Kawai ES120).
 
 <p align="center"><img src="site/img/roll.jpg" alt="Pianooo en iPad: notas que caen sobre el teclado" width="100%"></p>
