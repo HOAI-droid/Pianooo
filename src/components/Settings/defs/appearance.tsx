@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Palette, ZoomIn, RotateCcw, Sparkles, MessageSquare, Heart, Hand } from 'lucide-react'
+import { Palette, ZoomIn, RotateCcw, Sparkles, MessageSquare, Heart, Hand, Languages } from 'lucide-react'
 import { useStore } from '../../../store'
-import { t } from '../../../utils/i18n'
-import { AppBgBtn, ZoomStepper, GlanceLine, InlineIcon, Switch, SubLabel, useSurface } from '../controls'
+import { t, LANGUAGE_OPTIONS, languageSetting, setLanguage, type LanguageSetting } from '../../../utils/i18n'
+import { AppBgBtn, ZoomStepper, GlanceLine, InlineIcon, Switch, SubLabel, useSurface, SettingsDropdown } from '../controls'
 import { HAND_PRESETS, DEFAULT_HAND_LH, DEFAULT_HAND_RH, handColorWarnings, isHex } from '../../../utils/handPalette'
 import { useAppZoom } from '../../../hooks/useAppZoom'
 import { simAvailable } from '../../../utils/midiSimulator'
@@ -137,7 +137,15 @@ function SupportNotePreview() {
   )
 }
 
+// ── Language: System (device language) or a fixed one; switching reloads ─────
+function LanguageControl() {
+  const value = languageSetting()
+  const options = LANGUAGE_OPTIONS.map(o => ({ value: o.value, label: o.value === 'auto' ? t`System` : o.label }))
+  return <SettingsDropdown<LanguageSetting> value={value} options={options} onChange={v => { if (v !== value) setLanguage(v) }} title={t`Language`} />
+}
+
 export const APPEARANCE_DEFS: SettingDef[] = [
+  { id: 'language', icon: Languages, kind: 'choice', Control: LanguageControl },
   { id: 'theme', icon: Palette, kind: 'choice', Control: ThemeControl },
   { id: 'handColors', icon: Hand, kind: 'choice', Control: HandPresets, Extra: HandColorsExtra },
   { id: 'appZoom', icon: ZoomIn, kind: 'inline', Control: AppZoomControl, Glance: AppZoomGlance, glanceQuickOnly: true, Extra: AppZoomCap,
