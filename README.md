@@ -16,12 +16,13 @@
 
 Pianooo listens to your digital piano (Bluetooth or USB MIDI). Tap **Practice** on the falling notes and choose:
 
-<table>
-<tr>
-<td width="50%"><img src="site/img/practice-wait.jpg" alt="Wait for me"><br><b>⏳ Wait for me</b><br>The notes stop at the line until you press the right keys. The keys to play light up.</td>
-<td width="50%"><img src="site/img/practice-rhythm.jpg" alt="Play in time"><br><b>⏱️ Play in time</b><br>The song runs in tempo. Every note is rated: on time, early, late or missed.</td>
-</tr>
-</table>
+<p align="center"><img width="100%" src="site/img/practice-wait.jpg" alt="Wait for me"></p>
+
+**⏳ Wait for me** – The notes stop at the line until you press the right keys. The keys to play light up.
+
+<p align="center"><img width="100%" src="site/img/practice-rhythm.jpg" alt="Play in time"></p>
+
+**⏱️ Play in time** – The song runs in tempo. Every note is rated: on time, early, late or missed.
 
 - **Your hand:** left, right or both – the app plays the rest (other hand, other instruments)
 - **Get faster:** start at 50 % tempo; with *speed up automatically*, every pass with at least 90 % right adds 5 % until full speed
@@ -48,12 +49,13 @@ building it yourself: [IPAD.md](IPAD.md)
 
 ### Sheet music and settings
 
-<table>
-<tr>
-<td width="50%"><img src="site/img/sheet.jpg" alt="Sheet music, page by page, ready to print (A4)"><br>Sheet music, page by page, ready to print (A4)</td>
-<td width="50%"><img src="site/img/settings.jpg" alt="Connect your keyboard; sound, touch and pedals"><br>Connect your keyboard; sound, touch and pedals</td>
-</tr>
-</table>
+<p align="center"><img width="100%" src="site/img/sheet.jpg" alt="Sheet music, page by page, ready to print (A4)"></p>
+
+Sheet music, page by page, ready to print (A4)
+
+<p align="center"><img width="100%" src="site/img/settings.jpg" alt="Connect your keyboard; sound, touch and pedals"></p>
+
+Connect your keyboard; sound, touch and pedals
 
 ## Origin and license
 

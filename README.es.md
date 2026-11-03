@@ -16,12 +16,13 @@
 
 Pianooo escucha tu piano digital (MIDI Bluetooth o USB). Toca **Práctica** en las notas que caen y elige:
 
-<table>
-<tr>
-<td width="50%"><img src="site/img/practice-wait.jpg" alt="Espérame"><br><b>⏳ Espérame</b><br>Las notas se detienen en la línea hasta que pulses las teclas correctas. Las teclas que tocar se iluminan.</td>
-<td width="50%"><img src="site/img/practice-rhythm.jpg" alt="A tempo"><br><b>⏱️ A tempo</b><br>La pieza avanza a tempo. Cada nota se valora: a tiempo, pronto, tarde o perdida.</td>
-</tr>
-</table>
+<p align="center"><img width="100%" src="site/img/practice-wait.jpg" alt="Espérame"></p>
+
+**⏳ Espérame** – Las notas se detienen en la línea hasta que pulses las teclas correctas. Las teclas que tocar se iluminan.
+
+<p align="center"><img width="100%" src="site/img/practice-rhythm.jpg" alt="A tempo"></p>
+
+**⏱️ A tempo** – La pieza avanza a tempo. Cada nota se valora: a tiempo, pronto, tarde o perdida.
 
 - **Tu mano:** izquierda, derecha o ambas – la app toca el resto (otra mano, otros instrumentos)
 - **Más rápido:** empieza al 50 % del tempo; con *acelerar automáticamente*, cada pasada con un 90 % de aciertos suma un 5 % hasta el tempo completo
@@ -46,12 +47,13 @@ Pianooo escucha tu piano digital (MIDI Bluetooth o USB). Toca **Práctica** en l
 
 ### Partitura y ajustes
 
-<table>
-<tr>
-<td width="50%"><img src="site/img/sheet.jpg" alt="Partitura página a página, lista para imprimir (A4)"><br>Partitura página a página, lista para imprimir (A4)</td>
-<td width="50%"><img src="site/img/settings.jpg" alt="Conecta tu teclado; sonido, pulsación y pedales"><br>Conecta tu teclado; sonido, pulsación y pedales</td>
-</tr>
-</table>
+<p align="center"><img width="100%" src="site/img/sheet.jpg" alt="Partitura página a página, lista para imprimir (A4)"></p>
+
+Partitura página a página, lista para imprimir (A4)
+
+<p align="center"><img width="100%" src="site/img/settings.jpg" alt="Conecta tu teclado; sonido, pulsación y pedales"></p>
+
+Conecta tu teclado; sonido, pulsación y pedales
 
 ## Origen y licencia
 

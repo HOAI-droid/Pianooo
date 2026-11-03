@@ -16,12 +16,13 @@
 
 Pianooo hört auf dein Digitalpiano (Bluetooth- oder USB-MIDI). Tippe bei den fallenden Noten auf **Üben** und wähle:
 
-<table>
-<tr>
-<td width="50%"><img src="site/img/practice-wait.jpg" alt="Warte auf mich"><br><b>⏳ Warte auf mich</b><br>Die Noten bleiben an der Linie stehen, bis du die richtigen Tasten drückst. Die gesuchten Tasten leuchten.</td>
-<td width="50%"><img src="site/img/practice-rhythm.jpg" alt="Im Takt"><br><b>⏱️ Im Takt</b><br>Das Stück läuft im Tempo. Jede Note wird bewertet: pünktlich, zu früh, zu spät oder verpasst.</td>
-</tr>
-</table>
+<p align="center"><img width="100%" src="site/img/practice-wait.jpg" alt="Warte auf mich"></p>
+
+**⏳ Warte auf mich** – Die Noten bleiben an der Linie stehen, bis du die richtigen Tasten drückst. Die gesuchten Tasten leuchten.
+
+<p align="center"><img width="100%" src="site/img/practice-rhythm.jpg" alt="Im Takt"></p>
+
+**⏱️ Im Takt** – Das Stück läuft im Tempo. Jede Note wird bewertet: pünktlich, zu früh, zu spät oder verpasst.
 
 - **Deine Hand:** links, rechts oder beide – die App spielt den Rest (andere Hand, andere Instrumente)
 - **Schneller werden:** mit 50 % Tempo starten; mit *Tempo automatisch steigern* gibt es nach jedem Durchgang mit mindestens 90 % richtig 5 % mehr Tempo, bis zum Originaltempo
@@ -53,12 +54,13 @@ Details zur iPad-Version, Bluetooth und zum Selberbauen: [IPAD.md](IPAD.md)
 
 ### Notenblatt und Einstellungen
 
-<table>
-<tr>
-<td width="50%"><img src="site/img/sheet.jpg" alt="Notenblatt Seite für Seite, druckfertig (A4)"><br>Notenblatt Seite für Seite, druckfertig (A4)</td>
-<td width="50%"><img src="site/img/settings.jpg" alt="Keyboard verbinden; Klang, Anschlag und Pedale"><br>Keyboard verbinden; Klang, Anschlag und Pedale</td>
-</tr>
-</table>
+<p align="center"><img width="100%" src="site/img/sheet.jpg" alt="Notenblatt Seite für Seite, druckfertig (A4)"></p>
+
+Notenblatt Seite für Seite, druckfertig (A4)
+
+<p align="center"><img width="100%" src="site/img/settings.jpg" alt="Keyboard verbinden; Klang, Anschlag und Pedale"></p>
+
+Keyboard verbinden; Klang, Anschlag und Pedale
 
 ## Herkunft und Lizenz
 

@@ -17,12 +17,13 @@ une vraie partition, 157 pièces pour commencer et le MIDI Bluetooth pour votre 
 
 Pianooo écoute votre piano numérique (MIDI Bluetooth ou USB). Touchez **Entraînement** sur le rouleau de notes et choisissez :
 
-<table>
-<tr>
-<td width="50%"><img src="site/img/practice-wait.jpg" alt="Attends-moi"><br><b>⏳ Attends-moi</b><br>Les notes s’arrêtent sur la ligne jusqu’à ce que vous jouiez les bonnes touches. Les touches à jouer s’allument.</td>
-<td width="50%"><img src="site/img/practice-rhythm.jpg" alt="En rythme"><br><b>⏱️ En rythme</b><br>Le morceau défile en tempo. Chaque note est évaluée : à temps, trop tôt, trop tard ou manquée.</td>
-</tr>
-</table>
+<p align="center"><img width="100%" src="site/img/practice-wait.jpg" alt="Attends-moi"></p>
+
+**⏳ Attends-moi** – Les notes s’arrêtent sur la ligne jusqu’à ce que vous jouiez les bonnes touches. Les touches à jouer s’allument.
+
+<p align="center"><img width="100%" src="site/img/practice-rhythm.jpg" alt="En rythme"></p>
+
+**⏱️ En rythme** – Le morceau défile en tempo. Chaque note est évaluée : à temps, trop tôt, trop tard ou manquée.
 
 - **Votre main :** gauche, droite ou les deux – l’app joue le reste (autre main, autres instruments)
 - **Accélérez :** commencez à 50 % du tempo ; avec *accélérer automatiquement*, chaque passage réussi à 90 % ajoute 5 % jusqu’au tempo complet
@@ -48,12 +49,13 @@ Pianooo écoute votre piano numérique (MIDI Bluetooth ou USB). Touchez **Entra�
 
 ### Partition et réglages
 
-<table>
-<tr>
-<td width="50%"><img src="site/img/sheet.jpg" alt="Partition page par page, prête à imprimer (A4)"><br>Partition page par page, prête à imprimer (A4)</td>
-<td width="50%"><img src="site/img/settings.jpg" alt="Connectez votre clavier ; son, toucher et pédales"><br>Connectez votre clavier ; son, toucher et pédales</td>
-</tr>
-</table>
+<p align="center"><img width="100%" src="site/img/sheet.jpg" alt="Partition page par page, prête à imprimer (A4)"></p>
+
+Partition page par page, prête à imprimer (A4)
+
+<p align="center"><img width="100%" src="site/img/settings.jpg" alt="Connectez votre clavier ; son, toucher et pédales"></p>
+
+Connectez votre clavier ; son, toucher et pédales
 
 ## Origine et licence
 
