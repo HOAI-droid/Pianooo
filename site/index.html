@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pianooo – Orfeo for iPad and Mac · learn piano with falling notes and sheet music</title>
+<meta name="description" content="Pianooo is a free iPad and Mac version of the piano learning app Orfeo: falling notes or real sheet music, 157 pieces, Bluetooth MIDI for digital pianos such as Kawai and Yamaha. Open source (GPL).">
+<meta name="keywords" content="Orfeo iPad, Orfeo Mac, Orfeo macOS, piano learning app iPad, falling notes, Synthesia alternative, Bluetooth MIDI, Kawai ES120, sheet music, open source piano">
+<meta property="og:title" content="Pianooo – Orfeo for iPad and Mac">
+<meta property="og:description" content="Learn piano with falling notes or real sheet music. Bluetooth MIDI, 157 pieces, free and open source.">
+<meta property="og:image" content="https://hoai-droid.github.io/Pianooo/img/roll.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/icon.png">
+<link rel="alternate" hreflang="en" href="https://hoai-droid.github.io/Pianooo/?lang=en">
+<link rel="alternate" hreflang="de" href="https://hoai-droid.github.io/Pianooo/?lang=de">
+<link rel="alternate" hreflang="fr" href="https://hoai-droid.github.io/Pianooo/?lang=fr">
+<link rel="alternate" hreflang="es" href="https://hoai-droid.github.io/Pianooo/?lang=es">
+<link rel="alternate" hreflang="x-default" href="https://hoai-droid.github.io/Pianooo/">
+<style>
+:root{
+  --bg:#13141c; --panel:#1b1d27; --line:#2a2d3b; --text:#e9e7e1; --muted:#a3a2ad;
+  --accent:#f0a830; --accent-ink:#1b1408; --red:#d9606e; --blue:#6f7fc8;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--accent);font-weight:700;letter-spacing:.18em;font-size:20px}
+.brand img{width:34px;height:34px;border-radius:8px}
+.langs{display:flex;gap:4px;flex-wrap:wrap}
+.langs button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:4px 9px;font:600 13px/1 inherit;font-family:inherit;cursor:pointer}
+.langs button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.hero{padding:40px 0 28px;text-align:center}
+.hero h1{font-size:clamp(30px,5.5vw,52px);line-height:1.12;margin:0 0 14px;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.lead{max-width:680px;margin:0 auto 26px;color:var(--muted);font-size:clamp(16px,2.2vw,19px)}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;flex-direction:column;align-items:center;min-width:200px;padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:700;border:1px solid var(--accent)}
+.btn small{font-weight:500;font-size:12px;opacity:.8}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{color:var(--accent)}
+.note{margin-top:14px;color:var(--muted);font-size:14px}
+.shot{margin:34px 0 0;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.shot img{display:block;width:100%;height:auto}
+section{padding:46px 0;border-top:1px solid var(--line)}
+section h2{font-size:clamp(24px,3.4vw,32px);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+.card h3{margin:0 0 6px;font-size:17px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;vertical-align:1px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pair figure{margin:0}
+.pair img{width:100%;border-radius:10px;border:1px solid var(--line);display:block}
+.pair figcaption{color:var(--muted);font-size:14px;margin-top:8px}
+ol.steps{padding-left:22px;margin:0}
+ol.steps li{margin-bottom:8px}
+code{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:14px}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-all}
+.origin{background:linear-gradient(135deg,#221c10,#1b1d27);border:1px solid #4a3a18;border-radius:14px;padding:22px}
+.origin p{margin:0 0 10px}
+.origin p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);font-size:14px}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .pair{grid-template-columns:1fr}
+  .btn{min-width:0;width:100%}
+  .hero{padding-top:22px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#"><img src="img/icon.png" alt="">PIANOOO</a>
+    <nav class="langs" aria-label="Language">
+      <button data-set="en" lang="en">EN</button>
+      <button data-set="de" lang="de">DE</button>
+      <button data-set="fr" lang="fr">FR</button>
+      <button data-set="es" lang="es">ES</button>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1 data-i="heroTitle">Orfeo for <em>iPad</em> and <em>Mac</em></h1>
+    <p class="lead" data-i="heroLead">Learn piano with falling notes or real sheet music. Connect your digital piano over Bluetooth MIDI and start with 157 classical pieces and exercises. Free and open source.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa"><span data-i="dlIpad">Download for iPad</span><small>Pianooo.ipa</small></a>
+      <a class="btn ghost" href="https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip"><span data-i="dlMac">Download for Mac</span><small>Pianooo-Mac.zip</small></a>
+    </div>
+    <p class="note" data-i="heroNote">iPadOS 15 or later · macOS 12 or later · installed by sideloading, see below</p>
+    <div class="shot"><img src="img/roll.jpg" width="1600" height="1117" alt="Pianooo on iPad: falling notes over a piano keyboard" data-i-alt="altRoll"></div>
+  </div>
+
+  <section>
+    <h2 data-i="featTitle">What Pianooo does</h2>
+    <div class="grid">
+      <div class="card"><h3 data-i="f1t">Falling notes or sheet music</h3><p data-i="f1p">Switch with one tap. Each view fills the whole screen. Print sheet music on A4 or share it.</p></div>
+      <div class="card"><h3 data-i="f2t">Bluetooth and USB MIDI</h3><p data-i="f2p">Connect a Kawai, Yamaha, Roland or any MIDI keyboard. Your keys light up on screen, with velocity and pedal.</p></div>
+      <div class="card"><h3 data-i="f3t">157 pieces to start</h3><p data-i="f3p">Seven levels, from Clementi, Hanon and Czerny to Bach, Beethoven, Chopin, Debussy and Joplin. Each with MIDI and sheet music.</p></div>
+      <div class="card"><h3 data-i="f4t">Your own songs</h3><p data-i="f4p">Open MIDI, MusicXML or Guitar Pro files from Safari, Files or AirDrop. Put a PDF with the same name next to it to see its score.</p></div>
+      <div class="card"><h3 data-i="f5t"><span class="dot" style="background:var(--blue)"></span>Left and right hand</h3><p data-i="f5p">Hands are shown in their own colors. Practice one hand while the app plays the other.</p></div>
+      <div class="card"><h3 data-i="f6t">Practice tools</h3><p data-i="f6p">Tempo, transpose, loop, metronome, chord detection, mixer and a note editor.</p></div>
+      <div class="card"><h3 data-i="f7t">Concert grand sounds</h3><p data-i="f7p">Optional free piano sounds to download, including a Kawai concert grand and a Yamaha grand.</p></div>
+      <div class="card"><h3 data-i="f8t">Four languages</h3><p data-i="f8p">English, German, French and Spanish. The app starts in your system language.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-i="viewsTitle">Sheet music and settings</h2>
+    <div class="pair">
+      <figure><img src="img/sheet.jpg" width="1600" height="1117" loading="lazy" alt="Sheet music view" data-i-alt="altSheet"><figcaption data-i="capSheet">Real engraved sheet music, page by page, ready to print.</figcaption></figure>
+      <figure><img src="img/settings.jpg" width="1600" height="1117" loading="lazy" alt="Settings window" data-i-alt="altSettings"><figcaption data-i="capSettings">Connect your keyboard and adjust sound, touch and pedals.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="install">
+    <h2 data-i="instTitle">Installation</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>iPad</h3>
+        <ol class="steps">
+          <li data-i="i1">Install <a href="https://sideloadly.io">Sideloadly</a> or <a href="https://altstore.io">AltStore</a> on your computer.</li>
+          <li data-i="i2">Download <code>Pianooo.ipa</code> and drag it into Sideloadly with your iPad connected.</li>
+          <li data-i="i3">Sign in with your Apple ID, then on the iPad trust the profile under Settings › General › VPN &amp; Device Management.</li>
+        </ol>
+        <p style="margin-top:10px" data-i="iMore">Step by step: <a href="https://github.com/HOAI-droid/Pianooo/blob/main/SIDELOADING.md">SIDELOADING.md</a></p>
+      </div>
+      <div class="card">
+        <h3>Mac</h3>
+        <p data-i="m1">Paste this into Terminal. It downloads the app, installs it in Applications and starts it:</p>
+<pre>cd ~/Downloads &amp;&amp; curl -L -o Pianooo-Mac.zip https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip &amp;&amp; rm -rf /Applications/Pianooo.app &amp;&amp; ditto -x -k Pianooo-Mac.zip /Applications &amp;&amp; xattr -cr /Applications/Pianooo.app &amp;&amp; open /Applications/Pianooo.app</pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="origin">
+      <h2 data-i="origTitle" style="margin-top:0">Based on Orfeo</h2>
+      <p data-i="o1">Pianooo is built on <a href="https://github.com/Squarebow/Orfeo">Orfeo</a> by SquareBow, an open-source piano learning app for Windows. Pianooo brings it to iPad and Mac and adds Bluetooth MIDI, sheet music and a starter catalog.</p>
+      <p data-i="o2">Pianooo is an independent project, not an official Orfeo release. Many thanks to SquareBow for the original.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p data-i="foot1">Free software under the GPL-3.0-or-later. Code: © SquareBow (Orfeo) and contributions by HOAI-droid.</p>
+    <p data-i="foot2">Sheet music and MIDI from the <a href="https://www.mutopiaproject.org">Mutopia Project</a> (public domain / Creative Commons). Piano sounds from <a href="https://freepats.zenvoid.org">FreePats</a> and GD Craft.</p>
+    <p><a href="https://github.com/HOAI-droid/Pianooo" data-i="foot3">Source code on GitHub</a></p>
+  </footer>
+</div>
+
+<script>
+const T = {
+  de: {
+    heroTitle: 'Orfeo für <em>iPad</em> und <em>Mac</em>',
+    heroLead: 'Klavier lernen mit fallenden Noten oder echtem Notenblatt. Verbinde dein Digitalpiano per Bluetooth-MIDI und starte mit 157 klassischen Stücken und Übungen. Kostenlos und Open Source.',
+    dlIpad: 'Download für iPad', dlMac: 'Download für Mac',
+    heroNote: 'iPadOS 15 oder neuer · macOS 12 oder neuer · Installation per Sideloading, siehe unten',
+    altRoll: 'Pianooo auf dem iPad: fallende Noten über einer Klaviertastatur',
+    featTitle: 'Was Pianooo kann',
+    f1t: 'Fallende Noten oder Notenblatt', f1p: 'Mit einem Tipp umschalten. Jede Ansicht nutzt den ganzen Bildschirm. Noten auf A4 drucken oder teilen.',
+    f2t: 'Bluetooth- und USB-MIDI', f2p: 'Kawai, Yamaha, Roland oder jedes andere MIDI-Keyboard anschließen. Deine Tasten leuchten mit, inklusive Anschlag und Pedal.',
+    f3t: '157 Stücke zum Start', f3p: 'Sieben Stufen, von Clementi, Hanon und Czerny bis Bach, Beethoven, Chopin, Debussy und Joplin. Jeweils mit MIDI und Noten.',
+    f4t: 'Eigene Songs', f4p: 'MIDI-, MusicXML- oder Guitar-Pro-Dateien aus Safari, Dateien oder per AirDrop öffnen. Ein PDF mit gleichem Namen daneben zeigt die Noten.',
+    f5t: '<span class="dot" style="background:var(--blue)"></span>Linke und rechte Hand', f5p: 'Beide Hände in eigenen Farben. Übe eine Hand, während die App die andere spielt.',
+    f6t: 'Übungswerkzeuge', f6p: 'Tempo, Transponieren, Loop, Metronom, Akkorderkennung, Mischpult und ein Noten-Editor.',
+    f7t: 'Konzertflügel-Klänge', f7p: 'Optionale kostenlose Klavierklänge zum Download, darunter ein Kawai-Konzertflügel und ein Yamaha-Flügel.',
+    f8t: 'Vier Sprachen', f8p: 'Deutsch, Englisch, Französisch und Spanisch. Die App startet in deiner Systemsprache.',
+    viewsTitle: 'Notenblatt und Einstellungen',
+    altSheet: 'Notenblatt-Ansicht', altSettings: 'Einstellungsfenster',
+    capSheet: 'Echtes Notenblatt, Seite für Seite, bereit zum Drucken.',
+    capSettings: 'Keyboard verbinden und Klang, Anschlag und Pedale einstellen.',
+    instTitle: 'Installation',
+    i1: 'Installiere <a href="https://sideloadly.io">Sideloadly</a> oder <a href="https://altstore.io">AltStore</a> auf deinem Computer.',
+    i2: 'Lade <code>Pianooo.ipa</code> herunter und zieh sie bei angeschlossenem iPad in Sideloadly.',
+    i3: 'Mit deiner Apple-ID anmelden, dann auf dem iPad unter Einstellungen › Allgemein › VPN und Geräteverwaltung dem Profil vertrauen.',
+    iMore: 'Schritt für Schritt: <a href="https://github.com/HOAI-droid/Pianooo/blob/main/SIDELOADING.md">SIDELOADING.md</a>',
+    m1: 'Diese Zeile ins Terminal einfügen. Sie lädt die App, installiert sie unter Programme und startet sie:',
+    origTitle: 'Basiert auf Orfeo',
+    o1: 'Pianooo basiert auf <a href="https://github.com/Squarebow/Orfeo">Orfeo</a> von SquareBow, einer Open-Source-Klavierlern-App für Windows. Pianooo bringt sie aufs iPad und den Mac und ergänzt Bluetooth-MIDI, Notenblätter und einen Start-Katalog.',
+    o2: 'Pianooo ist ein unabhängiges Projekt und keine offizielle Orfeo-Version. Vielen Dank an SquareBow für das Original.',
+    foot1: 'Freie Software unter der GPL-3.0-or-later. Code: © SquareBow (Orfeo) und Beiträge von HOAI-droid.',
+    foot2: 'Noten und MIDI vom <a href="https://www.mutopiaproject.org">Mutopia Project</a> (gemeinfrei / Creative Commons). Klavierklänge von <a href="https://freepats.zenvoid.org">FreePats</a> und GD Craft.',
+    foot3: 'Quellcode auf GitHub',
+    title: 'Pianooo – Orfeo für iPad und Mac · Klavier lernen mit fallenden Noten und Notenblatt'
+  },
+  fr: {
+    heroTitle: 'Orfeo pour <em>iPad</em> et <em>Mac</em>',
+    heroLead: 'Apprenez le piano avec des notes qui tombent ou une vraie partition. Connectez votre piano numérique en MIDI Bluetooth et commencez avec 157 pièces et exercices classiques. Gratuit et open source.',
+    dlIpad: 'Télécharger pour iPad', dlMac: 'Télécharger pour Mac',
+    heroNote: 'iPadOS 15 ou plus récent · macOS 12 ou plus récent · installation par sideloading, voir plus bas',
+    altRoll: 'Pianooo sur iPad : des notes qui tombent au-dessus d’un clavier de piano',
+    featTitle: 'Ce que fait Pianooo',
+    f1t: 'Notes qui tombent ou partition', f1p: 'Basculez d’un geste. Chaque vue occupe tout l’écran. Imprimez la partition en A4 ou partagez-la.',
+    f2t: 'MIDI Bluetooth et USB', f2p: 'Branchez un Kawai, Yamaha, Roland ou tout clavier MIDI. Vos touches s’allument à l’écran, avec vélocité et pédale.',
+    f3t: '157 pièces pour commencer', f3p: 'Sept niveaux, de Clementi, Hanon et Czerny à Bach, Beethoven, Chopin, Debussy et Joplin. Chacune avec MIDI et partition.',
+    f4t: 'Vos propres morceaux', f4p: 'Ouvrez des fichiers MIDI, MusicXML ou Guitar Pro depuis Safari, Fichiers ou AirDrop. Un PDF du même nom à côté affiche la partition.',
+    f5t: '<span class="dot" style="background:var(--blue)"></span>Main gauche et main droite', f5p: 'Chaque main a sa couleur. Travaillez une main pendant que l’app joue l’autre.',
+    f6t: 'Outils de travail', f6p: 'Tempo, transposition, boucle, métronome, détection d’accords, console de mixage et éditeur de notes.',
+    f7t: 'Sons de piano de concert', f7p: 'Sons de piano gratuits en option, dont un grand piano de concert Kawai et un piano à queue Yamaha.',
+    f8t: 'Quatre langues', f8p: 'Français, anglais, allemand et espagnol. L’app démarre dans la langue de votre système.',
+    viewsTitle: 'Partition et réglages',
+    altSheet: 'Vue partition', altSettings: 'Fenêtre des réglages',
+    capSheet: 'Une vraie partition gravée, page par page, prête à imprimer.',
+    capSettings: 'Connectez votre clavier et réglez le son, le toucher et les pédales.',
+    instTitle: 'Installation',
+    i1: 'Installez <a href="https://sideloadly.io">Sideloadly</a> ou <a href="https://altstore.io">AltStore</a> sur votre ordinateur.',
+    i2: 'Téléchargez <code>Pianooo.ipa</code> et glissez-le dans Sideloadly, iPad branché.',
+    i3: 'Connectez-vous avec votre identifiant Apple, puis sur l’iPad faites confiance au profil dans Réglages › Général › VPN et gestion de l’appareil.',
+    iMore: 'Pas à pas : <a href="https://github.com/HOAI-droid/Pianooo/blob/main/SIDELOADING.md">SIDELOADING.md</a>',
+    m1: 'Collez cette ligne dans le Terminal. Elle télécharge l’app, l’installe dans Applications et la lance :',
+    origTitle: 'Basé sur Orfeo',
+    o1: 'Pianooo repose sur <a href="https://github.com/Squarebow/Orfeo">Orfeo</a> de SquareBow, une app open source d’apprentissage du piano pour Windows. Pianooo l’apporte sur iPad et Mac et ajoute le MIDI Bluetooth, les partitions et un catalogue de départ.',
+    o2: 'Pianooo est un projet indépendant, pas une version officielle d’Orfeo. Un grand merci à SquareBow pour l’original.',
+    foot1: 'Logiciel libre sous licence GPL-3.0-or-later. Code : © SquareBow (Orfeo) et contributions de HOAI-droid.',
+    foot2: 'Partitions et MIDI du <a href="https://www.mutopiaproject.org">Mutopia Project</a> (domaine public / Creative Commons). Sons de piano de <a href="https://freepats.zenvoid.org">FreePats</a> et GD Craft.',
+    foot3: 'Code source sur GitHub',
+    title: 'Pianooo – Orfeo pour iPad et Mac · apprendre le piano avec notes qui tombent et partition'
+  },
+  es: {
+    heroTitle: 'Orfeo para <em>iPad</em> y <em>Mac</em>',
+    heroLead: 'Aprende piano con notas que caen o con partitura real. Conecta tu piano digital por MIDI Bluetooth y empieza con 157 piezas y ejercicios clásicos. Gratis y de código abierto.',
+    dlIpad: 'Descargar para iPad', dlMac: 'Descargar para Mac',
+    heroNote: 'iPadOS 15 o posterior · macOS 12 o posterior · instalación por sideloading, ver abajo',
+    altRoll: 'Pianooo en iPad: notas que caen sobre un teclado de piano',
+    featTitle: 'Qué hace Pianooo',
+    f1t: 'Notas que caen o partitura', f1p: 'Cambia con un toque. Cada vista ocupa toda la pantalla. Imprime la partitura en A4 o compártela.',
+    f2t: 'MIDI Bluetooth y USB', f2p: 'Conecta un Kawai, Yamaha, Roland o cualquier teclado MIDI. Tus teclas se iluminan en pantalla, con velocidad y pedal.',
+    f3t: '157 piezas para empezar', f3p: 'Siete niveles, de Clementi, Hanon y Czerny a Bach, Beethoven, Chopin, Debussy y Joplin. Cada una con MIDI y partitura.',
+    f4t: 'Tus propias canciones', f4p: 'Abre archivos MIDI, MusicXML o Guitar Pro desde Safari, Archivos o AirDrop. Un PDF con el mismo nombre al lado muestra la partitura.',
+    f5t: '<span class="dot" style="background:var(--blue)"></span>Mano izquierda y derecha', f5p: 'Cada mano tiene su color. Practica una mano mientras la app toca la otra.',
+    f6t: 'Herramientas de práctica', f6p: 'Tempo, transposición, bucle, metrónomo, detección de acordes, mezclador y editor de notas.',
+    f7t: 'Sonidos de piano de cola', f7p: 'Sonidos de piano gratuitos opcionales, entre ellos un piano de cola de concierto Kawai y un piano de cola Yamaha.',
+    f8t: 'Cuatro idiomas', f8p: 'Español, inglés, alemán y francés. La app arranca en el idioma de tu sistema.',
+    viewsTitle: 'Partitura y ajustes',
+    altSheet: 'Vista de partitura', altSettings: 'Ventana de ajustes',
+    capSheet: 'Partitura grabada de verdad, página a página, lista para imprimir.',
+    capSettings: 'Conecta tu teclado y ajusta sonido, pulsación y pedales.',
+    instTitle: 'Instalación',
+    i1: 'Instala <a href="https://sideloadly.io">Sideloadly</a> o <a href="https://altstore.io">AltStore</a> en tu ordenador.',
+    i2: 'Descarga <code>Pianooo.ipa</code> y arrástralo a Sideloadly con el iPad conectado.',
+    i3: 'Inicia sesión con tu Apple ID y, en el iPad, confía en el perfil en Ajustes › General › VPN y gestión de dispositivos.',
+    iMore: 'Paso a paso: <a href="https://github.com/HOAI-droid/Pianooo/blob/main/SIDELOADING.md">SIDELOADING.md</a>',
+    m1: 'Pega esta línea en Terminal. Descarga la app, la instala en Aplicaciones y la abre:',
+    origTitle: 'Basado en Orfeo',
+    o1: 'Pianooo se basa en <a href="https://github.com/Squarebow/Orfeo">Orfeo</a> de SquareBow, una app de código abierto para aprender piano en Windows. Pianooo la lleva al iPad y al Mac y añade MIDI Bluetooth, partituras y un catálogo inicial.',
+    o2: 'Pianooo es un proyecto independiente, no una versión oficial de Orfeo. Muchas gracias a SquareBow por el original.',
+    foot1: 'Software libre bajo la GPL-3.0-or-later. Código: © SquareBow (Orfeo) y contribuciones de HOAI-droid.',
+    foot2: 'Partituras y MIDI del <a href="https://www.mutopiaproject.org">Mutopia Project</a> (dominio público / Creative Commons). Sonidos de piano de <a href="https://freepats.zenvoid.org">FreePats</a> y GD Craft.',
+    foot3: 'Código fuente en GitHub',
+    title: 'Pianooo – Orfeo para iPad y Mac · aprende piano con notas que caen y partitura'
+  }
+};
+const EN = {};
+document.querySelectorAll('[data-i]').forEach(el => { EN[el.dataset.i] = el.innerHTML });
+document.querySelectorAll('[data-i-alt]').forEach(el => { EN[el.dataset.iAlt] = el.alt });
+EN.title = document.title;
+T.en = EN;
+
+function pick() {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (q && T[q]) return q;
+  try { const s = localStorage.getItem('pianooo.site.lang'); if (s && T[s]) return s } catch (e) {}
+  for (const l of navigator.languages || [navigator.language || 'en']) {
+    const c = String(l).slice(0, 2).toLowerCase();
+    if (T[c]) return c;
+  }
+  return 'en';
+}
+function apply(lang) {
+  const d = T[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i]').forEach(el => { if (d[el.dataset.i] != null) el.innerHTML = d[el.dataset.i] });
+  document.querySelectorAll('[data-i-alt]').forEach(el => { if (d[el.dataset.iAlt] != null) el.alt = d[el.dataset.iAlt] });
+  document.title = d.title;
+  document.querySelectorAll('.langs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.set === lang)));
+}
+document.querySelectorAll('.langs button').forEach(b => b.addEventListener('click', () => {
+  try { localStorage.setItem('pianooo.site.lang', b.dataset.set) } catch (e) {}
+  const u = new URL(location.href); u.searchParams.set('lang', b.dataset.set); history.replaceState(null, '', u);
+  apply(b.dataset.set);
+}));
+apply(pick());
+</script>
+</body>
+</html>
