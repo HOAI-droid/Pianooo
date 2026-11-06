@@ -2,14 +2,18 @@
 
 **English** · [Deutsch](README.de.md) · [Français](README.fr.md) · [Español](README.es.md) · 🌐 [Website](https://hoai-droid.github.io/Pianooo/)
 
-**Learn piano on iPad and Mac** with falling notes, real sheet music,
+**Learn piano on iPad, Mac and Android** with falling notes, real sheet music,
 157 pieces to start and Bluetooth MIDI for your digital piano (for example a Kawai ES120).
 
 <p align="center"><img src="site/img/roll.jpg" alt="Pianooo on iPad: falling notes over the keyboard" width="100%"></p>
 
 **📲 Download:**
-[Pianooo.ipa (iPad)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa) ·
-[Pianooo-Mac.zip (Mac)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip)
+
+| 📱 iPad | 💻 Mac | 🤖 Android |
+|:---:|:---:|:---:|
+| [**Pianooo.ipa**](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa) | [**Pianooo-Mac.zip**](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip) | [**Pianooo.apk**](https://github.com/HOAI-droid/Pianooo/releases/download/android-latest/Pianooo.apk) |
+| Sideloadly or AltStore | Terminal command | Download and tap – done |
+
 – installation: [SIDELOADING.md](SIDELOADING.md) (German) or the [website](https://hoai-droid.github.io/Pianooo/#install)
 
 ## 🎯 Practice that makes you better
@@ -66,7 +70,7 @@ not an official Orfeo release. The original description is in
 [docs/ORFEO-README.md](docs/ORFEO-README.md).
 
 - Code: **GPL-3.0-or-later** – © SquareBow (Orfeo) and contributions by HOAI-droid
-  (iPad and Mac version), see [LICENSE.md](LICENSE.md) and
+  (iPad, Mac and Android version), see [LICENSE.md](LICENSE.md) and
   [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)
 - Piano sounds to download: Kawai Upright (CC0) and Yamaha Disklavier Grand
   (CC BY 3.0) from [FreePats](https://freepats.zenvoid.org), Kawai ES100 Concert Grand

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Pianooo</string>
+    <string name="title_activity_main">Pianooo</string>
+    <string name="package_name">com.hoaidroid.pianooo</string>
+    <string name="custom_url_scheme">com.hoaidroid.pianooo</string>
+    <string name="bt_title">Bluetooth MIDI</string>
+    <string name="bt_searching">Searching for Bluetooth MIDI keyboards…</string>
+    <string name="bt_choose">Choose your keyboard</string>
+    <string name="bt_none">No keyboard found. Switch on Bluetooth MIDI on your piano and try again.</string>
+    <string name="bt_off">Bluetooth is off. Switch it on in the system settings and try again.</string>
+    <string name="bt_permission">Pianooo needs permission to find nearby Bluetooth devices.</string>
+    <string name="midi_unavailable">This device does not support MIDI.</string>
+</resources>

@@ -2,14 +2,18 @@
 
 [English](README.md) · **Deutsch** · [Français](README.fr.md) · [Español](README.es.md) · 🌐 [Website](https://hoai-droid.github.io/Pianooo/)
 
-**Klavier lernen auf iPad und Mac** – mit fallenden Noten, echtem Notenblatt,
+**Klavier lernen auf iPad, Mac und Android** – mit fallenden Noten, echtem Notenblatt,
 157 Stücken zum Start und Bluetooth-MIDI für dein Digitalpiano (z. B. Kawai ES120).
 
 <p align="center"><img src="site/img/roll.jpg" alt="Pianooo auf dem iPad: fallende Noten über der Tastatur" width="100%"></p>
 
 **📲 Download:**
-[Pianooo.ipa (iPad)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa) ·
-[Pianooo-Mac.zip (Mac)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip)
+
+| 📱 iPad | 💻 Mac | 🤖 Android |
+|:---:|:---:|:---:|
+| [**Pianooo.ipa**](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa) | [**Pianooo-Mac.zip**](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip) | [**Pianooo.apk**](https://github.com/HOAI-droid/Pianooo/releases/download/android-latest/Pianooo.apk) |
+| Sideloadly oder AltStore | Terminal-Befehl | Herunterladen, antippen – fertig |
+
 – Installation: [SIDELOADING.md](SIDELOADING.md)
 
 ## 🎯 Üben, das dich besser macht
@@ -70,7 +74,7 @@ von **SquareBow** – vielen Dank! Die ursprüngliche Beschreibung steht in
 [docs/ORFEO-README.md](docs/ORFEO-README.md).
 
 - Code: **GPL-3.0-or-later** – © SquareBow (Orfeo) und Beiträge von HOAI-droid
-  (iPad-Version), siehe [LICENSE.md](LICENSE.md) und
+  (iPad-, Mac- und Android-Version), siehe [LICENSE.md](LICENSE.md) und
   [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)
 - Klavier-Klänge zum Download: Kawai Upright (CC0) und Yamaha Disklavier Grand
   (CC BY 3.0) von [FreePats](https://freepats.zenvoid.org), Kawai ES100 Concert Grand

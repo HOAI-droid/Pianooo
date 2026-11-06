@@ -1,4 +1,4 @@
-# Pianooo installieren – iPad (Sideloading) und Mac
+# Pianooo installieren – iPad, Mac und Android
 
 Pianooo ist nicht im App Store. Du installierst die App selbst mit deiner
 eigenen Apple-ID – das nennt sich „Sideloading“ und ist von Apple vorgesehen
@@ -100,6 +100,31 @@ keyboard…* – oder per USB-Kabel, dann erscheint es sofort.
 
 ---
 
+## Android (Tablet und Handy)
+
+Am einfachsten von allen: kein Computer, kein Kabel, kein Konto.
+
+1. Auf dem Android-Gerät diesen Link öffnen und die Datei herunterladen:
+   https://github.com/HOAI-droid/Pianooo/releases/download/android-latest/Pianooo.apk
+2. Die heruntergeladene **Pianooo.apk** antippen (Benachrichtigung oder App *Dateien › Downloads*).
+3. Android fragt einmalig, ob der Browser bzw. die Dateien-App **„Apps aus dieser
+   Quelle installieren“** darf → in den Einstellungen erlauben, zurück, **Installieren**.
+4. Fragt Google Play Protect nach („Unbekannte App“): **Trotzdem installieren**.
+   Pianooo ist nicht im Play Store, deshalb kennt Google die App nicht.
+
+Voraussetzung: Android 7 oder neuer. Gedacht für Tablets im Querformat; auf
+Handys läuft es auch, ist aber eng.
+
+- **Bluetooth-MIDI:** In Pianooo oben rechts **MIDI / „Kein Keyboard“** ›
+  **Bluetooth-Keyboard verbinden…** › Erlaubnis „Geräte in der Nähe“ erteilen ›
+  Piano in der Liste antippen. Nicht vorher in den Android-Bluetooth-Einstellungen koppeln.
+- **USB-MIDI:** Piano per USB-Kabel (ggf. USB-C-Adapter) anschließen – wird sofort erkannt.
+- **Mikrofon:** Beim ersten Wechsel auf *Üben › Eingabe › Mikrofon* nach der Erlaubnis fragen lassen und erlauben.
+- **Updates:** neue `Pianooo.apk` vom selben Link laden und installieren – sie
+  ersetzt die alte, deine Songs bleiben.
+
+---
+
 ## Häufige Probleme
 
 | Problem | Lösung |
@@ -108,6 +133,8 @@ keyboard…* – oder per USB-Kabel, dann erscheint es sofort.
 | App startet nicht mehr nach einer Woche | 7-Tage-Grenze: in Sideloadly/AltStore neu signieren |
 | Sideloadly findet das iPad nicht (Windows) | iTunes von apple.com (nicht Microsoft Store) installieren, Kabel neu einstecken, „Vertrauen“ bestätigen |
 | „Maximum number of apps“ | Kostenlose Apple-ID: max. 3 selbst installierte Apps gleichzeitig – eine andere entfernen |
+| Android: „App nicht installiert“ | Eine ältere Pianooo-Version mit anderer Signatur ist installiert – sie einmal deinstallieren, dann neu installieren |
+| Android: Bluetooth-Liste bleibt leer | Bluetooth-MIDI am Piano einschalten (Kawai: Funktionseinstellungen), Standort/„Geräte in der Nähe“ erlauben, nochmal suchen |
 | Fehler bei der Anmeldung | Für Sideloading eine eigene, zweite Apple-ID verwenden; ggf. ein app-spezifisches Passwort unter account.apple.com erstellen |
 
 ## Updates

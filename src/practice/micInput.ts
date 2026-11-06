@@ -113,7 +113,9 @@ interface NativeMic {
   addListener(event: 'micFrame', fn: (e: { db: string; rms: number; sr: number; n: number }) => void): Promise<PluginListenerHandle>
 }
 const NativeMicPlugin = registerPlugin<NativeMic>('PianoooMidi')
-const useNative = () => Capacitor.isNativePlatform() && Capacitor.isPluginAvailable('PianoooMidi')
+// Android's web view gives the page the microphone itself (with the system's
+// permission prompt), so only iPad and Mac use the native path
+const useNative = () => Capacitor.getPlatform() === 'ios' && Capacitor.isPluginAvailable('PianoooMidi')
 
 function wanted(): boolean {
   const m = useMic.getState(), p = usePractice.getState()

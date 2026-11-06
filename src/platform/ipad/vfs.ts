@@ -13,6 +13,7 @@
 // when needed (readFileAsync). Soundfonts are never mirrored — see NOT_MIRRORED.
 
 import { Filesystem, Directory } from '@capacitor/filesystem'
+import { Capacitor } from '@capacitor/core'
 import { join, dirname, basename } from './path'
 
 export const DOCUMENTS = '/Documents'
@@ -73,9 +74,15 @@ export function flush(): Promise<unknown> { return queue }
 
 function norm(p: string): string { return join('/', p) }
 
+/** Where the library lives: the Documents folder on iPad and Mac, the app's
+ *  own folder on Android (no storage permission needed there). */
+export function documentsDirectory(): Directory {
+  return Capacitor.getPlatform() === 'android' ? Directory.External : Directory.Documents
+}
+
 function toNative(p: string): { directory: Directory; path: string } {
   const n = norm(p)
-  if (n === DOCUMENTS || n.startsWith(DOCUMENTS + '/')) return { directory: Directory.Documents, path: n.slice(DOCUMENTS.length + 1) }
+  if (n === DOCUMENTS || n.startsWith(DOCUMENTS + '/')) return { directory: documentsDirectory(), path: n.slice(DOCUMENTS.length + 1) }
   if (n === DATA || n.startsWith(DATA + '/')) return { directory: Directory.Data, path: n.slice(DATA.length + 1) }
   throw fsError('EACCES', `outside app storage: ${p}`)
 }

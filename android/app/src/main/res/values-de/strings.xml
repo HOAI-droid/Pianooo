@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="bt_title">Bluetooth-MIDI</string>
+    <string name="bt_searching">Suche Bluetooth-MIDI-Keyboards…</string>
+    <string name="bt_choose">Wähle dein Keyboard</string>
+    <string name="bt_none">Kein Keyboard gefunden. Schalte Bluetooth-MIDI an deinem Piano ein und versuch es noch einmal.</string>
+    <string name="bt_off">Bluetooth ist aus. Schalte es in den Systemeinstellungen ein und versuch es noch einmal.</string>
+    <string name="bt_permission">Pianooo braucht die Erlaubnis, Bluetooth-Geräte in der Nähe zu finden.</string>
+    <string name="midi_unavailable">Dieses Gerät unterstützt kein MIDI.</string>
+</resources>

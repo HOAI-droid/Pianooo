@@ -181,7 +181,7 @@ async function readSoundfontBytes(p: string): Promise<ArrayBuffer | null> {
 
 // ── Files app: shareddocuments:// opens the Files app at a folder ────────────
 async function openInFiles(virtualPath: string) {
-  if (!Capacitor.isNativePlatform() || !virtualPath.startsWith(DOCUMENTS)) return
+  if (Capacitor.getPlatform() !== 'ios' || !virtualPath.startsWith(DOCUMENTS)) return
   try {
     const { uri } = await Filesystem.getUri({ directory: Directory.Documents, path: virtualPath.slice(DOCUMENTS.length + 1) })
     window.location.href = uri.replace(/^file:\/\//, 'shareddocuments://')
@@ -192,7 +192,7 @@ async function shareFile(virtualPath: string) {
   if (!Capacitor.isNativePlatform()) return
   try {
     await vfs.flush()
-    const dir = virtualPath.startsWith(DOCUMENTS) ? Directory.Documents : Directory.Data
+    const dir = virtualPath.startsWith(DOCUMENTS) ? vfs.documentsDirectory() : Directory.Data
     const root = virtualPath.startsWith(DOCUMENTS) ? DOCUMENTS : DATA
     const { uri } = await Filesystem.getUri({ directory: dir, path: virtualPath.slice(root.length + 1) })
     await Share.share({ files: [uri] })
@@ -385,7 +385,7 @@ function createApi(): Window['electronAPI'] {
 
     // Updates come from the App Store / TestFlight
     getUpdateInfo: async () => ({ mode: 'manual', downloadUrl: 'https://github.com/HOAI-droid/Pianooo/releases/tag/ipad-latest' }),
-    checkForUpdates: async () => { await Browser.open({ url: 'https://github.com/HOAI-droid/Pianooo/releases/tag/ipad-latest' }) },
+    checkForUpdates: async () => { await Browser.open({ url: `https://github.com/HOAI-droid/Pianooo/releases/tag/${Capacitor.getPlatform() === 'android' ? 'android' : 'ipad'}-latest` }) },
     installUpdate: async () => {},
     onUpdateStatus: () => {},
     offUpdateStatus: () => {},

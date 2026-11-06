@@ -1,7 +1,7 @@
 # Pianooo – Handbuch
 
 Pianooo zeigt Musikstücke als **fallende Noten** über einer Klaviertastatur oder als
-**Notenblatt** – zum Mitspielen, Üben und Notenlernen, auf iPad und Mac. Die
+**Notenblatt** – zum Mitspielen, Üben und Notenlernen, auf iPad, Mac und Android. Die
 Abschnitte unten heißen so wie die Gruppen in den Einstellungen (⚙︎).
 
 **Inhalt:** [Erste Schritte](#erste-schritte) ·
@@ -119,6 +119,9 @@ Das Notenblatt läuft nicht automatisch mit – geblättert wird wie auf Papier.
 - **iPad:** In der Dateien-App unter **Auf meinem iPad › Pianooo** ablegen, dann in
   der Bibliothek auf ↻ (Aktualisieren) tippen.
 - **Mac:** Datei auf das Pianooo-Fenster ziehen, oder Öffnen-Knopf oben links.
+- **Android:** wie auf dem iPad – **Dateien importieren (MIDI + PDF)** in der
+  Bibliothek, oder eine Datei in der Dateien-App bzw. im Browser antippen ›
+  *Öffnen mit* / *Teilen* › **Pianooo**.
 - **Formate:** MIDI (`.mid`, `.midi`), Karaoke (`.kar`), MusicXML (`.musicxml`,
   `.mxl`), Guitar Pro, Capella.
 - **Notenblatt dazu:** eine PDF mit **gleichem Namen** in denselben Ordner legen

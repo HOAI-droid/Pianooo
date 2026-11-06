@@ -2,14 +2,18 @@
 
 [English](README.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · **Español** · 🌐 [Sitio web](https://hoai-droid.github.io/Pianooo/?lang=es)
 
-**Aprende piano en iPad y Mac** con notas que caen, partitura real,
+**Aprende piano en iPad, Mac y Android** con notas que caen, partitura real,
 157 piezas para empezar y MIDI Bluetooth para tu piano digital (por ejemplo un Kawai ES120).
 
 <p align="center"><img src="site/img/roll.jpg" alt="Pianooo en iPad: notas que caen sobre el teclado" width="100%"></p>
 
 **📲 Descarga:**
-[Pianooo.ipa (iPad)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa) ·
-[Pianooo-Mac.zip (Mac)](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip)
+
+| 📱 iPad | 💻 Mac | 🤖 Android |
+|:---:|:---:|:---:|
+| [**Pianooo.ipa**](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo.ipa) | [**Pianooo-Mac.zip**](https://github.com/HOAI-droid/Pianooo/releases/download/ipad-latest/Pianooo-Mac.zip) | [**Pianooo.apk**](https://github.com/HOAI-droid/Pianooo/releases/download/android-latest/Pianooo.apk) |
+| Sideloadly o AltStore | Comando de Terminal | Descargar, tocar – listo |
+
 – instalación: ver el [sitio web](https://hoai-droid.github.io/Pianooo/?lang=es#install)
 
 ## 🎯 Práctica que te hace mejorar
